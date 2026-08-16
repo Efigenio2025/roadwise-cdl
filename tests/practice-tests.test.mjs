@@ -124,7 +124,7 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /selectQuestions/);
   assert.match(script, /questions\.json\?v=7/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v7/);
+  assert.match(worker, /roadwise-cdl-v8/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 405);
   assert.equal(docsJson, publicJson);

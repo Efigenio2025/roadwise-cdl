@@ -67,7 +67,7 @@ export default function Home(){
     </aside>
 
     <div className="workspace">
-      <header className="topBar"><div>GOOD MORNING, JOSHUA</div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a className="orangeButton" href="#practice">TAKE A TEST</a><span className="avatar">JE</span></header>
+      <header className="topBar"><div className="greeting"><small>GOOD MORNING,</small><strong>JOSHUA</strong></div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a className="orangeButton" href="#practice">TAKE A TEST</a><span className="avatar">JE</span><a className="mobileMenu" href="#practice" aria-label="Open practice tests"><i/><i/><i/></a></header>
 
       {!session&&!result&&<>
         <section className="routeHero">
@@ -99,8 +99,9 @@ export default function Home(){
 
       {result&&bank&&<section className="focusPanel"><section className="resultPanel"><p className="eyebrow blue">{result.mode==="exam"?"EXAM RESULTS":"LEARN RESULTS"}</p><div className={`scoreSeal ${result.passed?"passed":""}`}><strong>{percent(result)}%</strong><span>{result.passed?"PASS":"KEEP STUDYING"}</span></div><h2>{bank.tests[result.test].title}</h2><p>{result.score} of {result.total} correct · {formatTime(result.elapsed)}</p><div className="resultActions"><button className="orangeButton" onClick={()=>start(result.test,result.mode)}>Try again →</button><button onClick={()=>setResult(null)}>All practice tests</button></div>{result.questionIds.some(id=>result.answers[id]!==questionsById.get(id)?.correctIndex)&&<div className="review"><h3>Review missed questions</h3>{result.questionIds.filter(id=>result.answers[id]!==questionsById.get(id)?.correctIndex).map(id=>{const q=questionsById.get(id)!;return <article key={id}><b>{q.topic}</b><h4>{q.prompt}</h4><p><span>Correct answer:</span> {q.choices[q.correctIndex]}</p><p>{q.explanation}</p><small>Source: {q.sourceReference}</small></article>})}</div>}</section></section>}
 
+      {!session&&!result&&<div className="mobileStatus" aria-label="Roadwise offline status"><span><b>405</b> questions</span><i/><span><b>Ready</b> offline</span></div>}
       <footer className="appFooter"><span>Educational practice - not official DMV exam questions.</span><a href="#top">Back to top</a></footer>
+      {!session&&!result&&<nav className="mobileBottomNav" aria-label="Mobile navigation"><a className="active" href="#top"><i>H</i><span>Home</span></a><a href="#practice"><i>T</i><span>Tests</span></a><a href="#roadmap"><i>R</i><span>Roadmap</span></a><a href="#scores"><i>S</i><span>Scores</span></a></nav>}
     </div>
   </div></main>
 }
-

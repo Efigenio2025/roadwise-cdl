@@ -1,15 +1,15 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { questionBank, testDefinitions } from "../content/questions.mjs";
+import { questionBank, reviewCoverage, testDefinitions } from "../content/questions.mjs";
 import { scaledBlueprint, selectQuestions } from "../content/selector.mjs";
 
-const pools = { general: 150, air: 75, combination: 60, passenger: 60, school: 60 };
+const pools = { general: 200, air: 100, combination: 80, passenger: 80, school: 80 };
 const exams = { general: 50, air: 25, combination: 20, passenger: 20, school: 20 };
 const seeded = (seed = 1) => () => ((seed = seed * 1664525 + 1013904223 >>> 0) / 4294967296);
 
-test("question pools contain three official-length practice tests", () => {
-  assert.equal(questionBank.length, 405);
+test("question pools contain four official-length practice tests", () => {
+  assert.equal(questionBank.length, 540);
   for (const [key, poolSize] of Object.entries(pools)) {
     assert.equal(questionBank.filter((question) => question.test === key).length, poolSize);
     assert.equal(testDefinitions[key].poolSize, poolSize);
@@ -25,6 +25,8 @@ test("every question is complete, categorized, and uniquely identified", () => {
     assert.equal(new Set(question.choices).size, 4, question.id);
     assert.ok(Number.isInteger(question.correctIndex) && question.correctIndex >= 0 && question.correctIndex < 4, question.id);
     for (const key of ["domain", "topic", "prompt", "explanation", "sourceReference"]) assert.ok(question[key]?.length > 2, `${question.id}/${key}`);
+    assert.ok(["standard","technical"].includes(question.difficulty), question.id);
+    assert.ok(Array.isArray(question.reviewRefs), question.id);
     assert.ok(question.domain in testDefinitions[question.test].blueprint, `${question.id}/${question.domain}`);
   }
 });
@@ -44,9 +46,33 @@ test("the third-set IDs and domain allocations are exact", () => {
   for (const [prefix, [start, end, subject]] of Object.entries(ranges)) {
     for (let number = start; number <= end; number += 1) assert.ok(questionBank.some((q) => q.id === `${prefix}-${String(number).padStart(3, "0")}`), `${prefix}-${number}`);
     for (const [domain, quota] of Object.entries(testDefinitions[subject].blueprint)) {
-      const thirdSet = questionBank.filter((q) => q.test === subject && q.id.startsWith(`${prefix}-`) && Number(q.id.slice(-3)) >= start);
+      const thirdSet = questionBank.filter((q) => q.test === subject && q.id.startsWith(`${prefix}-`) && Number(q.id.slice(-3)) >= start && Number(q.id.slice(-3)) <= end);
       assert.equal(thirdSet.filter((q) => q.domain === domain).length, quota, `${subject}/${domain}`);
     }
+  }
+});
+
+test("the fourth set has stable IDs, exact domains, and technical tags", () => {
+  const ranges = { GEN: [151, 200, "general"], AIR: [76, 100, "air"], COM: [61, 80, "combination"], PAS: [61, 80, "passenger"], SCH: [61, 80, "school"] };
+  for (const [prefix, [start, end, subject]] of Object.entries(ranges)) {
+    const fourthSet = questionBank.filter((q) => q.test === subject && q.id.startsWith(`${prefix}-`) && Number(q.id.slice(-3)) >= start);
+    assert.equal(fourthSet.length, end-start+1, subject);
+    for (let number = start; number <= end; number += 1) assert.ok(fourthSet.some((q) => q.id === `${prefix}-${String(number).padStart(3, "0")}`), `${prefix}-${number}`);
+    assert.ok(fourthSet.every((q)=>q.difficulty==="technical"), subject);
+    for (const [domain, quota] of Object.entries(testDefinitions[subject].blueprint)) {
+      assert.equal(fourthSet.filter((q) => q.domain === domain).length, quota, `${subject}/${domain}`);
+    }
+  }
+});
+
+test("manual-review coverage catalog maps every concept to a valid question", () => {
+  assert.ok(reviewCoverage.length >= 100);
+  const ids = new Set(questionBank.map((q)=>q.id));
+  const mapped = new Set(questionBank.flatMap((q)=>q.reviewRefs));
+  for (const item of reviewCoverage) {
+    assert.ok(mapped.has(item.id), item.id);
+    assert.ok(item.questionIds.length > 0, item.id);
+    assert.ok(item.questionIds.every((id)=>ids.has(id)), item.id);
   }
 });
 
@@ -55,6 +81,7 @@ test("every full exam follows its domain blueprint", () => {
     const selected = selectQuestions({ questions: questionBank, test: key, count: definition.questionCount, blueprint: definition.blueprint, rng: seeded(10) });
     assert.equal(selected.length, definition.questionCount);
     assert.equal(new Set(selected.map((question) => question.id)).size, selected.length);
+    assert.equal(selected.filter((q)=>q.difficulty==="technical").length, Math.round(definition.questionCount*.25), key);
     for (const [domain, quota] of Object.entries(definition.blueprint)) assert.equal(selected.filter((question) => question.domain === domain).length, quota, `${key}/${domain}`);
   }
 });
@@ -68,24 +95,27 @@ test("a second full exam avoids every question from the first", () => {
   }
 });
 
-test("three consecutive full exams do not repeat questions", () => {
+test("four consecutive full exams do not repeat questions", () => {
   for (const [key, definition] of Object.entries(testDefinitions)) {
-    const first = selectQuestions({ questions: questionBank, test: key, count: definition.questionCount, blueprint: definition.blueprint, rng: seeded(41) });
-    const second = selectQuestions({ questions: questionBank, test: key, count: definition.questionCount, blueprint: definition.blueprint, history: [{ test: key, questionIds: first.map((q) => q.id) }], rng: seeded(42) });
-    const third = selectQuestions({ questions: questionBank, test: key, count: definition.questionCount, blueprint: definition.blueprint, history: [{ test: key, questionIds: second.map((q) => q.id) }, { test: key, questionIds: first.map((q) => q.id) }], rng: seeded(43) });
-    const seen = new Set([...first, ...second].map((q) => q.id));
-    assert.equal(third.filter((q) => seen.has(q.id)).length, 0, key);
-    for (const [domain, quota] of Object.entries(definition.blueprint)) assert.equal(third.filter((q) => q.domain === domain).length, quota, `${key}/${domain}`);
+    const attempts=[]; const seen=new Set();
+    for(let index=0;index<4;index++){
+      const selected=selectQuestions({questions:questionBank,test:key,count:definition.questionCount,blueprint:definition.blueprint,history:attempts,rng:seeded(41+index)});
+      assert.equal(selected.filter((q)=>seen.has(q.id)).length,0,`${key}/attempt-${index+1}`);
+      selected.forEach((q)=>seen.add(q.id));
+      attempts.unshift({test:key,questionIds:selected.map((q)=>q.id)});
+      for (const [domain, quota] of Object.entries(definition.blueprint)) assert.equal(selected.filter((q) => q.domain === domain).length, quota, `${key}/${domain}`);
+    }
   }
 });
 
-test("fourth attempts fall back without internal duplicates", () => {
+test("fifth attempts fall back without internal duplicates", () => {
   for (const [key, definition] of Object.entries(testDefinitions)) {
     const attempts=[];
-    for(let index=0;index<3;index++) attempts.unshift({test:key,questionIds:selectQuestions({questions:questionBank,test:key,count:definition.questionCount,blueprint:definition.blueprint,history:attempts,rng:seeded(50+index)}).map((q)=>q.id)});
-    const fourth=selectQuestions({questions:questionBank,test:key,count:definition.questionCount,blueprint:definition.blueprint,history:attempts,rng:seeded(54)});
-    assert.equal(fourth.length,definition.questionCount,key);
-    assert.equal(new Set(fourth.map((q)=>q.id)).size,fourth.length,key);
+    for(let index=0;index<4;index++) attempts.unshift({test:key,questionIds:selectQuestions({questions:questionBank,test:key,count:definition.questionCount,blueprint:definition.blueprint,history:attempts,rng:seeded(50+index)}).map((q)=>q.id)});
+    const fifth=selectQuestions({questions:questionBank,test:key,count:definition.questionCount,blueprint:definition.blueprint,history:attempts,rng:seeded(55)});
+    assert.equal(fifth.length,definition.questionCount,key);
+    assert.equal(new Set(fifth.map((q)=>q.id)).size,fifth.length,key);
+    assert.equal(fifth.filter((q)=>q.difficulty==="technical").length,Math.round(definition.questionCount*.25),key);
   }
 });
 
@@ -99,6 +129,7 @@ test("learn drills are balanced and third attempts fall back safely", () => {
   assert.equal(third.length, 20);
   assert.equal(new Set(third.map((q) => q.id)).size, 20);
   for (const [domain, quota] of Object.entries(expected)) assert.equal(drill.filter((q) => q.domain === domain).length, quota, domain);
+  assert.ok([2,3].includes(drill.filter((q)=>q.difficulty==="technical").length));
 });
 
 test("passing boundaries remain exactly 80 percent", () => {
@@ -118,11 +149,11 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
     readFile(new URL("../public/questions.json", import.meta.url), "utf8"),
   ]);
   assert.match(html, /PICK YOUR ROUTE/);
-  assert.match(html, /405 Nebraska-focused CDL practice questions/);
+  assert.match(html, /540 Nebraska-focused CDL practice questions/);
   assert.match(script, /CONTINUE ROUTE/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
-  assert.match(script, /questions\.json\?v=8/);
+  assert.match(script, /questions\.json\?v=9/);
   for (const screen of ["home", "tests", "roadmap", "scores"]) {
     assert.match(html, new RegExp(`data-screen="${screen}"`));
     assert.match(html, new RegExp(`data-screen-link="${screen}"`));
@@ -131,9 +162,10 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /location\.hash='results'/);
   assert.match(script, /Review questions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v9/);
+  assert.match(worker, /roadwise-cdl-v10/);
   assert.match(worker, /selector\.js/);
-  assert.equal(JSON.parse(docsJson).questions.length, 405);
+  assert.equal(JSON.parse(docsJson).questions.length, 540);
+  assert.equal(JSON.parse(docsJson).version, 5);
   assert.equal(docsJson, publicJson);
 });
 

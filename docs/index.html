@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Roadwise CDL | Nebraska Practice Tests</title>
-  <meta name="description" content="Full-length Nebraska CDL practice tests with explanations for General Knowledge, Air Brakes, Combination, Passenger, and School Bus.">
+  <meta name="description" content="270 Nebraska-focused CDL practice questions with balanced Learn and Exam modes.">
   <meta name="theme-color" content="#10263f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,20 +17,36 @@
   <link rel="stylesheet" href="site.css">
 </head>
 <body>
-  <header class="nav wrap"><a class="brand" href="#top"><span>RW</span>ROADWISE <b>CDL</b></a><nav><a href="#roadmap">Roadmap</a><a href="#practice">Practice tests</a><a href="#endorsements">Endorsements</a></nav><a class="button" href="#practice">Take a test →</a></header>
-  <main>
-    <section class="hero" id="top"><div class="wrap heroGrid"><div><p class="eyebrow">NEBRASKA CDL LEARNING COMPANION · 2026</p><h1>KNOW THE ROUTE.<br><em>OWN THE ROAD.</em></h1><p class="intro">Study the manual, learn from every answer, and take full-length Nebraska-style CDL practice tests.</p><div class="actions"><a class="button" href="#practice">Choose a practice test →</a><a class="textLink" href="#roadmap">See the license roadmap</a></div><div class="trust"><span>✓ 270 manual-grounded questions</span><span>✓ Balanced tests with fewer repeats</span><span>✓ Works offline after your first visit</span></div></div><div class="sign"><div class="signTop"><b>CDL</b><small>PRACTICE CENTER</small></div><div class="signLine"><b>50</b><span>GENERAL</span><i>✓</i></div><div class="signLine"><b>25</b><span>AIR BRAKES</span><i>✓</i></div><div class="signLine"><b>20</b><span>ENDORSEMENTS</span><i>✓</i></div><div class="signLine final"><b>80</b><span>PASSING %</span><i>★</i></div></div></div></section>
-    <section class="stats"><div class="wrap statsGrid"><div><strong>270</strong><span>practice questions</span></div><div><strong>5</strong><span>full test subjects</span></div><div><strong>80%</strong><span>passing target</span></div><p>NEBRASKA<br><b>2026 EDITION</b></p></div></section>
+<main class="siteCanvas" id="top"><div class="appFrame">
+  <aside class="sideRail">
+    <a class="brand" href="#top"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a>
+    <nav aria-label="Primary navigation"><a class="active" href="#top"><i></i>My dashboard</a><a href="#practice">Practice tests</a><a href="#roadmap">Study roadmap</a><a href="#scores">Score history</a><a href="#endorsements">Endorsements</a></nav>
+    <section class="railGoal"><p>CURRENT GOAL</p><h2>Class B + P/S</h2><span>School bus route</span><div class="railBar"><i id="railProgress"></i></div><small id="railProgressText">0 of 4 steps</small></section>
+    <section class="railStatus"><b>NEBRASKA 2026</b><span>270 questions</span><small>Works offline</small></section>
+  </aside>
 
-    <section class="practice" id="practice"><div class="wrap" id="practiceApp"><div class="loading" role="status">Loading the CDL question bank…</div></div></section>
+  <div class="workspace">
+    <header class="topBar"><div>GOOD MORNING, JOSHUA</div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a class="orangeButton" href="#practice">TAKE A TEST</a><span class="avatar">JE</span></header>
+    <section class="routeHero">
+      <div class="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div><button class="orangeButton" id="heroAction">START A DRILL</button><small id="heroStatus">270 questions ready</small></div></div>
+      <div class="routeTrack" id="routeTrack" aria-label="CDL roadmap summary"><div><span>1</span><b>CHOOSE</b></div><div><span>2</span><b>CLP TESTS</b></div><div><span>3</span><b>TRAIN</b></div><div><span>4</span><b>SKILLS</b></div></div>
+      <div class="scoreSign"><small>YOUR SCORE ROUTE</small><strong id="heroAverage">--</strong><span>AVERAGE SCORE</span><i><b id="heroAverageBar"></b></i></div>
+    </section>
 
-    <section class="section wrap" id="roadmap"><div class="heading"><div><p class="eyebrow dark">THE NEBRASKA ROADMAP</p><h2>YOUR CDL, STEP BY STEP.</h2></div><p>Use your practice results to guide study, but confirm licensing requirements with Nebraska DMV.</p></div><div class="roadmap" id="steps"></div><div class="progress"><span id="bar"></span><b id="progressText"></b></div></section>
-    <section class="school wrap"><div class="busCode">P + S</div><div><p class="eyebrow dark">SCHOOL BUS ROUTE</p><h2>STUDENT SAFETY TAKES BOTH ENDORSEMENTS.</h2><p>A Nebraska school bus designed for 16 or more people including the driver requires Passenger and School Bus endorsements. Study both practice tests, then confirm training and employer requirements.</p><div class="inlineActions"><button data-start="passenger:exam">Passenger test →</button><button data-start="school:exam">School Bus test →</button></div></div></section>
-    <section class="endorse" id="endorsements"><div class="wrap heading"><div><p class="eyebrow">ENDORSEMENT PRACTICE</p><h2>TRAIN FOR THE JOB YOU WANT.</h2></div><p>This release includes complete Passenger and School Bus practice tests. Tank, HazMat, and Doubles/Triples are planned next.</p></div><div class="wrap featured"><article><span>P</span><h3>Passenger</h3><p>Passenger safety, inspections, boarding, crossings, and emergencies.</p><button data-start="passenger:learn">Practice Passenger →</button></article><article><span>S</span><h3>School Bus</h3><p>Danger zones, loading, mirrors, railroad crossings, and evacuations.</p><button data-start="school:learn">Practice School Bus →</button></article></div></section>
-    <section class="sources wrap"><p class="eyebrow dark">SOURCE DESK</p><h2>MANUAL-GROUNDED PRACTICE</h2><div class="sourceGrid"><article><b>Primary source</b><span>Nebraska Modified CDL Driver's Manual — March 2026</span></article><article><b>Supplemental source</b><span>Nebraska Pupil Transportation Guide — August 2019</span></article></div><p>Roadwise uses original questions and plain-language explanations for study support. It is not a test guarantee or a substitute for Nebraska DMV, NDE, TSA, or FMCSA instructions.</p></section>
-  </main>
-  <footer class="wrap"><div class="brand"><span>RW</span>ROADWISE <b>CDL</b></div><p>Educational practice—not official DMV exam questions.</p><a href="#top">Back to top ↑</a></footer>
-  <script type="module" src="practice.js"></script>
+    <section class="dashboardGrid" id="practice">
+      <div class="primaryColumn" id="practiceApp"><div class="loadingCard" role="status">Loading the CDL question bank...</div></div>
+      <aside class="insights" id="roadmap">
+        <h2>Your progress</h2>
+        <section class="progressCard"><small>NEBRASKA ROADMAP</small><h3 id="progressTitle">0 of 4 milestones complete</h3><div class="progressDots" id="steps"></div><p id="progressText">Current: Choose class + work</p></section>
+        <div class="statPair"><section><small>THIS WEEK</small><strong id="attemptCount">0</strong><span>saved attempts</span></section><section><small>AVERAGE SCORE</small><strong id="averageScore">--</strong><span id="averageNote">Complete a test</span></section></div>
+        <section class="latestReport" id="scores"><h2>Latest road report</h2><div id="latestReport"><p class="emptyReport">Your latest completed test will appear here.</p></div><button class="clearButton" id="clearHistory" hidden>Clear score history</button></section>
+        <section class="sourceDesk" id="sources"><small>PRIMARY SOURCE</small><p>Nebraska Modified CDL Driver's Manual - March 2026</p><small>SUPPLEMENTAL</small><p>Nebraska Pupil Transportation Guide - August 2019</p></section>
+      </aside>
+    </section>
+    <footer class="appFooter"><span>Educational practice - not official DMV exam questions.</span><a href="#top">Back to top</a></footer>
+  </div>
+</div></main>
+<script type="module" src="practice.js"></script>
 </body>
 </html>
 

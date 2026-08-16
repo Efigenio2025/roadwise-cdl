@@ -3,9 +3,10 @@
   "name": "Roadwise CDL - Nebraska",
   "short_name": "Roadwise CDL",
   "description": "Nebraska CDL learning and full-length endorsement practice tests.",
-  "start_url": "./",
+  "start_url": "./#home",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
   "background_color": "#f5f2ea",
   "theme_color": "#10263f",
@@ -13,10 +14,10 @@
   "lang": "en-US",
   "icons": [
     {
-      "src": "og.png",
-      "sizes": "1536x1024",
+      "src": "icon-1024.png",
+      "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }

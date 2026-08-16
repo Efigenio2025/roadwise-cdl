@@ -13,6 +13,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    applicationName: "Roadwise CDL",
+    appleWebApp: { capable: true, title: "Roadwise CDL", statusBarStyle: "black-translucent" },
+    icons: { apple: "/icon-1024.png" },
     openGraph: { title, description, images: [{ url: `${origin}/og.png`, width: 1536, height: 1024 }] },
     twitter: { card: "summary_large_image", title, description, images: [`${origin}/og.png`] },
   };

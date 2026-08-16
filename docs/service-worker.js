@@ -1,5 +1,5 @@
-const CACHE='roadwise-cdl-v8';
-const ASSETS=['./','./index.html','./site.css','./site.css?v=8','./practice.js','./practice.js?v=8','./selector.js','./questions.json','./questions.json?v=7','./manifest.webmanifest','./og.png'];
+const CACHE='roadwise-cdl-v9';
+const ASSETS=['./','./index.html','./site.css','./site.css?v=9','./practice.js','./practice.js?v=9','./selector.js','./questions.json','./questions.json?v=8','./manifest.webmanifest','./og.png','./icon-1024.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;if(event.request.mode==='navigate'){event.respondWith(fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put('./index.html',copy));return response}).catch(()=>caches.match('./index.html')));return}event.respondWith(caches.match(event.request).then(cached=>cached||fetch(event.request).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));return response}).catch(()=>caches.match('./index.html'))))});

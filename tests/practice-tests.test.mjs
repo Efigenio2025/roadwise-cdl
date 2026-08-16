@@ -122,9 +122,16 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /CONTINUE ROUTE/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
-  assert.match(script, /questions\.json\?v=7/);
+  assert.match(script, /questions\.json\?v=8/);
+  for (const screen of ["home", "tests", "roadmap", "scores"]) {
+    assert.match(html, new RegExp(`data-screen="${screen}"`));
+    assert.match(html, new RegExp(`data-screen-link="${screen}"`));
+  }
+  assert.match(script, /location\.hash='quiz'/);
+  assert.match(script, /location\.hash='results'/);
+  assert.match(script, /Review questions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v8/);
+  assert.match(worker, /roadwise-cdl-v9/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 405);
   assert.equal(docsJson, publicJson);

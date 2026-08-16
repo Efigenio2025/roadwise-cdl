@@ -13,41 +13,42 @@
   <meta property="og:description" content="405 Nebraska-focused CDL practice questions with balanced Learn and Exam modes.">
   <meta property="og:image" content="https://efigenio2025.github.io/roadwise-cdl/og.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="og.png">
-  <link rel="stylesheet" href="site.css?v=8">
+  <link rel="apple-touch-icon" href="icon-1024.png">
+  <link rel="stylesheet" href="site.css?v=9">
 </head>
 <body>
 <main class="siteCanvas" id="top"><div class="appFrame">
-  <aside class="sideRail">
-    <a class="brand" href="#top"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a>
-    <nav aria-label="Primary navigation"><a class="active" href="#top"><i></i>My dashboard</a><a href="#practice">Practice tests</a><a href="#roadmap">Study roadmap</a><a href="#scores">Score history</a><a href="#endorsements">Endorsements</a></nav>
-    <section class="railGoal"><p>CURRENT GOAL</p><h2>Class B + P/S</h2><span>School bus route</span><div class="railBar"><i id="railProgress"></i></div><small id="railProgressText">0 of 4 steps</small></section>
-    <section class="railStatus"><b>NEBRASKA 2026</b><span>405 questions</span><small>Works offline</small></section>
-  </aside>
-
-  <div class="workspace">
-    <header class="topBar"><div class="greeting"><small>GOOD MORNING,</small><strong>JOSHUA</strong></div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a class="orangeButton" href="#practice">TAKE A TEST</a><span class="avatar">JE</span><a class="mobileMenu" href="#practice" aria-label="Open practice tests"><i></i><i></i><i></i></a></header>
-    <section class="routeHero">
-      <div class="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div><button class="orangeButton" id="heroAction">START A DRILL</button><small id="heroStatus">405 questions ready</small></div></div>
-      <div class="routeTrack" id="routeTrack" aria-label="CDL roadmap summary"><div><span>1</span><b>CHOOSE</b></div><div><span>2</span><b>CLP TESTS</b></div><div><span>3</span><b>TRAIN</b></div><div><span>4</span><b>SKILLS</b></div></div>
-      <div class="scoreSign"><small>YOUR SCORE ROUTE</small><strong id="heroAverage">--</strong><span>AVERAGE SCORE</span><i><b id="heroAverageBar"></b></i></div>
-    </section>
-
-    <section class="dashboardGrid" id="practice">
-      <div class="primaryColumn" id="practiceApp"><div class="loadingCard" role="status">Loading the CDL question bank...</div></div>
-      <aside class="insights" id="roadmap">
-        <h2>Your progress</h2>
-        <section class="progressCard"><small>NEBRASKA ROADMAP</small><h3 id="progressTitle">0 of 4 milestones complete</h3><div class="progressDots" id="steps"></div><p id="progressText">Current: Choose class + work</p></section>
-        <div class="statPair"><section><small>THIS WEEK</small><strong id="attemptCount">0</strong><span>saved attempts</span></section><section><small>AVERAGE SCORE</small><strong id="averageScore">--</strong><span id="averageNote">Complete a test</span></section></div>
-        <section class="latestReport" id="scores"><h2>Latest road report</h2><div id="latestReport"><p class="emptyReport">Your latest completed test will appear here.</p></div><button class="clearButton" id="clearHistory" hidden>Clear score history</button></section>
-        <section class="sourceDesk" id="sources"><small>PRIMARY SOURCE</small><p>Nebraska Modified CDL Driver's Manual - March 2026</p><small>SUPPLEMENTAL</small><p>Nebraska Pupil Transportation Guide - August 2019</p></section>
-      </aside>
-    </section>
-    <div class="mobileStatus" aria-label="Roadwise offline status"><span><b>405</b> questions</span><i></i><span><b>Ready</b> offline</span></div>
-    <footer class="appFooter"><span>Educational practice - not official DMV exam questions.</span><a href="#top">Back to top</a></footer>
-    <nav class="mobileBottomNav" aria-label="Mobile navigation"><a class="active" href="#top"><i>H</i><span>Home</span></a><a href="#practice"><i>T</i><span>Tests</span></a><a href="#roadmap"><i>R</i><span>Roadmap</span></a><a href="#scores"><i>S</i><span>Scores</span></a></nav>
+  <div class="desktopExperience">
+    <aside class="sideRail">
+      <a class="brand" href="#top"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a>
+      <nav aria-label="Primary navigation"><a class="active" href="#top"><i></i>My dashboard</a><a href="#practice">Practice tests</a><a href="#roadmap">Study roadmap</a><a href="#scores">Score history</a><a href="#endorsements">Endorsements</a></nav>
+      <section class="railGoal"><p>CURRENT GOAL</p><h2>Class B + P/S</h2><span>School bus route</span><div class="railBar"><i id="railProgress"></i></div><small id="railProgressText">0 of 4 steps</small></section>
+      <section class="railStatus"><b>NEBRASKA 2026</b><span>405 questions</span><small>Works offline</small></section>
+    </aside>
+    <div class="workspace">
+      <header class="topBar"><div class="greeting"><small>GOOD MORNING,</small><strong>JOSHUA</strong></div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a class="orangeButton" href="#practice">TAKE A TEST</a><span class="avatar">JE</span></header>
+      <section class="routeHero">
+        <div class="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div><button class="orangeButton" id="heroAction">START A DRILL</button><small id="heroStatus">405 questions ready</small></div></div>
+        <div class="routeTrack" id="routeTrack"><div><span>1</span><b>CHOOSE</b></div><div><span>2</span><b>CLP TESTS</b></div><div><span>3</span><b>TRAIN</b></div><div><span>4</span><b>SKILLS</b></div></div>
+        <div class="scoreSign"><small>YOUR SCORE ROUTE</small><strong id="heroAverage">--</strong><span>AVERAGE SCORE</span><i><b id="heroAverageBar"></b></i></div>
+      </section>
+      <section class="dashboardGrid" id="practice"><div class="primaryColumn" id="practiceApp"><div class="loadingCard">Loading the CDL question bank...</div></div><aside class="insights" id="roadmap"><h2>Your progress</h2><section class="progressCard"><small>NEBRASKA ROADMAP</small><h3 id="progressTitle">0 of 4 milestones complete</h3><div class="progressDots" id="steps"></div><p id="progressText">Current: Choose class + work</p></section><div class="statPair"><section><small>THIS WEEK</small><strong id="attemptCount">0</strong><span>saved attempts</span></section><section><small>AVERAGE SCORE</small><strong id="averageScore">--</strong><span id="averageNote">Complete a test</span></section></div><section class="latestReport" id="scores"><h2>Latest road report</h2><div id="latestReport"><p class="emptyReport">Your latest completed test will appear here.</p></div><button class="clearButton" id="clearHistory" hidden>Clear score history</button></section><section class="sourceDesk" id="sources"><small>PRIMARY SOURCE</small><p>Nebraska Modified CDL Driver's Manual - March 2026</p><small>SUPPLEMENTAL</small><p>Nebraska Pupil Transportation Guide - August 2019</p></section></aside></section>
+      <footer class="appFooter"><span>Educational practice - not official DMV exam questions.</span><a href="#top">Back to top</a></footer>
+    </div>
   </div>
+
+  <section class="mobileAppShell" id="mobileShell" aria-label="Roadwise mobile app">
+    <header class="mobileAppHeader"><a class="brand" href="#home"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a><div><small id="mobileKicker">GOOD MORNING, JOSHUA</small><strong id="mobileTitle">Ready for the road?</strong></div><span class="avatar">JE</span></header>
+    <div class="mobileScreenViewport">
+      <section class="mobileScreen mobileHome" data-screen="home"></section>
+      <section class="mobileScreen mobileTests" data-screen="tests" hidden></section>
+      <section class="mobileScreen mobileRoadmap" data-screen="roadmap" hidden></section>
+      <section class="mobileScreen mobileScores" data-screen="scores" hidden></section>
+    </div>
+    <nav class="mobileAppNav" aria-label="Mobile navigation"><button class="active" data-screen-link="home" aria-current="page"><i>H</i><span>Home</span></button><button data-screen-link="tests"><i>T</i><span>Tests</span></button><button data-screen-link="roadmap"><i>R</i><span>Roadmap</span></button><button data-screen-link="scores"><i>S</i><span>Scores</span></button></nav>
+  </section>
+  <div id="focusApp"></div>
 </div></main>
-<script type="module" src="practice.js?v=8"></script>
+<script type="module" src="practice.js?v=9"></script>
 </body>
 </html>

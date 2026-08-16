@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Roadwise CDL - Nebraska",
   "short_name": "Roadwise CDL",
-  "description": "A Nebraska-focused roadmap for earning your CDL and endorsements.",
+  "description": "Nebraska CDL learning and full-length endorsement practice tests.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -20,3 +20,4 @@
     }
   ]
 }
+

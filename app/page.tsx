@@ -1,125 +1,77 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+type TestKey = "general" | "air" | "combination" | "passenger" | "school";
+type Mode = "learn" | "exam";
+type Question = { id:string; test:TestKey; topic:string; prompt:string; choices:string[]; correctIndex:number; explanation:string; sourceReference:string };
+type TestDefinition = { title:string; code:string; questionCount:number; passCount:number; manual:string };
+type Bank = { version:number; tests:Record<TestKey,TestDefinition>; questions:Question[] };
+type Session = { test:TestKey; mode:Mode; questionIds:string[]; orders:Record<string,number[]>; answers:Record<string,number>; flagged:string[]; current:number; startedAt:number };
+type Attempt = { id:string; test:TestKey; mode:Mode; score:number; total:number; passed:boolean; elapsed:number; completedAt:number; answers:Record<string,number>; questionIds:string[] };
+
+const TEST_ORDER: TestKey[] = ["general","air","combination","passenger","school"];
+const SESSION_KEY = "roadwise-practice-session-v2";
+const HISTORY_KEY = "roadwise-practice-history-v2";
+const shuffle = <T,>(items:T[]) => { const copy=[...items]; for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];} return copy; };
+const formatTime = (seconds:number) => `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
 
 const steps = [
-  { tag: "01", title: "Choose class + work", copy: "Match Class A, B, or C—and your endorsements—to the Nebraska job you want." },
-  { tag: "02", title: "Earn your CLP", copy: "Bring required identity documents and pass every applicable Nebraska knowledge test." },
-  { tag: "03", title: "Train + hold", copy: "Complete required ELDT and hold your Nebraska CLP for at least 14 days before skills testing." },
-  { tag: "04", title: "Pass in sequence", copy: "Complete inspection, basic control, then road testing—in that required order." },
+  ["Choose class + work","Match Class A, B, or C and the endorsements to the Nebraska job you want."],
+  ["Earn your CLP","Pass every applicable Nebraska knowledge test and receive your learner's permit."],
+  ["Train + hold","Complete required ELDT and hold your Nebraska CLP for at least 14 days."],
+  ["Pass in sequence","Complete inspection, basic control, then road testing in that order."],
 ];
 
-const endorsements = [
-  { code: "T", title: "Double / Triple", icon: "Ⅱ", note: "Combination vehicle handling" },
-  { code: "N", title: "Tank Vehicle", icon: "◉", note: "Liquid surge and safe control" },
-  { code: "H", title: "Hazardous Materials", icon: "!", note: "Knowledge test + security check" },
-  { code: "X", title: "Tank + HazMat", icon: "✦", note: "Combined N and H qualification" },
-  { code: "P", title: "Passenger", icon: "●", note: "Passenger safety and procedures" },
-  { code: "S", title: "School Bus", icon: "◆", note: "School bus and student safety" },
-];
+export default function Home(){
+  const [bank,setBank]=useState<Bank|null>(null);
+  const [done,setDone]=useState<number[]>([]);
+  const [history,setHistory]=useState<Attempt[]>([]);
+  const [session,setSession]=useState<Session|null>(null);
+  const [result,setResult]=useState<Attempt|null>(null);
+  const [elapsed,setElapsed]=useState(0);
+  const [hasSavedSession,setHasSavedSession]=useState(false);
 
-const questions = [
-  { q: "Which CDL class generally covers combination vehicles at 26,001+ lbs when the towed unit is over 10,000 lbs?", options: ["Class A", "Class B", "Class C"], answer: 0 },
-  { q: "How long must a Nebraska driver hold a valid CLP before taking the CDL skills test?", options: ["7 days", "14 days", "30 days"], answer: 1 },
-  { q: "Which endorsement combines tank vehicle and hazardous materials qualifications?", options: ["T", "X", "P"], answer: 1 },
-];
+  useEffect(()=>{
+    fetch("/questions.json").then(r=>{if(!r.ok)throw new Error("Question bank unavailable");return r.json()}).then(setBank).catch(()=>setBank(null));
+    try{setDone(JSON.parse(localStorage.getItem("roadwise-progress")||"[]"));setHistory(JSON.parse(localStorage.getItem(HISTORY_KEY)||"[]"));setHasSavedSession(Boolean(localStorage.getItem(SESSION_KEY)));}catch{}
+  },[]);
+  useEffect(()=>{if(!session)return;localStorage.setItem(SESSION_KEY,JSON.stringify(session));setElapsed(Math.floor((Date.now()-session.startedAt)/1000));const id=window.setInterval(()=>setElapsed(Math.floor((Date.now()-session.startedAt)/1000)),1000);return()=>clearInterval(id)},[session]);
 
-export default function Home() {
-  const [done, setDone] = useState<number[]>([]);
-  const [quizOpen, setQuizOpen] = useState(false);
-  const [question, setQuestion] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [score, setScore] = useState(0);
+  const questionsById=useMemo(()=>new Map((bank?.questions||[]).map(q=>[q.id,q])),[bank]);
+  const current=session?questionsById.get(session.questionIds[session.current]):null;
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem("roadwise-progress");
-    if (saved) setDone(JSON.parse(saved));
-  }, []);
+  const toggleStep=(index:number)=>{const next=done.includes(index)?done.filter(x=>x!==index):[...done,index];setDone(next);localStorage.setItem("roadwise-progress",JSON.stringify(next))};
+  const start=(test:TestKey,mode:Mode)=>{if(!bank)return;const pool=shuffle(bank.questions.filter(q=>q.test===test));const chosen=mode==="learn"?pool.slice(0,10):pool;const orders=Object.fromEntries(chosen.map(q=>[q.id,shuffle([0,1,2,3])])) as Record<string,number[]>;setResult(null);setHasSavedSession(true);setSession({test,mode,questionIds:chosen.map(q=>q.id),orders,answers:{},flagged:[],current:0,startedAt:Date.now()});window.location.hash="practice"};
+  const resume=()=>{try{const saved=JSON.parse(localStorage.getItem(SESSION_KEY)||"null");if(saved)setSession(saved)}catch{}};
+  const select=(originalIndex:number)=>{if(!session||!current)return;if(session.mode==="learn"&&session.answers[current.id]!==undefined)return;setSession({...session,answers:{...session.answers,[current.id]:originalIndex}})};
+  const move=(currentIndex:number)=>session&&setSession({...session,current:Math.max(0,Math.min(session.questionIds.length-1,currentIndex))});
+  const toggleFlag=()=>{if(!session||!current)return;const flagged=session.flagged.includes(current.id)?session.flagged.filter(x=>x!==current.id):[...session.flagged,current.id];setSession({...session,flagged})};
+  const submit=()=>{if(!session||!bank)return;const unanswered=session.questionIds.length-Object.keys(session.answers).length;if(unanswered&&!window.confirm(`${unanswered} question${unanswered===1?" is":"s are"} unanswered. Submit anyway?`))return;const score=session.questionIds.filter(id=>session.answers[id]===questionsById.get(id)?.correctIndex).length;const attempt:Attempt={id:`${Date.now()}`,test:session.test,mode:session.mode,score,total:session.questionIds.length,passed:score>=Math.ceil(session.questionIds.length*.8),elapsed:Math.floor((Date.now()-session.startedAt)/1000),completedAt:Date.now(),answers:session.answers,questionIds:session.questionIds};const next=[attempt,...history].slice(0,50);setHistory(next);localStorage.setItem(HISTORY_KEY,JSON.stringify(next));localStorage.removeItem(SESSION_KEY);setHasSavedSession(false);setResult(attempt);setSession(null)};
+  const quit=()=>{if(window.confirm("Leave this test? Your answers will stay saved so you can resume later.")){setHasSavedSession(true);setSession(null)}};
+  const clearHistory=()=>{if(window.confirm("Clear saved test scores? Your CDL roadmap progress will not be erased.")){setHistory([]);localStorage.removeItem(HISTORY_KEY)}};
+  return <main>
+    <header className="nav wrap"><a className="brand" href="#top"><span>RW</span> ROADWISE <b>CDL</b></a><nav><a href="#roadmap">Roadmap</a><a href="#practice">Practice tests</a><a href="#endorsements">Endorsements</a></nav><a className="navButton" href="#practice">Take a test <span>â†’</span></a></header>
+    <section className="hero" id="top"><div className="wrap heroGrid"><div><p className="eyebrow">NEBRASKA CDL LEARNING COMPANION Â· 2026</p><h1>KNOW THE ROUTE.<br/><em>OWN THE ROAD.</em></h1><p className="intro">Study the manual, learn from every answer, and take full-length Nebraska-style CDL practice tests.</p><div className="heroActions"><a className="primary" href="#practice">Choose a practice test <span>â†’</span></a><a className="textButton" href="#roadmap">See the license roadmap</a></div><div className="trust"><span>âœ“ 135 manual-grounded questions</span><span>âœ“ Scores saved on this device</span><span>âœ“ Works offline after your first visit</span></div></div><div className="signBoard"><div className="signTop"><span>CDL</span><small>PRACTICE CENTER</small></div><div className="signLine"><b>50</b><span>GENERAL</span><i>âœ“</i></div><div className="signLine"><b>25</b><span>AIR BRAKES</span><i>âœ“</i></div><div className="signLine"><b>20</b><span>ENDORSEMENTS</span><i>âœ“</i></div><div className="signLine final"><b>80</b><span>PASSING %</span><i>â˜…</i></div></div></div></section>
+    <section className="stats"><div className="wrap statsGrid"><div><strong>135</strong><span>practice questions</span></div><div><strong>5</strong><span>full test subjects</span></div><div><strong>80%</strong><span>passing target</span></div><p>NEBRASKA<br/><b>2026 EDITION</b></p></div></section>
 
-  const toggleStep = (index: number) => {
-    const next = done.includes(index) ? done.filter((item) => item !== index) : [...done, index];
-    setDone(next);
-    window.localStorage.setItem("roadwise-progress", JSON.stringify(next));
-  };
+    <section className="practiceSection" id="practice"><div className="wrap">
+      {!session&&!result&&<><div className="sectionHeading light"><div><p className="eyebrow">PRACTICE CENTER</p><h2>CHOOSE YOUR TEST.</h2></div><p>Learn mode gives instant explanations. Exam mode uses the full Nebraska test length and waits until submission to reveal answers.</p></div>
+      {hasSavedSession&&<div className="resumeCard"><div><b>Unfinished test saved</b><span>Continue exactly where you stopped.</span></div><button className="primary" onClick={resume}>Resume test â†’</button></div>}
+      {!bank?<div className="loadingCard" role="status">Loading the CDL question bankâ€¦</div>:<div className="testGrid">{TEST_ORDER.map(key=>{const d=bank.tests[key];const attempts=history.filter(h=>h.test===key&&h.mode==="exam");const best=attempts.length?Math.max(...attempts.map(a=>Math.round(a.score/a.total*100))):null;return <article className="testCard" key={key}><div className="testTop"><span>{d.code}</span><small>{d.manual}</small></div><h3>{d.title}</h3><p><b>{d.questionCount} questions</b> Â· Pass with {d.passCount}</p><div className="best">{best===null?"No exam attempts yet":`Best exam score: ${best}%`}</div><div className="testActions"><button onClick={()=>start(key,"learn")}>Learn Â· 10</button><button className="exam" onClick={()=>start(key,"exam")}>Full exam â†’</button></div></article>})}</div>}
+      <div className="practiceNote"><b>Nebraska testing note</b><span>General Knowledge must be passed before the other written CDL tests. These are original study questions based on the supplied manuals, not official or leaked DMV exam items.</span></div>
+      {history.length>0&&<section className="history"><div><h3>Recent scores</h3><button onClick={clearHistory}>Clear history</button></div>{history.slice(0,5).map(a=><p key={a.id}><b>{bank?.tests[a.test]?.title}</b><span>{a.mode==="exam"?"Full exam":"Learn drill"}</span><strong className={a.passed?"pass":"fail"}>{a.score}/{a.total} Â· {Math.round(a.score/a.total*100)}%</strong></p>)}</section>}</>}
 
-  const answer = (index: number) => {
-    if (selected !== null) return;
-    setSelected(index);
-    if (index === questions[question].answer) setScore((value) => value + 1);
-  };
+      {session&&current&&bank&&<section className="runner" aria-labelledby="question-title"><header><button className="plain" onClick={quit}>â† Exit</button><div><b>{bank.tests[session.test].title}</b><span>{session.mode==="exam"?"FULL EXAM":"LEARN MODE"} Â· {formatTime(elapsed)}</span></div><button className={`flag ${session.flagged.includes(current.id)?"active":""}`} onClick={toggleFlag}>{session.flagged.includes(current.id)?"â˜… Flagged":"â˜† Flag"}</button></header><div className="runnerProgress"><span style={{width:`${Object.keys(session.answers).length/session.questionIds.length*100}%`}}/><b>{Object.keys(session.answers).length} of {session.questionIds.length} answered</b></div><div className="questionLayout"><aside aria-label="Question navigator">{session.questionIds.map((id,i)=><button key={id} aria-label={`Question ${i+1}${session.answers[id]!==undefined?", answered":""}${session.flagged.includes(id)?", flagged":""}`} className={`${i===session.current?"current":""} ${session.answers[id]!==undefined?"answered":""} ${session.flagged.includes(id)?"marked":""}`} onClick={()=>move(i)}>{i+1}</button>)}</aside><article className="questionCard"><p className="questionMeta">QUESTION {session.current+1} OF {session.questionIds.length} Â· {current.topic}</p><h2 id="question-title">{current.prompt}</h2><div className="answerList">{session.orders[current.id].map((originalIndex,displayIndex)=>{const chosen=session.answers[current.id]===originalIndex;const revealed=session.mode==="learn"&&session.answers[current.id]!==undefined;const correct=revealed&&originalIndex===current.correctIndex;const wrong=revealed&&chosen&&!correct;return <button key={originalIndex} className={`${chosen?"selected":""} ${correct?"correct":""} ${wrong?"wrong":""}`} onClick={()=>select(originalIndex)}><span>{String.fromCharCode(65+displayIndex)}</span>{current.choices[originalIndex]}</button>})}</div>{session.mode==="learn"&&session.answers[current.id]!==undefined&&<div className="explanation"><b>{session.answers[current.id]===current.correctIndex?"Correct":"Review this one"}</b><p>{current.explanation}</p><small>Source: {current.sourceReference}</small></div>}<footer className="questionFooter"><button disabled={session.current===0} onClick={()=>move(session.current-1)}>â† Previous</button>{session.current===session.questionIds.length-1?<button className="submit" onClick={submit}>Submit {session.mode==="exam"?"exam":"drill"} â†’</button>:<button className="nextQuestion" onClick={()=>move(session.current+1)}>Next â†’</button>}</footer></article></div></section>}
 
-  const nextQuestion = () => {
-    setQuestion((value) => value + 1);
-    setSelected(null);
-  };
+      {result&&bank&&<section className="resultPanel"><p className="eyebrow">{result.mode==="exam"?"EXAM RESULTS":"LEARN RESULTS"}</p><div className={`scoreSeal ${result.passed?"passed":""}`}><strong>{Math.round(result.score/result.total*100)}%</strong><span>{result.passed?"PASS":"KEEP STUDYING"}</span></div><h2>{bank.tests[result.test].title}</h2><p>{result.score} of {result.total} correct Â· {formatTime(result.elapsed)}</p><div className="resultActions"><button className="primary" onClick={()=>start(result.test,result.mode)}>Try again â†’</button><button onClick={()=>setResult(null)}>All practice tests</button></div>{result.questionIds.some(id=>result.answers[id]!==questionsById.get(id)?.correctIndex)&&<div className="review"><h3>Review missed questions</h3>{result.questionIds.filter(id=>result.answers[id]!==questionsById.get(id)?.correctIndex).map(id=>{const q=questionsById.get(id)!;return <article key={id}><b>{q.topic}</b><h4>{q.prompt}</h4><p><span>Correct answer:</span> {q.choices[q.correctIndex]}</p><p>{q.explanation}</p><small>Source: {q.sourceReference}</small></article>})}</div>}</section>}
+    </div></section>
 
-  const resetQuiz = () => {
-    setQuestion(0);
-    setSelected(null);
-    setScore(0);
-  };
-
-  return (
-    <main>
-      <header className="nav wrap">
-        <a className="brand" href="#top" aria-label="Roadwise CDL home"><span>RW</span> ROADWISE <b>CDL</b></a>
-        <nav aria-label="Main navigation"><a href="#roadmap">Roadmap</a><a href="#endorsements">Endorsements</a><a href="#quiz">Practice</a></nav>
-        <button className="navButton" onClick={() => setQuizOpen(true)}>Quick quiz <span>→</span></button>
-      </header>
-
-      <section className="hero" id="top">
-        <div className="wrap heroGrid">
-          <div className="heroCopy">
-            <p className="eyebrow">NEBRASKA CDL LEARNING COMPANION · 2026</p>
-            <h1>KNOW THE ROUTE.<br /><em>OWN THE ROAD.</em></h1>
-            <p className="intro">A clear, no-nonsense guide to earning your CDL and the endorsements that move your career forward.</p>
-            <div className="heroActions">
-              <a className="primary" href="#roadmap">Start Nebraska route <span>→</span></a>
-              <button className="textButton" onClick={() => setQuizOpen(true)}><span className="play">▶</span> Test what you know</button>
-            </div>
-            <div className="trust"><span>✓ Progress saved on this device</span><span>✓ Grounded in Nebraska’s March 2026 CDL manual</span></div>
-          </div>
-          <div className="signBoard" aria-label="Your CDL route at a glance">
-            <div className="signTop"><span>CDL</span><small>CAREER ROUTE</small></div>
-            <div className="signLine"><b>1</b><span>PERMIT</span><i>→</i></div>
-            <div className="signLine"><b>2</b><span>TRAINING</span><i>→</i></div>
-            <div className="signLine"><b>3</b><span>SKILLS TEST</span><i>→</i></div>
-            <div className="signLine final"><b>4</b><span>LICENSED</span><i>★</i></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="stats">
-        <div className="wrap statsGrid"><div><strong>14</strong><span>day CLP minimum</span></div><div><strong>1 yr</strong><span>Nebraska CLP validity</span></div><div><strong>3</strong><span>skills test stages</span></div><p>NEBRASKA<br /><b>2026 EDITION</b></p></div>
-      </section>
-
-      <section className="section wrap" id="roadmap">
-        <div className="sectionHeading"><div><p className="eyebrow dark">THE NEBRASKA ROADMAP</p><h2>YOUR CDL, STEP BY STEP.</h2></div><p>The March 2026 Nebraska manual is the licensing source behind this route. Always confirm forms, fees, appointments, and eligibility with Nebraska DMV.</p></div>
-        <div className="roadmap">
-          {steps.map((step, index) => <button key={step.title} className={`step ${done.includes(index) ? "complete" : ""}`} onClick={() => toggleStep(index)} aria-pressed={done.includes(index)}><span className="stepNo">{done.includes(index) ? "✓" : step.tag}</span><span><b>{step.title}</b><small>{step.copy}</small></span><i>{done.includes(index) ? "DONE" : "MARK DONE"}</i></button>)}
-        </div>
-        <div className="progress"><span style={{ width: `${done.length * 25}%` }} /><b>{done.length} of 4 milestones complete</b></div>
-      </section>
-
-      <section className="schoolBus wrap">
-        <div className="busCode">P + S</div>
-        <div><p className="eyebrow dark">SCHOOL BUS ROUTE</p><h2>DRIVING STUDENTS TAKES MORE THAN A CDL.</h2><p>For a Nebraska school bus designed for 16 or more people including the driver, the pupil-transport guide identifies a CDL with Passenger and School Bus endorsements. The licensing manual also identifies entry-level training for first-time P and S endorsements. Employer, medical, driving-record, background, and Nebraska pupil-transport requirements may also apply.</p><small>Source note: the supplied Pupil Transportation Guide is dated August 2019. Treat it as supplemental training material and confirm current Nebraska Department of Education requirements.</small></div>
-      </section>
-
-      <section className="endorsementSection" id="endorsements">
-        <div className="wrap sectionHeading light"><div><p className="eyebrow">ADD TO YOUR LICENSE</p><h2>ENDORSEMENTS OPEN DOORS.</h2></div><p>Explore what each endorsement covers. Your state may require additional checks, training, applications, or skills testing.</p></div>
-        <div className="wrap cardGrid">{endorsements.map((item) => <article className="card" key={item.code}><div className="cardIcon">{item.icon}</div><span className="code">{item.code}</span><h3>{item.title}</h3><p>{item.note}</p><button onClick={() => setQuizOpen(true)}>Practice basics <span>↗</span></button></article>)}</div>
-      </section>
-
-      <section className="callout" id="quiz">
-        <div className="wrap calloutInner"><div><p className="eyebrow">READY CHECK</p><h2>THINK YOU KNOW<br />THE BASICS?</h2><p>Take a three-question warm-up. No sign-up, no pressure.</p></div><button className="primary navy" onClick={() => setQuizOpen(true)}>Start quick quiz <span>→</span></button></div>
-      </section>
-
-      <section className="sources wrap"><p className="eyebrow dark">SOURCE DESK</p><h2>WHAT THIS EDITION USES</h2><div><article><b>Primary licensing source</b><span>Nebraska Modified CDL Driver’s Manual — March 2026</span></article><article><b>Supplemental pupil transport source</b><span>Nebraska Department of Education Pupil Transportation Guide — revised August 7, 2019</span></article></div><p>Roadwise paraphrases key learning points and does not reproduce the manuals. It is study support—not legal advice, a test guarantee, or a substitute for Nebraska DMV, NDE, TSA, or FMCSA instructions.</p></section>
-
-      <footer className="wrap"><div className="brand"><span>RW</span> ROADWISE <b>CDL</b></div><p>Educational guidance—not a replacement for your state CDL manual or licensing agency.</p><a href="#top">Back to top ↑</a></footer>
-
-      {quizOpen && <div className="modalBackdrop" role="presentation" onMouseDown={() => setQuizOpen(false)}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="quiz-title" onMouseDown={(e) => e.stopPropagation()}><button className="close" onClick={() => setQuizOpen(false)} aria-label="Close quiz">×</button>{question < questions.length ? <><p className="eyebrow dark">QUESTION {question + 1} OF {questions.length}</p><h2 id="quiz-title">{questions[question].q}</h2><div className="answers">{questions[question].options.map((option, index) => <button key={option} className={selected === null ? "" : index === questions[question].answer ? "correct" : selected === index ? "wrong" : ""} onClick={() => answer(index)}>{option}</button>)}</div>{selected !== null && <button className="primary modalNext" onClick={nextQuestion}>{question === questions.length - 1 ? "See my score" : "Next question"} →</button>}</> : <div className="results"><span>{score}/{questions.length}</span><h2 id="quiz-title">Nice start.</h2><p>{score === 3 ? "You nailed the warm-up." : "Review the roadmap and try again when you’re ready."}</p><button className="primary" onClick={resetQuiz}>Try again →</button></div>}</section></div>}
-    </main>
-  );
+    <section className="section wrap" id="roadmap"><div className="sectionHeading"><div><p className="eyebrow dark">THE NEBRASKA ROADMAP</p><h2>YOUR CDL, STEP BY STEP.</h2></div><p>Use your practice results to guide study, but confirm licensing requirements with Nebraska DMV.</p></div><div className="roadmap">{steps.map((s,i)=><button key={s[0]} className={`step ${done.includes(i)?"complete":""}`} onClick={()=>toggleStep(i)}><span className="stepNo">{done.includes(i)?"âœ“":String(i+1).padStart(2,"0")}</span><span><b>{s[0]}</b><small>{s[1]}</small></span><i>{done.includes(i)?"DONE":"MARK DONE"}</i></button>)}</div><div className="progress"><span style={{width:`${done.length*25}%`}}/><b>{done.length} of 4 milestones complete</b></div></section>
+    <section className="schoolBus wrap"><div className="busCode">P + S</div><div><p className="eyebrow dark">SCHOOL BUS ROUTE</p><h2>STUDENT SAFETY TAKES BOTH ENDORSEMENTS.</h2><p>A Nebraska school bus designed for 16 or more people including the driver requires Passenger and School Bus endorsements. Study both practice tests, then confirm training and employer requirements.</p><div className="inlineActions"><button onClick={()=>start("passenger","exam")}>Passenger test â†’</button><button onClick={()=>start("school","exam")}>School Bus test â†’</button></div></div></section>
+    <section className="endorsementSection" id="endorsements"><div className="wrap sectionHeading light"><div><p className="eyebrow">ENDORSEMENT PRACTICE</p><h2>TRAIN FOR THE JOB YOU WANT.</h2></div><p>This release includes complete Passenger and School Bus practice tests. Tank, HazMat, and Doubles/Triples are planned next.</p></div><div className="wrap featuredTests"><article><span>P</span><h3>Passenger</h3><p>Passenger safety, inspections, boarding, crossings, and emergencies.</p><button onClick={()=>start("passenger","learn")}>Practice Passenger â†’</button></article><article><span>S</span><h3>School Bus</h3><p>Danger zones, loading, mirrors, railroad crossings, and evacuations.</p><button onClick={()=>start("school","learn")}>Practice School Bus â†’</button></article></div></section>
+    <section className="sources wrap"><p className="eyebrow dark">SOURCE DESK</p><h2>MANUAL-GROUNDED PRACTICE</h2><div><article><b>Primary source</b><span>Nebraska Modified CDL Driver's Manual â€” March 2026</span></article><article><b>Supplemental source</b><span>Nebraska Pupil Transportation Guide â€” August 2019</span></article></div><p>Roadwise uses original questions and plain-language explanations for study support. It is not a test guarantee or a substitute for Nebraska DMV, NDE, TSA, or FMCSA instructions.</p></section>
+    <footer className="wrap"><div className="brand"><span>RW</span> ROADWISE <b>CDL</b></div><p>Educational practiceâ€”not official DMV exam questions.</p><a href="#top">Back to top â†‘</a></footer>
+  </main>
 }
+

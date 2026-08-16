@@ -1,0 +1,22 @@
+{
+  "id": "./",
+  "name": "Roadwise CDL - Nebraska",
+  "short_name": "Roadwise CDL",
+  "description": "A Nebraska-focused roadmap for earning your CDL and endorsements.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f2ea",
+  "theme_color": "#10263f",
+  "categories": ["education", "reference"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "og.png",
+      "sizes": "1536x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

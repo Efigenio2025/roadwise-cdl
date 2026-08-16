@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { questionBank, testDefinitions } from "../content/questions.mjs";
 
-const expected = { general: 100, air: 50, combination: 40, passenger: 40, school: 40 };
+const expected = { general: 150, air: 75, combination: 60, passenger: 60, school: 60 };
 const ids = new Set();
 
 for (const question of questionBank) {
@@ -21,7 +21,7 @@ for (const [test, count] of Object.entries(expected)) {
   if (testDefinitions[test].poolSize !== count) throw new Error(`${test}: pool-size definition mismatch`);
 }
 
-const payload = JSON.stringify({ version: 3, tests: testDefinitions, questions: questionBank }, null, 2) + "\n";
+const payload = JSON.stringify({ version: 4, tests: testDefinitions, questions: questionBank }, null, 2) + "\n";
 const selector = await readFile(new URL("../content/selector.mjs", import.meta.url), "utf8");
 await Promise.all(["public", "docs"].map(async (directory) => {
   await mkdir(directory, { recursive: true });

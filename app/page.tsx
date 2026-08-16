@@ -63,7 +63,7 @@ export default function Home(){
       <Brand/>
       <nav aria-label="Primary navigation"><a className="active" href="#top"><i/>My dashboard</a><a href="#practice">Practice tests</a><a href="#roadmap">Study roadmap</a><a href="#scores">Score history</a><a href="#endorsements">Endorsements</a></nav>
       <section className="railGoal"><p>CURRENT GOAL</p><h2>Class B + P/S</h2><span>School bus route</span><div className="railBar"><i style={{width:`${done.length*25}%`}}/></div><small>{done.length} of 4 steps</small></section>
-      <section className="railStatus"><b>NEBRASKA 2026</b><span>270 questions</span><small>Works offline</small></section>
+      <section className="railStatus"><b>NEBRASKA 2026</b><span>405 questions</span><small>Works offline</small></section>
     </aside>
 
     <div className="workspace">
@@ -71,7 +71,7 @@ export default function Home(){
 
       {!session&&!result&&<>
         <section className="routeHero">
-          <div className="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br/><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div>{hasSavedSession?<button className="orangeButton" onClick={resume}>RESUME EXAM</button>:<button className="orangeButton" onClick={()=>start("general","learn")}>START A DRILL</button>}<small>{hasSavedSession?"Saved session ready":"270 questions ready"}</small></div></div>
+          <div className="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br/><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div>{hasSavedSession?<button className="orangeButton" onClick={resume}>RESUME EXAM</button>:<button className="orangeButton" onClick={()=>start("general","learn")}>START A DRILL</button>}<small>{hasSavedSession?"Saved session ready":"405 questions ready"}</small></div></div>
           <div className="routeTrack" aria-label="CDL roadmap summary">{steps.map((step,index)=><div className={done.includes(index)?"complete":index===done.length?"current":""} key={step[0]}><span>{index+1}</span><b>{["CHOOSE","CLP TESTS","TRAIN","SKILLS"][index]}</b></div>)}</div>
           <div className="scoreSign"><small>YOUR SCORE ROUTE</small><strong>{average===null?"--":`${average}%`}</strong><span>AVERAGE SCORE</span><i><b style={{width:`${average||0}%`}}/></i></div>
         </section>

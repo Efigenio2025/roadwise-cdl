@@ -34,7 +34,7 @@ function updateInsights(){
   document.querySelector('#heroAverage').textContent=average===null?'--':`${average}%`;document.querySelector('#heroAverageBar').style.width=`${average||0}%`;
   const report=document.querySelector('#latestReport'),clear=document.querySelector('#clearHistory');
   if(recent&&bank){report.innerHTML=`<div><small>${esc(bank.tests[recent.test].title)}</small><p>${recent.score} of ${recent.total} correct</p><strong class="${recent.passed?'good':''}">${pct(recent)}%</strong><b>${recent.passed?'PASS':'REVIEW'}</b></div>`;clear.hidden=false}else{report.innerHTML='<p class="emptyReport">Your latest completed test will appear here.</p>';clear.hidden=true}
-  const saved=localStorage.getItem(SESSION_KEY),hero=document.querySelector('#heroAction');hero.textContent=saved?'RESUME EXAM':'START A DRILL';document.querySelector('#heroStatus').textContent=saved?'Saved session ready':'270 questions ready';hero.onclick=()=>saved?resume():start('general','learn');
+  const saved=localStorage.getItem(SESSION_KEY),hero=document.querySelector('#heroAction');hero.textContent=saved?'RESUME EXAM':'START A DRILL';document.querySelector('#heroStatus').textContent=saved?'Saved session ready':'405 questions ready';hero.onclick=()=>saved?resume():start('general','learn');
 }
 
 function render(){APP.innerHTML=session?runner():result?results():dashboard();document.querySelector('.dashboardGrid').classList.toggle('focusing',Boolean(session||result));document.querySelector('.appFrame').classList.toggle('focusMode',Boolean(session||result));APP.classList.toggle('focusColumn',Boolean(session||result));updateInsights()}

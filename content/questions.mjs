@@ -1,4 +1,5 @@
 import { extraRows } from "./questions-extra.mjs";
+import { thirdRows } from "./questions-third.mjs";
 
 const DOMAIN_TOPICS = {
   general: {
@@ -208,13 +209,19 @@ const combinationExtra = make("combination", "COMX", extraRows.combination);
 const passengerExtra = make("passenger", "PASX", extraRows.passenger);
 const schoolExtra = make("school", "SCHX", extraRows.school);
 
-export const questionBank = [...general, ...generalExtra, ...air, ...airExtra, ...combination, ...combinationExtra, ...passenger, ...passengerExtra, ...school, ...schoolExtra];
+const generalThird = make("general", "GEN", thirdRows.general).map((question,index)=>({...question,id:`GEN-${String(index+101).padStart(3,"0")}`}));
+const airThird = make("air", "AIR", thirdRows.air).map((question,index)=>({...question,id:`AIR-${String(index+51).padStart(3,"0")}`}));
+const combinationThird = make("combination", "COM", thirdRows.combination).map((question,index)=>({...question,id:`COM-${String(index+41).padStart(3,"0")}`}));
+const passengerThird = make("passenger", "PAS", thirdRows.passenger).map((question,index)=>({...question,id:`PAS-${String(index+41).padStart(3,"0")}`}));
+const schoolThird = make("school", "SCH", thirdRows.school).map((question,index)=>({...question,id:`SCH-${String(index+41).padStart(3,"0")}`}));
+
+export const questionBank = [...general, ...generalExtra, ...generalThird, ...air, ...airExtra, ...airThird, ...combination, ...combinationExtra, ...combinationThird, ...passenger, ...passengerExtra, ...passengerThird, ...school, ...schoolExtra, ...schoolThird];
 
 export const testDefinitions = {
-  general: { title: "General Knowledge", code: "GK", questionCount: 50, poolSize: 100, passCount: 40, manual: "Sections 1-3", blueprint: { "Licensing and rules":12,"Inspection and cargo":8,"Driving and control":17,"Hazards and conditions":7,"Emergencies and fitness":6 } },
-  air: { title: "Air Brakes", code: "AB", questionCount: 25, poolSize: 50, passCount: 20, manual: "Section 5", blueprint: { "Components":10,"Inspection and tests":5,"Operation and braking":5,"Low pressure and safety":5 } },
-  combination: { title: "Combination Vehicles", code: "CV", questionCount: 20, poolSize: 40, passCount: 16, manual: "Section 6", blueprint: { "Vehicle dynamics":7,"Backing and inspection":5,"Coupling and uncoupling":4,"Air and trailer brakes":4 } },
-  passenger: { title: "Passenger Endorsement", code: "P", questionCount: 20, poolSize: 40, passCount: 16, manual: "Sections 2 and 4", blueprint: { "Inspection and loading":9,"Driving and stops":4,"Crossings":4,"Emergencies":2,"Qualification and rules":1 } },
-  school: { title: "School Bus Endorsement", code: "S", questionCount: 20, poolSize: 40, passCount: 16, manual: "Sections 2, 4, and 10", blueprint: { "Loading and danger zones":9,"Mirrors":2,"Crossings":3,"Emergencies":2,"Operations and students":4 } },
+  general: { title: "General Knowledge", code: "GK", questionCount: 50, poolSize: 150, passCount: 40, manual: "Sections 1-3", blueprint: { "Licensing and rules":12,"Inspection and cargo":8,"Driving and control":17,"Hazards and conditions":7,"Emergencies and fitness":6 } },
+  air: { title: "Air Brakes", code: "AB", questionCount: 25, poolSize: 75, passCount: 20, manual: "Section 5", blueprint: { "Components":10,"Inspection and tests":5,"Operation and braking":5,"Low pressure and safety":5 } },
+  combination: { title: "Combination Vehicles", code: "CV", questionCount: 20, poolSize: 60, passCount: 16, manual: "Section 6", blueprint: { "Vehicle dynamics":7,"Backing and inspection":5,"Coupling and uncoupling":4,"Air and trailer brakes":4 } },
+  passenger: { title: "Passenger Endorsement", code: "P", questionCount: 20, poolSize: 60, passCount: 16, manual: "Sections 2 and 4", blueprint: { "Inspection and loading":9,"Driving and stops":4,"Crossings":4,"Emergencies":2,"Qualification and rules":1 } },
+  school: { title: "School Bus Endorsement", code: "S", questionCount: 20, poolSize: 60, passCount: 16, manual: "Sections 2, 4, and 10", blueprint: { "Loading and danger zones":9,"Mirrors":2,"Crossings":3,"Emergencies":2,"Operations and students":4 } },
 };
 

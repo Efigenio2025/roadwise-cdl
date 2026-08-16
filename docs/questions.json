@@ -1,46 +1,85 @@
 {
-  "version": 2,
+  "version": 3,
   "tests": {
     "general": {
       "title": "General Knowledge",
       "code": "GK",
       "questionCount": 50,
+      "poolSize": 100,
       "passCount": 40,
-      "manual": "Sections 1-3"
+      "manual": "Sections 1-3",
+      "blueprint": {
+        "Licensing and rules": 12,
+        "Inspection and cargo": 8,
+        "Driving and control": 17,
+        "Hazards and conditions": 7,
+        "Emergencies and fitness": 6
+      }
     },
     "air": {
       "title": "Air Brakes",
       "code": "AB",
       "questionCount": 25,
+      "poolSize": 50,
       "passCount": 20,
-      "manual": "Section 5"
+      "manual": "Section 5",
+      "blueprint": {
+        "Components": 10,
+        "Inspection and tests": 5,
+        "Operation and braking": 5,
+        "Low pressure and safety": 5
+      }
     },
     "combination": {
       "title": "Combination Vehicles",
       "code": "CV",
       "questionCount": 20,
+      "poolSize": 40,
       "passCount": 16,
-      "manual": "Section 6"
+      "manual": "Section 6",
+      "blueprint": {
+        "Vehicle dynamics": 7,
+        "Backing and inspection": 5,
+        "Coupling and uncoupling": 4,
+        "Air and trailer brakes": 4
+      }
     },
     "passenger": {
       "title": "Passenger Endorsement",
       "code": "P",
       "questionCount": 20,
+      "poolSize": 40,
       "passCount": 16,
-      "manual": "Sections 2 and 4"
+      "manual": "Sections 2 and 4",
+      "blueprint": {
+        "Inspection and loading": 9,
+        "Driving and stops": 4,
+        "Crossings": 4,
+        "Emergencies": 2,
+        "Qualification and rules": 1
+      }
     },
     "school": {
       "title": "School Bus Endorsement",
       "code": "S",
       "questionCount": 20,
+      "poolSize": 40,
       "passCount": 16,
-      "manual": "Sections 2, 4, and 10"
+      "manual": "Sections 2, 4, and 10",
+      "blueprint": {
+        "Loading and danger zones": 9,
+        "Mirrors": 2,
+        "Crossings": 3,
+        "Emergencies": 2,
+        "Operations and students": 4
+      }
     }
   },
   "questions": [
     {
       "id": "GEN-001",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "License classes",
       "prompt": "Which vehicle normally requires a Class A CDL?",
       "choices": [
@@ -56,6 +95,7 @@
     {
       "id": "GEN-002",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "License classes",
       "prompt": "Which vehicle normally fits Class B?",
       "choices": [
@@ -71,6 +111,7 @@
     {
       "id": "GEN-003",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "License classes",
       "prompt": "A vehicle under 26,001 pounds that requires hazmat placards may require which CDL class?",
       "choices": [
@@ -86,6 +127,7 @@
     {
       "id": "GEN-004",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Learner permit",
       "prompt": "How long must a Nebraska CLP be held before CDL skills testing?",
       "choices": [
@@ -101,6 +143,7 @@
     {
       "id": "GEN-005",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Learner permit",
       "prompt": "How long is a Nebraska commercial learner's permit valid?",
       "choices": [
@@ -116,6 +159,7 @@
     {
       "id": "GEN-006",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Skills test",
       "prompt": "In what order are Nebraska CDL skills-test segments completed?",
       "choices": [
@@ -131,6 +175,7 @@
     {
       "id": "GEN-007",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Skills test",
       "prompt": "What happens if a CLP expires before all three skills-test segments are passed?",
       "choices": [
@@ -146,6 +191,7 @@
     {
       "id": "GEN-008",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Eligibility",
       "prompt": "What is Nebraska's minimum age for interstate CDL operation?",
       "choices": [
@@ -161,6 +207,7 @@
     {
       "id": "GEN-009",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Documents",
       "prompt": "How many different-source documents are generally needed to prove a Nebraska principal address?",
       "choices": [
@@ -176,6 +223,7 @@
     {
       "id": "GEN-010",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Restrictions",
       "prompt": "What does an E restriction mean on a CDL?",
       "choices": [
@@ -191,6 +239,7 @@
     {
       "id": "GEN-011",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Restrictions",
       "prompt": "What does an L restriction prohibit?",
       "choices": [
@@ -206,6 +255,7 @@
     {
       "id": "GEN-012",
       "test": "general",
+      "domain": "Licensing and rules",
       "topic": "Restrictions",
       "prompt": "What does a Z restriction mean?",
       "choices": [
@@ -221,6 +271,7 @@
     {
       "id": "GEN-013",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Inspection",
       "prompt": "Why should a driver perform a pre-trip inspection?",
       "choices": [
@@ -236,6 +287,7 @@
     {
       "id": "GEN-014",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Inspection",
       "prompt": "During a trip, when should cargo and securement be checked?",
       "choices": [
@@ -251,6 +303,7 @@
     {
       "id": "GEN-015",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Inspection",
       "prompt": "What is the safest response to a warning light or gauge showing a serious problem?",
       "choices": [
@@ -266,6 +319,7 @@
     {
       "id": "GEN-016",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Seeing",
       "prompt": "How far ahead should a commercial driver generally look?",
       "choices": [
@@ -281,6 +335,7 @@
     {
       "id": "GEN-017",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Seeing",
       "prompt": "Why should mirrors be checked regularly?",
       "choices": [
@@ -296,6 +351,7 @@
     {
       "id": "GEN-018",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Communication",
       "prompt": "When should a turn signal be activated?",
       "choices": [
@@ -311,6 +367,7 @@
     {
       "id": "GEN-019",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Communication",
       "prompt": "What should a driver do before slowing unexpectedly?",
       "choices": [
@@ -326,6 +383,7 @@
     {
       "id": "GEN-020",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Speed",
       "prompt": "What is the most important reason to reduce speed before a curve?",
       "choices": [
@@ -341,6 +399,7 @@
     {
       "id": "GEN-021",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Speed",
       "prompt": "On a wet road, what should happen to following distance?",
       "choices": [
@@ -356,6 +415,7 @@
     {
       "id": "GEN-022",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Stopping distance",
       "prompt": "Which three parts make up total stopping distance?",
       "choices": [
@@ -371,6 +431,7 @@
     {
       "id": "GEN-023",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Stopping distance",
       "prompt": "What happens to braking distance as speed increases?",
       "choices": [
@@ -386,6 +447,7 @@
     {
       "id": "GEN-024",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Space management",
       "prompt": "What following-distance rule is suggested for a vehicle under 40 mph?",
       "choices": [
@@ -401,6 +463,7 @@
     {
       "id": "GEN-025",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Space management",
       "prompt": "What should a driver do if another vehicle is tailgating?",
       "choices": [
@@ -416,6 +479,7 @@
     {
       "id": "GEN-026",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Hazards",
       "prompt": "What is a hazard?",
       "choices": [
@@ -431,6 +495,7 @@
     {
       "id": "GEN-027",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Distracted driving",
       "prompt": "What is the safest way to handle a task that takes attention away from driving?",
       "choices": [
@@ -446,6 +511,7 @@
     {
       "id": "GEN-028",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Aggressive driving",
       "prompt": "What is a good response to an aggressive driver?",
       "choices": [
@@ -461,6 +527,7 @@
     {
       "id": "GEN-029",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Night driving",
       "prompt": "Why is night driving more dangerous?",
       "choices": [
@@ -476,6 +543,7 @@
     {
       "id": "GEN-030",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Night driving",
       "prompt": "When should high beams be dimmed?",
       "choices": [
@@ -491,6 +559,7 @@
     {
       "id": "GEN-031",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Weather",
       "prompt": "What is black ice?",
       "choices": [
@@ -506,6 +575,7 @@
     {
       "id": "GEN-032",
       "test": "general",
+      "domain": "Hazards and conditions",
       "topic": "Weather",
       "prompt": "What should a driver do before entering a flooded roadway?",
       "choices": [
@@ -521,6 +591,7 @@
     {
       "id": "GEN-033",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Railroad crossings",
       "prompt": "Why should a driver never change gears while crossing railroad tracks?",
       "choices": [
@@ -536,6 +607,7 @@
     {
       "id": "GEN-034",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Mountain driving",
       "prompt": "Before starting down a long, steep grade, what should the driver do?",
       "choices": [
@@ -551,6 +623,7 @@
     {
       "id": "GEN-035",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Mountain driving",
       "prompt": "What is brake fade?",
       "choices": [
@@ -566,6 +639,7 @@
     {
       "id": "GEN-036",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Emergencies",
       "prompt": "If a tire blows out, what should the driver do first?",
       "choices": [
@@ -581,6 +655,7 @@
     {
       "id": "GEN-037",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Emergencies",
       "prompt": "What is countersteering?",
       "choices": [
@@ -596,6 +671,7 @@
     {
       "id": "GEN-038",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "ABS",
       "prompt": "What does antilock braking help a driver do?",
       "choices": [
@@ -611,6 +687,7 @@
     {
       "id": "GEN-039",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "ABS",
       "prompt": "If ABS is not working, what remains true?",
       "choices": [
@@ -626,6 +703,7 @@
     {
       "id": "GEN-040",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Skids",
       "prompt": "What is a common cause of a drive-wheel braking skid?",
       "choices": [
@@ -641,6 +719,7 @@
     {
       "id": "GEN-041",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Crash procedures",
       "prompt": "After stopping at a crash scene, what should be done first?",
       "choices": [
@@ -656,6 +735,7 @@
     {
       "id": "GEN-042",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Fires",
       "prompt": "Which extinguisher should not be used on an electrical fire?",
       "choices": [
@@ -671,6 +751,7 @@
     {
       "id": "GEN-043",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Alcohol",
       "prompt": "What is the legal blood-alcohol concentration limit for operating a commercial motor vehicle?",
       "choices": [
@@ -686,6 +767,7 @@
     {
       "id": "GEN-044",
       "test": "general",
+      "domain": "Emergencies and fitness",
       "topic": "Fatigue",
       "prompt": "What is the only reliable cure for fatigue?",
       "choices": [
@@ -701,6 +783,7 @@
     {
       "id": "GEN-045",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Cargo",
       "prompt": "Who is responsible for making sure cargo is properly secured?",
       "choices": [
@@ -716,6 +799,7 @@
     {
       "id": "GEN-046",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Cargo",
       "prompt": "What is the purpose of a header board or front-end structure?",
       "choices": [
@@ -731,6 +815,7 @@
     {
       "id": "GEN-047",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Cargo",
       "prompt": "Why is a high center of gravity dangerous?",
       "choices": [
@@ -746,6 +831,7 @@
     {
       "id": "GEN-048",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Cargo",
       "prompt": "What can happen when too little weight is placed on the front axle?",
       "choices": [
@@ -761,6 +847,7 @@
     {
       "id": "GEN-049",
       "test": "general",
+      "domain": "Inspection and cargo",
       "topic": "Cargo",
       "prompt": "What must be done with cargo that could roll?",
       "choices": [
@@ -776,6 +863,7 @@
     {
       "id": "GEN-050",
       "test": "general",
+      "domain": "Driving and control",
       "topic": "Roadside stops",
       "prompt": "Where should warning devices be placed after an emergency stop?",
       "choices": [
@@ -789,8 +877,809 @@
       "sourceReference": "Section 2.5, Warning Others"
     },
     {
+      "id": "GENX-001",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "License classes",
+      "prompt": "With the proper endorsements, what may a Nebraska Class A CDL holder also drive?",
+      "choices": [
+        "Class B and Class C commercial vehicles",
+        "Only Class A combinations",
+        "Class B vehicles but never Class C",
+        "Only noncommercial vehicles"
+      ],
+      "correctIndex": 0,
+      "explanation": "Class A includes the lower commercial classes when the required endorsements are present.",
+      "sourceReference": "Nebraska Specifics, CDL Classes"
+    },
+    {
+      "id": "GENX-002",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "License classes",
+      "prompt": "With the proper endorsement, a Class B CDL holder may also operate which class?",
+      "choices": [
+        "Class C",
+        "Class A",
+        "Motorcycle only",
+        "No other class"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nebraska authorizes Class B holders to operate Class C vehicles when properly endorsed.",
+      "sourceReference": "Nebraska Specifics, CDL Classes"
+    },
+    {
+      "id": "GENX-003",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "License classes",
+      "prompt": "What noncommercial privilege is included with a valid Nebraska CDL?",
+      "choices": [
+        "Class O vehicles other than motorcycles",
+        "Every motorcycle",
+        "Farm vehicles only",
+        "No noncommercial vehicle"
+      ],
+      "correctIndex": 0,
+      "explanation": "A valid CDL also authorizes Class O operation, excluding motorcycles.",
+      "sourceReference": "Nebraska Specifics, CDL Classes"
+    },
+    {
+      "id": "GENX-004",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Eligibility",
+      "prompt": "What is Nebraska's minimum age for intrastate CDL operation?",
+      "choices": [
+        "18",
+        "16",
+        "20",
+        "21"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nebraska permits intrastate CDL operation at age 18.",
+      "sourceReference": "Nebraska Specifics, Minimum Age"
+    },
+    {
+      "id": "GENX-005",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Testing",
+      "prompt": "Which written test is normally required again when transferring or renewing a HazMat endorsement?",
+      "choices": [
+        "Hazardous materials",
+        "General knowledge",
+        "Air brakes",
+        "Combination vehicles"
+      ],
+      "correctIndex": 0,
+      "explanation": "HazMat knowledge testing is the written-test exception described for transfers and renewals.",
+      "sourceReference": "Nebraska Specifics, Testing"
+    },
+    {
+      "id": "GENX-006",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Testing",
+      "prompt": "After failing a Nebraska CDL written or skills test, what is the minimum wait before retesting?",
+      "choices": [
+        "At least one day",
+        "One hour",
+        "Seven days",
+        "Thirty days"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nebraska requires at least a one-day wait after a failed written or skills test.",
+      "sourceReference": "Nebraska Specifics, Testing"
+    },
+    {
+      "id": "GENX-007",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Learner permit",
+      "prompt": "Who must accompany a driver practicing with a CLP?",
+      "choices": [
+        "A properly licensed CDL holder",
+        "Any adult passenger",
+        "A learner with the same permit",
+        "No one if the vehicle is empty"
+      ],
+      "correctIndex": 0,
+      "explanation": "A CLP authorizes supervised practice with a qualified CDL holder.",
+      "sourceReference": "Nebraska Specifics, Commercial Learner's Permit"
+    },
+    {
+      "id": "GENX-008",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Learner permit",
+      "prompt": "What must an applicant pass before a CLP can be issued?",
+      "choices": [
+        "All applicable knowledge tests",
+        "Only the vision test",
+        "The road test",
+        "Only General Knowledge regardless of vehicle"
+      ],
+      "correctIndex": 0,
+      "explanation": "The permit class and endorsements determine which knowledge tests apply.",
+      "sourceReference": "Nebraska Specifics, Commercial Learner's Permit"
+    },
+    {
+      "id": "GENX-009",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Restrictions",
+      "prompt": "A driver tests in an automatic-transmission CMV. Which restriction is normally added?",
+      "choices": [
+        "E",
+        "L",
+        "K",
+        "O"
+      ],
+      "correctIndex": 0,
+      "explanation": "The E restriction prohibits manual-transmission-equipped CMVs.",
+      "sourceReference": "Nebraska Specifics, CDL Restrictions"
+    },
+    {
+      "id": "GENX-010",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Restrictions",
+      "prompt": "Which restriction identifies intrastate-only commercial driving?",
+      "choices": [
+        "K",
+        "V",
+        "Z",
+        "N"
+      ],
+      "correctIndex": 0,
+      "explanation": "K is the intrastate-only restriction.",
+      "sourceReference": "Nebraska Specifics, CDL Restrictions"
+    },
+    {
+      "id": "GENX-011",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Documents",
+      "prompt": "May a post-office box serve as Nebraska principal-address proof?",
+      "choices": [
+        "No",
+        "Yes, by itself",
+        "Yes, with no other document",
+        "Only for applicants under 21"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nebraska requires a physical principal address, not a P.O. box.",
+      "sourceReference": "Nebraska Specifics, Principal Address"
+    },
+    {
+      "id": "GENX-012",
+      "test": "general",
+      "domain": "Licensing and rules",
+      "topic": "Documents",
+      "prompt": "What must be disclosed when applying for a Nebraska CDL or CLP?",
+      "choices": [
+        "A valid Social Security number",
+        "Every former employer",
+        "A personal credit score",
+        "A vehicle purchase price"
+      ],
+      "correctIndex": 0,
+      "explanation": "Applicants must disclose their valid Social Security number.",
+      "sourceReference": "Nebraska Specifics, Application Documents"
+    },
+    {
+      "id": "GENX-013",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Inspection",
+      "prompt": "What should tire inspection include?",
+      "choices": [
+        "Inflation, condition, and adequate tread",
+        "Paint color and brand only",
+        "Wheelbase measurement only",
+        "Fuel mileage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Unsafe tires can fail from low pressure, damage, or insufficient tread.",
+      "sourceReference": "Section 2.1, Vehicle Inspection"
+    },
+    {
+      "id": "GENX-014",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Inspection",
+      "prompt": "What should be checked on lights and reflectors before a trip?",
+      "choices": [
+        "They are clean, the correct color, and working",
+        "They match the cab paint",
+        "They stay off in rain",
+        "Only the interior dome light works"
+      ],
+      "correctIndex": 0,
+      "explanation": "Visibility equipment must be clean, correctly colored, and operational.",
+      "sourceReference": "Section 2.1, Vehicle Inspection"
+    },
+    {
+      "id": "GENX-015",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "After the first cargo check, when should securement be rechecked?",
+      "choices": [
+        "After 3 hours or 150 miles and after duty changes",
+        "Only at the destination",
+        "Every 1,000 miles",
+        "Only if cargo is visible in a mirror"
+      ],
+      "correctIndex": 0,
+      "explanation": "Periodic checks catch shifting or loosened securement.",
+      "sourceReference": "Section 3.1, Inspecting Cargo"
+    },
+    {
+      "id": "GENX-016",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "Why must axle-weight limits be observed?",
+      "choices": [
+        "Excess axle weight can damage components and reduce control",
+        "They apply only to empty vehicles",
+        "They improve acceleration",
+        "They replace gross-weight limits"
+      ],
+      "correctIndex": 0,
+      "explanation": "Weight must be legal and safely distributed across axles.",
+      "sourceReference": "Section 3.2, Weight and Balance"
+    },
+    {
+      "id": "GENX-017",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "What is the safest position for the heaviest cargo?",
+      "choices": [
+        "As low and centered as practical",
+        "High and against one side",
+        "At the extreme rear",
+        "On top of lighter cargo"
+      ],
+      "correctIndex": 0,
+      "explanation": "Low, centered weight improves stability and axle balance.",
+      "sourceReference": "Section 3.2, Weight and Balance"
+    },
+    {
+      "id": "GENX-018",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "Why may some cargo require a cover?",
+      "choices": [
+        "To protect people from falling or blowing cargo",
+        "To replace all tiedowns",
+        "To increase the weight rating",
+        "To hide damaged freight"
+      ],
+      "correctIndex": 0,
+      "explanation": "Covers help contain loose material but do not replace securement.",
+      "sourceReference": "Section 3.3, Securing Cargo"
+    },
+    {
+      "id": "GENX-019",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "What should a driver do with a damaged tiedown?",
+      "choices": [
+        "Replace it before relying on it",
+        "Use it only on the heaviest item",
+        "Tie it to another damaged tiedown",
+        "Ignore it if the trip is short"
+      ],
+      "correctIndex": 0,
+      "explanation": "Securement devices must be in proper working condition.",
+      "sourceReference": "Section 3.3, Securing Cargo"
+    },
+    {
+      "id": "GENX-020",
+      "test": "general",
+      "domain": "Inspection and cargo",
+      "topic": "Cargo",
+      "prompt": "What must doors, tailgates, and other cargo equipment do before travel?",
+      "choices": [
+        "Close and secure properly",
+        "Remain partly open for ventilation",
+        "Be held by cargo weight",
+        "Open automatically in turns"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cargo openings must be secured so freight cannot escape.",
+      "sourceReference": "Section 3.3, Securing Cargo"
+    },
+    {
+      "id": "GENX-021",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Space management",
+      "prompt": "A 40-foot vehicle traveling under 40 mph needs at least what following time?",
+      "choices": [
+        "Four seconds",
+        "One second",
+        "Two seconds",
+        "Eight seconds"
+      ],
+      "correctIndex": 0,
+      "explanation": "Use one second for every 10 feet of vehicle length below 40 mph.",
+      "sourceReference": "Section 2.7, Following Distance"
+    },
+    {
+      "id": "GENX-022",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Space management",
+      "prompt": "What adjustment is added to following distance above 40 mph?",
+      "choices": [
+        "At least one additional second",
+        "Subtract one second",
+        "No adjustment",
+        "Double speed instead"
+      ],
+      "correctIndex": 0,
+      "explanation": "The manual adds a second at higher speeds because stopping distance grows.",
+      "sourceReference": "Section 2.7, Following Distance"
+    },
+    {
+      "id": "GENX-023",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Speed",
+      "prompt": "How fast should you drive when you cannot stop within the distance you can see?",
+      "choices": [
+        "Slow enough to stop within the visible distance",
+        "At the posted maximum",
+        "Faster than surrounding traffic",
+        "At least 55 mph"
+      ],
+      "correctIndex": 0,
+      "explanation": "Speed must match sight distance, especially at night or in bad weather.",
+      "sourceReference": "Section 2.6, Controlling Speed"
+    },
+    {
+      "id": "GENX-024",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Weather",
+      "prompt": "What is the best response if the vehicle begins hydroplaning?",
+      "choices": [
+        "Ease off the accelerator and avoid hard braking",
+        "Brake hard immediately",
+        "Turn sharply",
+        "Accelerate to regain tire contact"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gentle slowing helps tires regain contact without triggering a skid.",
+      "sourceReference": "Section 2.12, Wet Roads"
+    },
+    {
+      "id": "GENX-025",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Mountain driving",
+      "prompt": "What should a driver do if brakes fail on a downgrade and an escape ramp is available?",
+      "choices": [
+        "Use the escape ramp",
+        "Continue to the bottom",
+        "Turn uphill across traffic",
+        "Apply only the trailer hand valve"
+      ],
+      "correctIndex": 0,
+      "explanation": "Escape ramps are designed to stop runaway vehicles.",
+      "sourceReference": "Section 2.16, Escape Ramps"
+    },
+    {
+      "id": "GENX-026",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Communication",
+      "prompt": "When changing lanes, how long should the turn signal remain on?",
+      "choices": [
+        "Until the lane change is complete",
+        "Only for one flash",
+        "Until the front wheels cross the line",
+        "It is unnecessary with mirrors"
+      ],
+      "correctIndex": 0,
+      "explanation": "Continuous signaling clearly communicates the whole maneuver.",
+      "sourceReference": "Section 2.5, Signaling"
+    },
+    {
+      "id": "GENX-027",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Communication",
+      "prompt": "When is the horn most appropriate?",
+      "choices": [
+        "When needed to warn someone of danger",
+        "At every intersection",
+        "To express frustration",
+        "Continuously in heavy traffic"
+      ],
+      "correctIndex": 0,
+      "explanation": "The horn is a warning device, not a substitute for space or patience.",
+      "sourceReference": "Section 2.5, Communicating Presence"
+    },
+    {
+      "id": "GENX-028",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Space management",
+      "prompt": "Why avoid driving beside another vehicle for long periods?",
+      "choices": [
+        "It can trap the CMV with no escape route",
+        "It always saves fuel",
+        "It shortens stopping distance",
+        "It improves mirror coverage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Open space beside the vehicle provides room for emergency movement.",
+      "sourceReference": "Section 2.7, Space to the Sides"
+    },
+    {
+      "id": "GENX-029",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Speed",
+      "prompt": "When should most braking for a curve occur?",
+      "choices": [
+        "Before entering the curve",
+        "At the sharpest point",
+        "After leaving the curve",
+        "Only if the trailer sways"
+      ],
+      "correctIndex": 0,
+      "explanation": "Entering at a controlled speed prevents skids and rollover.",
+      "sourceReference": "Section 2.6, Curves"
+    },
+    {
+      "id": "GENX-030",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Railroad crossings",
+      "prompt": "What should be considered before crossing tracks with a long or low vehicle?",
+      "choices": [
+        "Whether there is enough clearance to cross completely",
+        "Only the train's color",
+        "The radio volume",
+        "Whether another truck crossed yesterday"
+      ],
+      "correctIndex": 0,
+      "explanation": "Long or low-clearance vehicles can become trapped on a crossing.",
+      "sourceReference": "Section 2.15, Railroad Crossings"
+    },
+    {
+      "id": "GENX-031",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Mountain driving",
+      "prompt": "Why is a lower gear selected before descending?",
+      "choices": [
+        "To let engine braking help control speed",
+        "To reduce mirror vibration",
+        "To release the service brakes",
+        "To raise the center of gravity"
+      ],
+      "correctIndex": 0,
+      "explanation": "Engine braking reduces service-brake heat buildup.",
+      "sourceReference": "Section 2.16, Mountain Driving"
+    },
+    {
+      "id": "GENX-032",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "ABS",
+      "prompt": "During an emergency stop with ABS, how should the brake pedal generally be used?",
+      "choices": [
+        "Apply firm pressure and keep it applied",
+        "Pump it rapidly",
+        "Release it completely",
+        "Use the parking brake instead"
+      ],
+      "correctIndex": 0,
+      "explanation": "ABS controls wheel lockup while the driver maintains braking pressure.",
+      "sourceReference": "Section 2.18, ABS"
+    },
+    {
+      "id": "GENX-033",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Skids",
+      "prompt": "What should you do when drive wheels begin a braking skid?",
+      "choices": [
+        "Release the brake to regain traction",
+        "Apply more brake",
+        "Accelerate hard",
+        "Set the parking brake"
+      ],
+      "correctIndex": 0,
+      "explanation": "Locked wheels need to roll again before steering control can return.",
+      "sourceReference": "Section 2.19, Drive-wheel Skids"
+    },
+    {
+      "id": "GENX-034",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Backing",
+      "prompt": "What does G.O.A.L. remind a driver to do?",
+      "choices": [
+        "Get Out And Look",
+        "Go Over All Lanes",
+        "Gauge Overall Axle Load",
+        "Give Others A Light"
+      ],
+      "correctIndex": 0,
+      "explanation": "Getting out to inspect the path is safer than guessing through blind spots.",
+      "sourceReference": "Section 2.2, Backing Safely"
+    },
+    {
+      "id": "GENX-035",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Turning",
+      "prompt": "Why may a large vehicle need extra room for a right turn?",
+      "choices": [
+        "Rear wheels track inside the front-wheel path",
+        "The steering wheel locks right",
+        "Air pressure falls in every turn",
+        "The vehicle becomes shorter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Offtracking can send rear wheels over a curb or into nearby objects.",
+      "sourceReference": "Section 2.7, Turns"
+    },
+    {
+      "id": "GENX-036",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Space management",
+      "prompt": "Before merging, what space must be considered?",
+      "choices": [
+        "The vehicle's length, acceleration, and traffic gap",
+        "Only the posted speed",
+        "Only traffic ahead",
+        "The cargo's color"
+      ],
+      "correctIndex": 0,
+      "explanation": "Large vehicles need more time and distance to enter traffic safely.",
+      "sourceReference": "Section 2.7, Space to Merge"
+    },
+    {
+      "id": "GENX-037",
+      "test": "general",
+      "domain": "Driving and control",
+      "topic": "Clearance",
+      "prompt": "Why should overhead clearance be checked instead of assumed?",
+      "choices": [
+        "Road grades, snow, and cargo height can change actual clearance",
+        "Every bridge sign is intentionally low",
+        "Air brakes raise the trailer",
+        "Mirrors measure height automatically"
+      ],
+      "correctIndex": 0,
+      "explanation": "Vehicle and roadway conditions may reduce the available space.",
+      "sourceReference": "Section 2.7, Space Overhead"
+    },
+    {
+      "id": "GENX-038",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Work zones",
+      "prompt": "What is the safest work-zone approach?",
+      "choices": [
+        "Slow early, increase space, and obey workers and signs",
+        "Maintain speed to leave quickly",
+        "Follow equipment closely",
+        "Change lanes repeatedly"
+      ],
+      "correctIndex": 0,
+      "explanation": "Work zones contain narrow lanes, people, and sudden traffic changes.",
+      "sourceReference": "Section 2.8, Work Zones"
+    },
+    {
+      "id": "GENX-039",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Fog",
+      "prompt": "Which headlights are best in fog?",
+      "choices": [
+        "Low beams",
+        "High beams",
+        "Parking lights only",
+        "No lights"
+      ],
+      "correctIndex": 0,
+      "explanation": "High beams reflect from fog and reduce visibility.",
+      "sourceReference": "Section 2.11, Fog"
+    },
+    {
+      "id": "GENX-040",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Hot weather",
+      "prompt": "What should be done if a tire is too hot to touch safely?",
+      "choices": [
+        "Stop and let it cool",
+        "Release air immediately",
+        "Pour cold water on it",
+        "Drive faster for airflow"
+      ],
+      "correctIndex": 0,
+      "explanation": "An overheated tire may fail; removing air can make the pressure unsafe.",
+      "sourceReference": "Section 2.13, Hot Weather"
+    },
+    {
+      "id": "GENX-041",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Winter",
+      "prompt": "Which roadway surfaces often freeze before the rest of the road?",
+      "choices": [
+        "Bridges and shaded areas",
+        "Dry tunnels",
+        "Freshly painted lines only",
+        "Gravel shoulders only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Exposed and shaded surfaces can freeze even when other pavement appears clear.",
+      "sourceReference": "Section 2.12, Winter Driving"
+    },
+    {
+      "id": "GENX-042",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Wet brakes",
+      "prompt": "After driving through deep water, how can brakes be dried?",
+      "choices": [
+        "Apply light pressure while moving slowly until they work normally",
+        "Set the parking brakes at highway speed",
+        "Pump the accelerator",
+        "Shift to neutral and coast"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gentle application creates heat and confirms braking has returned.",
+      "sourceReference": "Section 2.12, Wet Brakes"
+    },
+    {
+      "id": "GENX-043",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Distracted driving",
+      "prompt": "What should happen to a handheld device before driving?",
+      "choices": [
+        "Secure it and handle necessary tasks while safely parked",
+        "Hold it below the window",
+        "Place it on the steering wheel",
+        "Use it only in curves"
+      ],
+      "correctIndex": 0,
+      "explanation": "Preventing device use removes a major source of distraction.",
+      "sourceReference": "Section 2.9, Distracted Driving"
+    },
+    {
+      "id": "GENX-044",
+      "test": "general",
+      "domain": "Hazards and conditions",
+      "topic": "Aggressive driving",
+      "prompt": "What should you do when another driver cuts in closely?",
+      "choices": [
+        "Restore following distance without retaliating",
+        "Sound the horn continuously",
+        "Tailgate the vehicle",
+        "Race to pass immediately"
+      ],
+      "correctIndex": 0,
+      "explanation": "Calmly rebuilding space is safer than escalating the conflict.",
+      "sourceReference": "Section 2.10, Aggressive Drivers"
+    },
+    {
+      "id": "GENX-045",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Fires",
+      "prompt": "What is an early response to an engine fire?",
+      "choices": [
+        "Stop safely and shut off the engine",
+        "Open the hood fully at once",
+        "Keep driving for airflow",
+        "Pour fuel on the engine"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stopping the engine can remove fuel or power feeding the fire.",
+      "sourceReference": "Section 2.21, Fires"
+    },
+    {
+      "id": "GENX-046",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Fires",
+      "prompt": "Why must the extinguisher rating match the fire?",
+      "choices": [
+        "The wrong agent can spread danger or fail to extinguish it",
+        "Every extinguisher works on every fire",
+        "Ratings apply only to color",
+        "A rating measures tire pressure"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fire classes require suitable extinguishing agents.",
+      "sourceReference": "Section 2.21, Fires"
+    },
+    {
+      "id": "GENX-047",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Crash procedures",
+      "prompt": "After protecting a crash scene, what should the driver do?",
+      "choices": [
+        "Notify authorities and assist without creating more danger",
+        "Leave immediately",
+        "Move every injured person",
+        "Remove warning devices"
+      ],
+      "correctIndex": 0,
+      "explanation": "Prompt reporting and careful assistance are part of crash responsibilities.",
+      "sourceReference": "Section 2.20, Accident Procedures"
+    },
+    {
+      "id": "GENX-048",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Fatigue",
+      "prompt": "Which is a warning sign of dangerous fatigue?",
+      "choices": [
+        "Frequent yawning and difficulty keeping eyes open",
+        "Steady lane position",
+        "Normal alert scanning",
+        "Comfortable posture"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fatigue signs mean the driver should stop and sleep.",
+      "sourceReference": "Section 2.23, Fatigue"
+    },
+    {
+      "id": "GENX-049",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Fitness",
+      "prompt": "What should a driver verify before using medicine?",
+      "choices": [
+        "It is safe for commercial driving and will not impair alertness",
+        "It tastes sweet",
+        "It is sold without a prescription",
+        "Another driver has used it"
+      ],
+      "correctIndex": 0,
+      "explanation": "Prescription and nonprescription drugs can still make driving unsafe.",
+      "sourceReference": "Section 2.23, Medicines"
+    },
+    {
+      "id": "GENX-050",
+      "test": "general",
+      "domain": "Emergencies and fitness",
+      "topic": "Alcohol",
+      "prompt": "What happens to a CMV driver's judgment before obvious signs of drunkenness appear?",
+      "choices": [
+        "It can already be impaired",
+        "It always improves",
+        "It is unaffected below 0.08 percent",
+        "It changes only after sleep"
+      ],
+      "correctIndex": 0,
+      "explanation": "Alcohol reduces judgment and coordination before a person appears intoxicated.",
+      "sourceReference": "Section 2.22, Alcohol"
+    },
+    {
       "id": "AIR-001",
       "test": "air",
+      "domain": "Components",
       "topic": "System basics",
       "prompt": "What powers an air-brake system?",
       "choices": [
@@ -806,6 +1695,7 @@
     {
       "id": "AIR-002",
       "test": "air",
+      "domain": "Components",
       "topic": "Air compressor",
       "prompt": "What controls when the air compressor pumps air?",
       "choices": [
@@ -821,6 +1711,7 @@
     {
       "id": "AIR-003",
       "test": "air",
+      "domain": "Components",
       "topic": "Air tanks",
       "prompt": "Why must air tanks be drained?",
       "choices": [
@@ -836,6 +1727,7 @@
     {
       "id": "AIR-004",
       "test": "air",
+      "domain": "Components",
       "topic": "Air tanks",
       "prompt": "When manual air tanks are fitted, when should they generally be drained?",
       "choices": [
@@ -851,6 +1743,7 @@
     {
       "id": "AIR-005",
       "test": "air",
+      "domain": "Components",
       "topic": "Alcohol evaporator",
       "prompt": "What is the purpose of an alcohol evaporator?",
       "choices": [
@@ -866,6 +1759,7 @@
     {
       "id": "AIR-006",
       "test": "air",
+      "domain": "Components",
       "topic": "Safety valve",
       "prompt": "At approximately what pressure does the safety valve commonly open?",
       "choices": [
@@ -881,6 +1775,7 @@
     {
       "id": "AIR-007",
       "test": "air",
+      "domain": "Components",
       "topic": "Brake pedal",
       "prompt": "What happens when the brake pedal is pushed harder?",
       "choices": [
@@ -896,6 +1791,7 @@
     {
       "id": "AIR-008",
       "test": "air",
+      "domain": "Components",
       "topic": "Foundation brakes",
       "prompt": "Where are S-cam brakes located?",
       "choices": [
@@ -911,6 +1807,7 @@
     {
       "id": "AIR-009",
       "test": "air",
+      "domain": "Components",
       "topic": "Slack adjusters",
       "prompt": "What does excessive slack-adjuster movement indicate?",
       "choices": [
@@ -926,6 +1823,7 @@
     {
       "id": "AIR-010",
       "test": "air",
+      "domain": "Components",
       "topic": "Gauges",
       "prompt": "What does the supply-pressure gauge show?",
       "choices": [
@@ -941,6 +1839,7 @@
     {
       "id": "AIR-011",
       "test": "air",
+      "domain": "Low pressure and safety",
       "topic": "Low-air warning",
       "prompt": "When must the low-air warning activate?",
       "choices": [
@@ -956,6 +1855,7 @@
     {
       "id": "AIR-012",
       "test": "air",
+      "domain": "Low pressure and safety",
       "topic": "Spring brakes",
       "prompt": "What normally holds spring brakes off?",
       "choices": [
@@ -971,6 +1871,7 @@
     {
       "id": "AIR-013",
       "test": "air",
+      "domain": "Low pressure and safety",
       "topic": "Spring brakes",
       "prompt": "When will spring brakes usually begin to apply automatically?",
       "choices": [
@@ -986,6 +1887,7 @@
     {
       "id": "AIR-014",
       "test": "air",
+      "domain": "Low pressure and safety",
       "topic": "Parking brakes",
       "prompt": "How should parking brakes be applied?",
       "choices": [
@@ -1001,6 +1903,7 @@
     {
       "id": "AIR-015",
       "test": "air",
+      "domain": "Low pressure and safety",
       "topic": "Dual systems",
       "prompt": "What is the advantage of a dual air-brake system?",
       "choices": [
@@ -1016,6 +1919,7 @@
     {
       "id": "AIR-016",
       "test": "air",
+      "domain": "Inspection and tests",
       "topic": "Before driving",
       "prompt": "Before moving a dual-air vehicle, what should happen?",
       "choices": [
@@ -1031,6 +1935,7 @@
     {
       "id": "AIR-017",
       "test": "air",
+      "domain": "Operation and braking",
       "topic": "Stopping distance",
       "prompt": "Why do air brakes have additional stopping distance?",
       "choices": [
@@ -1046,6 +1951,7 @@
     {
       "id": "AIR-018",
       "test": "air",
+      "domain": "Operation and braking",
       "topic": "Brake lag",
       "prompt": "At 55 mph, air-brake lag adds approximately how much distance under typical conditions?",
       "choices": [
@@ -1061,6 +1967,7 @@
     {
       "id": "AIR-019",
       "test": "air",
+      "domain": "Operation and braking",
       "topic": "Braking technique",
       "prompt": "What is controlled braking?",
       "choices": [
@@ -1076,6 +1983,7 @@
     {
       "id": "AIR-020",
       "test": "air",
+      "domain": "Operation and braking",
       "topic": "Grades",
       "prompt": "What is the proper way to control speed on a long downgrade?",
       "choices": [
@@ -1091,6 +1999,7 @@
     {
       "id": "AIR-021",
       "test": "air",
+      "domain": "Operation and braking",
       "topic": "Fading",
       "prompt": "What causes air-brake fade on a long downgrade?",
       "choices": [
@@ -1106,6 +2015,7 @@
     {
       "id": "AIR-022",
       "test": "air",
+      "domain": "Inspection and tests",
       "topic": "Leak test",
       "prompt": "During a static leakage test with brakes released, what are you checking?",
       "choices": [
@@ -1121,6 +2031,7 @@
     {
       "id": "AIR-023",
       "test": "air",
+      "domain": "Inspection and tests",
       "topic": "Applied test",
       "prompt": "Why hold the brake pedal during the applied leakage test?",
       "choices": [
@@ -1136,6 +2047,7 @@
     {
       "id": "AIR-024",
       "test": "air",
+      "domain": "Inspection and tests",
       "topic": "Governor test",
       "prompt": "What should be confirmed during the governor cut-in/cut-out test?",
       "choices": [
@@ -1151,6 +2063,7 @@
     {
       "id": "AIR-025",
       "test": "air",
+      "domain": "Inspection and tests",
       "topic": "Parking test",
       "prompt": "How can spring/parking brakes be checked before driving?",
       "choices": [
@@ -1164,8 +2077,409 @@
       "sourceReference": "Section 5.4, Test Parking Brake"
     },
     {
+      "id": "AIRX-001",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Air compressor",
+      "prompt": "What drives the air compressor on most commercial vehicles?",
+      "choices": [
+        "The engine through gears or a belt",
+        "The trailer wheels",
+        "The battery alone",
+        "The service brake pedal"
+      ],
+      "correctIndex": 0,
+      "explanation": "The engine supplies the mechanical power needed to compress air.",
+      "sourceReference": "Section 5.1, Air Compressor"
+    },
+    {
+      "id": "AIRX-002",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Air compressor",
+      "prompt": "When pressure falls to the governor cut-in level, what should happen?",
+      "choices": [
+        "The compressor begins pumping again",
+        "The safety valve opens",
+        "The spring brakes apply",
+        "The tanks drain automatically"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cut-in pressure tells the governor to rebuild the air supply.",
+      "sourceReference": "Section 5.1, Governor"
+    },
+    {
+      "id": "AIRX-003",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Air tanks",
+      "prompt": "Why can water in an air tank be dangerous in freezing weather?",
+      "choices": [
+        "It can freeze and block brake-system parts",
+        "It increases tire tread",
+        "It improves lubrication",
+        "It raises fuel pressure"
+      ],
+      "correctIndex": 0,
+      "explanation": "Frozen moisture can prevent valves and lines from operating.",
+      "sourceReference": "Section 5.1, Air Tank Drains"
+    },
+    {
+      "id": "AIRX-004",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Check valve",
+      "prompt": "What is the purpose of a one-way check valve?",
+      "choices": [
+        "Allow air to flow in one direction and prevent backflow",
+        "Measure brake-lining thickness",
+        "Release the parking brakes",
+        "Cool the compressor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Check valves help preserve stored air if another part of the system leaks.",
+      "sourceReference": "Section 5.1, Air Brake Components"
+    },
+    {
+      "id": "AIRX-005",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Brake drums",
+      "prompt": "What can grease or oil on brake linings cause?",
+      "choices": [
+        "Reduced braking friction",
+        "Higher air pressure",
+        "Faster compressor recovery",
+        "Better heat removal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Contaminated friction surfaces may not stop the vehicle effectively.",
+      "sourceReference": "Section 5.1, Foundation Brakes"
+    },
+    {
+      "id": "AIRX-006",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Brake drums",
+      "prompt": "Why are cracked brake drums unsafe?",
+      "choices": [
+        "They may fail or reduce braking",
+        "They improve cooling",
+        "They increase lining contact",
+        "They prevent brake fade"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cracks can weaken the drum and interfere with normal braking.",
+      "sourceReference": "Section 5.1, Foundation Brakes"
+    },
+    {
+      "id": "AIRX-007",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Slack adjusters",
+      "prompt": "Who should adjust automatic slack adjusters when they are outside limits?",
+      "choices": [
+        "A qualified mechanic",
+        "Any passenger",
+        "The driver while moving",
+        "A fuel attendant"
+      ],
+      "correctIndex": 0,
+      "explanation": "Frequent manual adjustment can hide a mechanical defect and requires qualified repair.",
+      "sourceReference": "Section 5.1, Slack Adjusters"
+    },
+    {
+      "id": "AIRX-008",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Application gauge",
+      "prompt": "What may an application-pressure gauge indicate?",
+      "choices": [
+        "The air pressure being applied to the brakes",
+        "Fuel pressure",
+        "Trailer height",
+        "Tire inflation"
+      ],
+      "correctIndex": 0,
+      "explanation": "High application pressure for the same stop can warn of fading or adjustment problems.",
+      "sourceReference": "Section 5.1, Application Pressure Gauge"
+    },
+    {
+      "id": "AIRX-009",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Brake lights",
+      "prompt": "What activates air-brake stop lights?",
+      "choices": [
+        "An air-pressure switch when service brakes are applied",
+        "The air-tank drain",
+        "The governor cut-out",
+        "The trailer landing gear"
+      ],
+      "correctIndex": 0,
+      "explanation": "The electrical stop-light switch responds to brake application pressure.",
+      "sourceReference": "Section 5.1, Stop-light Switch"
+    },
+    {
+      "id": "AIRX-010",
+      "test": "air",
+      "domain": "Components",
+      "topic": "Wig-wag",
+      "prompt": "What is a wig-wag in an air-brake vehicle?",
+      "choices": [
+        "A mechanical low-air warning device",
+        "A type of brake drum",
+        "A coupling lock",
+        "A tire-pressure gauge"
+      ],
+      "correctIndex": 0,
+      "explanation": "Some vehicles use a visible mechanical arm to warn of low air pressure.",
+      "sourceReference": "Section 5.1, Low-air Warning"
+    },
+    {
+      "id": "AIRX-011",
+      "test": "air",
+      "domain": "Inspection and tests",
+      "topic": "Build-up test",
+      "prompt": "What does the air-pressure build-up test measure?",
+      "choices": [
+        "How quickly system pressure rises",
+        "How quickly tires inflate",
+        "Brake-drum temperature",
+        "Trailer cargo weight"
+      ],
+      "correctIndex": 0,
+      "explanation": "Slow pressure build-up may indicate compressor or system problems.",
+      "sourceReference": "Section 5.4, Air-pressure Build-up"
+    },
+    {
+      "id": "AIRX-012",
+      "test": "air",
+      "domain": "Inspection and tests",
+      "topic": "Build-up test",
+      "prompt": "When checking pressure build-up, the engine is normally operated at what speed?",
+      "choices": [
+        "The manufacturer-specified fast idle",
+        "With the engine shut off",
+        "Maximum governed speed",
+        "Idle with all tanks open"
+      ],
+      "correctIndex": 0,
+      "explanation": "The test uses the specified engine speed and pressure range.",
+      "sourceReference": "Section 5.4, Air-pressure Build-up"
+    },
+    {
+      "id": "AIRX-013",
+      "test": "air",
+      "domain": "Inspection and tests",
+      "topic": "Low-air test",
+      "prompt": "How is the low-air warning commonly tested?",
+      "choices": [
+        "Reduce pressure with brake applications until the warning activates",
+        "Add air above cut-out",
+        "Disconnect the gauge",
+        "Drive at highway speed"
+      ],
+      "correctIndex": 0,
+      "explanation": "Controlled pressure reduction verifies the warning appears before unsafe pressure.",
+      "sourceReference": "Section 5.4, Low-air Warning Test"
+    },
+    {
+      "id": "AIRX-014",
+      "test": "air",
+      "domain": "Inspection and tests",
+      "topic": "Spring-brake test",
+      "prompt": "How can automatic spring-brake application be checked while parked?",
+      "choices": [
+        "Reduce air pressure and observe when the controls pop out",
+        "Raise pressure above 150 psi",
+        "Release all brakes and drive",
+        "Disconnect the compressor belt"
+      ],
+      "correctIndex": 0,
+      "explanation": "The parking controls should activate in the manufacturer's low-pressure range.",
+      "sourceReference": "Section 5.4, Spring-brake Test"
+    },
+    {
+      "id": "AIRX-015",
+      "test": "air",
+      "domain": "Inspection and tests",
+      "topic": "Service-brake test",
+      "prompt": "How should service brakes be checked before entering traffic?",
+      "choices": [
+        "Move slowly and apply them to check stopping and pulling",
+        "Test them first at highway speed",
+        "Use only the parking brake",
+        "Check them with the engine off and vehicle parked"
+      ],
+      "correctIndex": 0,
+      "explanation": "A low-speed application reveals delayed stopping or pulling to one side.",
+      "sourceReference": "Section 5.4, Service-brake Test"
+    },
+    {
+      "id": "AIRX-016",
+      "test": "air",
+      "domain": "Operation and braking",
+      "topic": "Normal braking",
+      "prompt": "Why should the brake pedal not be pumped during normal air-brake stops?",
+      "choices": [
+        "Repeated applications can waste stored air",
+        "It raises fuel pressure",
+        "It locks the steering wheel",
+        "It fills the tanks faster"
+      ],
+      "correctIndex": 0,
+      "explanation": "Each application and release can reduce available air pressure.",
+      "sourceReference": "Section 5.3, Normal Stops"
+    },
+    {
+      "id": "AIRX-017",
+      "test": "air",
+      "domain": "Operation and braking",
+      "topic": "Emergency braking",
+      "prompt": "What is stab braking?",
+      "choices": [
+        "Fully apply brakes, release when wheels lock, then reapply after wheels roll",
+        "Hold light pressure continuously",
+        "Use only spring brakes",
+        "Pump the accelerator"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stab braking is a non-ABS emergency method that restores rolling traction between applications.",
+      "sourceReference": "Section 5.3, Emergency Stops"
+    },
+    {
+      "id": "AIRX-018",
+      "test": "air",
+      "domain": "Operation and braking",
+      "topic": "Grades",
+      "prompt": "Why is riding the brakes on a downgrade unsafe?",
+      "choices": [
+        "It creates heat that can cause fade or failure",
+        "It increases tank pressure",
+        "It cools the drums too quickly",
+        "It improves stopping power indefinitely"
+      ],
+      "correctIndex": 0,
+      "explanation": "Continuous light pressure can overheat braking surfaces.",
+      "sourceReference": "Section 5.3, Downgrades"
+    },
+    {
+      "id": "AIRX-019",
+      "test": "air",
+      "domain": "Operation and braking",
+      "topic": "Parking",
+      "prompt": "Why should the brake pedal be released after stopping on a level road when checking parking brakes?",
+      "choices": [
+        "To confirm the spring brakes alone hold the vehicle",
+        "To drain all tanks",
+        "To test the horn",
+        "To raise compressor pressure"
+      ],
+      "correctIndex": 0,
+      "explanation": "A parking-brake test isolates whether the parking system can hold.",
+      "sourceReference": "Section 5.4, Parking-brake Test"
+    },
+    {
+      "id": "AIRX-020",
+      "test": "air",
+      "domain": "Operation and braking",
+      "topic": "Low traction",
+      "prompt": "On a slippery road, what braking input is safest?",
+      "choices": [
+        "Gentle, controlled pressure that avoids wheel lock",
+        "Full spring-brake application",
+        "Rapid steering with hard braking",
+        "Trailer hand valve only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Smooth braking preserves traction and directional control.",
+      "sourceReference": "Section 5.3, Low Traction"
+    },
+    {
+      "id": "AIRX-021",
+      "test": "air",
+      "domain": "Low pressure and safety",
+      "topic": "Emergency line",
+      "prompt": "If air pressure becomes very low while driving, what should you do?",
+      "choices": [
+        "Stop safely before spring brakes apply automatically",
+        "Increase speed",
+        "Keep driving until pressure reaches zero",
+        "Hold the parking control in"
+      ],
+      "correctIndex": 0,
+      "explanation": "Very low pressure can trigger sudden spring-brake application.",
+      "sourceReference": "Section 5.3, Low Air Pressure"
+    },
+    {
+      "id": "AIRX-022",
+      "test": "air",
+      "domain": "Low pressure and safety",
+      "topic": "Spring brakes",
+      "prompt": "Why are spring brakes powerful?",
+      "choices": [
+        "Strong mechanical springs apply them without service air",
+        "They use engine coolant",
+        "They depend on battery power",
+        "They use tire pressure"
+      ],
+      "correctIndex": 0,
+      "explanation": "The springs provide parking and emergency braking when air is absent.",
+      "sourceReference": "Section 5.1, Spring Brakes"
+    },
+    {
+      "id": "AIRX-023",
+      "test": "air",
+      "domain": "Low pressure and safety",
+      "topic": "Parking brakes",
+      "prompt": "Why should spring brakes not be applied while moving normally?",
+      "choices": [
+        "They can cause loss of control or brake damage",
+        "They improve steering",
+        "They recharge the air tanks",
+        "They cool the drums"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spring brakes are intended for parking and emergency situations.",
+      "sourceReference": "Section 5.1, Parking Brakes"
+    },
+    {
+      "id": "AIRX-024",
+      "test": "air",
+      "domain": "Low pressure and safety",
+      "topic": "Dual systems",
+      "prompt": "If one dual-air circuit loses pressure, what should the driver expect?",
+      "choices": [
+        "A warning and reduced braking capacity",
+        "Both circuits always remain perfect",
+        "The engine shuts off instantly",
+        "The trailer uncouples"
+      ],
+      "correctIndex": 0,
+      "explanation": "The remaining circuit may provide braking, but the vehicle must be stopped safely.",
+      "sourceReference": "Section 5.2, Dual Air Systems"
+    },
+    {
+      "id": "AIRX-025",
+      "test": "air",
+      "domain": "Low pressure and safety",
+      "topic": "Supply pressure",
+      "prompt": "Why must full operating pressure be reached before moving?",
+      "choices": [
+        "Low pressure may leave inadequate service and emergency braking",
+        "It changes the CDL class",
+        "It unlocks the fifth wheel",
+        "It increases tire tread"
+      ],
+      "correctIndex": 0,
+      "explanation": "Both air circuits need an adequate reserve for safe operation.",
+      "sourceReference": "Section 5.2, Before Driving"
+    },
+    {
       "id": "COM-001",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Rollover",
       "prompt": "Why are combination vehicles more likely to roll over?",
       "choices": [
@@ -1181,6 +2495,7 @@
     {
       "id": "COM-002",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Rollover",
       "prompt": "Which trailer in a multiple-trailer combination is most likely to roll over?",
       "choices": [
@@ -1196,6 +2511,7 @@
     {
       "id": "COM-003",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Steering",
       "prompt": "Why should steering inputs be smooth in a combination vehicle?",
       "choices": [
@@ -1211,6 +2527,7 @@
     {
       "id": "COM-004",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Braking",
       "prompt": "Why should a combination vehicle leave extra following distance?",
       "choices": [
@@ -1226,6 +2543,7 @@
     {
       "id": "COM-005",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Trailer skid",
       "prompt": "What can happen if trailer wheels lock during braking?",
       "choices": [
@@ -1241,6 +2559,7 @@
     {
       "id": "COM-006",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "Offtracking",
       "prompt": "What is offtracking?",
       "choices": [
@@ -1256,6 +2575,7 @@
     {
       "id": "COM-007",
       "test": "combination",
+      "domain": "Backing and inspection",
       "topic": "Backing",
       "prompt": "What is the safest basic backing setup for a trailer?",
       "choices": [
@@ -1271,6 +2591,7 @@
     {
       "id": "COM-008",
       "test": "combination",
+      "domain": "Backing and inspection",
       "topic": "Backing",
       "prompt": "When backing a trailer, how should steering corrections be made?",
       "choices": [
@@ -1286,6 +2607,7 @@
     {
       "id": "COM-009",
       "test": "combination",
+      "domain": "Vehicle dynamics",
       "topic": "ABS",
       "prompt": "What does trailer ABS help prevent?",
       "choices": [
@@ -1301,6 +2623,7 @@
     {
       "id": "COM-010",
       "test": "combination",
+      "domain": "Coupling and uncoupling",
       "topic": "Coupling",
       "prompt": "Before coupling, how should trailer height compare with the fifth wheel?",
       "choices": [
@@ -1316,6 +2639,7 @@
     {
       "id": "COM-011",
       "test": "combination",
+      "domain": "Coupling and uncoupling",
       "topic": "Coupling",
       "prompt": "What is a high hook?",
       "choices": [
@@ -1331,6 +2655,7 @@
     {
       "id": "COM-012",
       "test": "combination",
+      "domain": "Coupling and uncoupling",
       "topic": "Coupling",
       "prompt": "After the jaws lock, what should the driver do before raising the landing gear fully?",
       "choices": [
@@ -1346,6 +2671,7 @@
     {
       "id": "COM-013",
       "test": "combination",
+      "domain": "Backing and inspection",
       "topic": "Inspection",
       "prompt": "What should be visible around a properly locked kingpin?",
       "choices": [
@@ -1361,6 +2687,7 @@
     {
       "id": "COM-014",
       "test": "combination",
+      "domain": "Backing and inspection",
       "topic": "Inspection",
       "prompt": "What should the fifth-wheel release arm show after coupling?",
       "choices": [
@@ -1376,6 +2703,7 @@
     {
       "id": "COM-015",
       "test": "combination",
+      "domain": "Air and trailer brakes",
       "topic": "Air lines",
       "prompt": "Why should air and electrical lines have enough slack?",
       "choices": [
@@ -1391,6 +2719,7 @@
     {
       "id": "COM-016",
       "test": "combination",
+      "domain": "Air and trailer brakes",
       "topic": "Air lines",
       "prompt": "What color is normally used for the trailer emergency/supply air line?",
       "choices": [
@@ -1406,6 +2735,7 @@
     {
       "id": "COM-017",
       "test": "combination",
+      "domain": "Air and trailer brakes",
       "topic": "Air lines",
       "prompt": "What color is normally used for the trailer service air line?",
       "choices": [
@@ -1421,6 +2751,7 @@
     {
       "id": "COM-018",
       "test": "combination",
+      "domain": "Coupling and uncoupling",
       "topic": "Uncoupling",
       "prompt": "Before lowering landing gear to uncouple, where should the vehicle be?",
       "choices": [
@@ -1436,6 +2767,7 @@
     {
       "id": "COM-019",
       "test": "combination",
+      "domain": "Air and trailer brakes",
       "topic": "Trailer brakes",
       "prompt": "What does the tractor-protection valve do?",
       "choices": [
@@ -1451,6 +2783,7 @@
     {
       "id": "COM-020",
       "test": "combination",
+      "domain": "Backing and inspection",
       "topic": "Inspection",
       "prompt": "How should trailer emergency brakes be tested?",
       "choices": [
@@ -1464,8 +2797,329 @@
       "sourceReference": "Section 6.5, Combination Vehicle Brake Check"
     },
     {
+      "id": "COMX-001",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Rollover",
+      "prompt": "What driving behavior most directly reduces combination-vehicle rollover risk?",
+      "choices": [
+        "Enter curves slowly and steer smoothly",
+        "Brake hard halfway through curves",
+        "Make quick lane changes",
+        "Load all freight high"
+      ],
+      "correctIndex": 0,
+      "explanation": "Speed and abrupt steering are leading controllable rollover factors.",
+      "sourceReference": "Section 6.1, Rollover"
+    },
+    {
+      "id": "COMX-002",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Rollover",
+      "prompt": "Why does an empty trailer sometimes handle poorly?",
+      "choices": [
+        "Its light weight can reduce traction and increase bounce",
+        "It has a lower legal speed in every state",
+        "Its brakes cannot work",
+        "It cannot offtrack"
+      ],
+      "correctIndex": 0,
+      "explanation": "Empty trailers may have less tire grip and can bounce on rough roads.",
+      "sourceReference": "Section 6.1, Empty Trailers"
+    },
+    {
+      "id": "COMX-003",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Braking",
+      "prompt": "What helps prevent a jackknife during a stop?",
+      "choices": [
+        "Brake early and keep tractor and trailer wheels rolling",
+        "Use the trailer hand valve alone",
+        "Steer sharply while braking",
+        "Accelerate through the stop"
+      ],
+      "correctIndex": 0,
+      "explanation": "Balanced, controlled braking preserves traction throughout the combination.",
+      "sourceReference": "Section 6.1, Prevent Trailer Skids"
+    },
+    {
+      "id": "COMX-004",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Trailer skid",
+      "prompt": "What is the first sign a trailer may be skidding?",
+      "choices": [
+        "It appears in a mirror to move out of line",
+        "The air gauge rises",
+        "The landing gear lowers",
+        "The fifth wheel moves forward"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mirror checks can reveal sideways trailer movement before the driver feels it.",
+      "sourceReference": "Section 6.1, Trailer Skids"
+    },
+    {
+      "id": "COMX-005",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Offtracking",
+      "prompt": "Which part of a long combination cuts closest to the inside of a turn?",
+      "choices": [
+        "The rear wheels of the last trailer",
+        "The tractor's front bumper",
+        "The outside mirror",
+        "The steering axle"
+      ],
+      "correctIndex": 0,
+      "explanation": "Rear wheels follow a shorter inside path and need clearance.",
+      "sourceReference": "Section 6.1, Offtracking"
+    },
+    {
+      "id": "COMX-006",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Following distance",
+      "prompt": "Why does an empty combination still require generous following distance?",
+      "choices": [
+        "Empty vehicles can have reduced traction and difficult braking",
+        "Empty trailers stop instantly",
+        "Air brakes do not work empty",
+        "The tractor becomes shorter"
+      ],
+      "correctIndex": 0,
+      "explanation": "Less weight over the tires can make wheel lockup more likely.",
+      "sourceReference": "Section 6.1, Following Distance"
+    },
+    {
+      "id": "COMX-007",
+      "test": "combination",
+      "domain": "Vehicle dynamics",
+      "topic": "Railroad crossings",
+      "prompt": "What must a combination driver know before crossing raised tracks?",
+      "choices": [
+        "The vehicle has enough underside clearance",
+        "The trailer doors are open",
+        "The service line is disconnected",
+        "The landing gear touches the road"
+      ],
+      "correctIndex": 0,
+      "explanation": "Low-slung units can become stuck on a humped crossing.",
+      "sourceReference": "Section 6.1, Railroad Crossings"
+    },
+    {
+      "id": "COMX-008",
+      "test": "combination",
+      "domain": "Backing and inspection",
+      "topic": "Backing",
+      "prompt": "When the trailer drifts right while backing, which way is the top of the steering wheel initially moved?",
+      "choices": [
+        "Right to bring the trailer left",
+        "Left to move the trailer farther right",
+        "Straight ahead only",
+        "The wheel is not used"
+      ],
+      "correctIndex": 0,
+      "explanation": "Steering corrections are made opposite the trailer's desired movement when using the wheel top as reference.",
+      "sourceReference": "Section 6.1, Backing"
+    },
+    {
+      "id": "COMX-009",
+      "test": "combination",
+      "domain": "Backing and inspection",
+      "topic": "Backing",
+      "prompt": "Why should a helper remain visible while backing?",
+      "choices": [
+        "The driver must stop if visual contact is lost",
+        "The helper controls the brakes",
+        "The helper replaces mirror use",
+        "The helper may stand behind the trailer"
+      ],
+      "correctIndex": 0,
+      "explanation": "Losing sight of the helper means the movement is no longer safely directed.",
+      "sourceReference": "Section 6.1, Backing"
+    },
+    {
+      "id": "COMX-010",
+      "test": "combination",
+      "domain": "Backing and inspection",
+      "topic": "Inspection",
+      "prompt": "What should be checked between the upper and lower fifth-wheel surfaces?",
+      "choices": [
+        "There is no visible gap",
+        "A two-inch gap remains",
+        "Grease is completely absent",
+        "The kingpin head is above the jaws"
+      ],
+      "correctIndex": 0,
+      "explanation": "No gap indicates the trailer apron is seated on the fifth wheel.",
+      "sourceReference": "Section 6.2, Coupling Inspection"
+    },
+    {
+      "id": "COMX-011",
+      "test": "combination",
+      "domain": "Backing and inspection",
+      "topic": "Inspection",
+      "prompt": "What should be checked on sliding fifth-wheel locking pins?",
+      "choices": [
+        "They are fully engaged and none are missing",
+        "They are removed for turns",
+        "They touch the tires",
+        "They move freely while driving"
+      ],
+      "correctIndex": 0,
+      "explanation": "Engaged pins keep the fifth wheel from sliding unexpectedly.",
+      "sourceReference": "Section 6.5, Combination Inspection"
+    },
+    {
+      "id": "COMX-012",
+      "test": "combination",
+      "domain": "Backing and inspection",
+      "topic": "Inspection",
+      "prompt": "What must landing gear look like before travel?",
+      "choices": [
+        "Fully raised with the crank secured",
+        "Partly lowered for balance",
+        "Touching the pavement",
+        "Held up by air lines"
+      ],
+      "correctIndex": 0,
+      "explanation": "Raised, secured gear prevents road contact and damage.",
+      "sourceReference": "Section 6.5, Combination Inspection"
+    },
+    {
+      "id": "COMX-013",
+      "test": "combination",
+      "domain": "Coupling and uncoupling",
+      "topic": "Coupling",
+      "prompt": "Before backing under a trailer, why should the trailer brakes be locked?",
+      "choices": [
+        "To prevent the trailer from moving during coupling",
+        "To drain tractor air",
+        "To raise the trailer",
+        "To unlock the fifth wheel"
+      ],
+      "correctIndex": 0,
+      "explanation": "A stationary trailer allows the kingpin and fifth wheel to connect safely.",
+      "sourceReference": "Section 6.2, Coupling"
+    },
+    {
+      "id": "COMX-014",
+      "test": "combination",
+      "domain": "Coupling and uncoupling",
+      "topic": "Coupling",
+      "prompt": "What should the tractor do as it first contacts a properly positioned trailer?",
+      "choices": [
+        "Lift the trailer slightly",
+        "Push the trailer several feet",
+        "Lower the landing gear",
+        "Disconnect the electrical cable"
+      ],
+      "correctIndex": 0,
+      "explanation": "Slight lifting confirms suitable height and firm apron contact.",
+      "sourceReference": "Section 6.2, Couple Tractor and Semitrailer"
+    },
+    {
+      "id": "COMX-015",
+      "test": "combination",
+      "domain": "Coupling and uncoupling",
+      "topic": "Uncoupling",
+      "prompt": "Why is the trailer suspension allowed to settle after landing gear contacts the ground?",
+      "choices": [
+        "To remove weight from the tractor without lifting the trailer excessively",
+        "To drain the air tanks",
+        "To lock the service line",
+        "To cool the brakes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Proper weight transfer protects the landing gear and fifth wheel.",
+      "sourceReference": "Section 6.3, Uncoupling"
+    },
+    {
+      "id": "COMX-016",
+      "test": "combination",
+      "domain": "Coupling and uncoupling",
+      "topic": "Uncoupling",
+      "prompt": "After unlocking the fifth wheel, how should the tractor first move?",
+      "choices": [
+        "Pull partly clear, stop, and verify the trailer is supported",
+        "Drive completely away at speed",
+        "Turn sharply under the trailer",
+        "Release the trailer brakes"
+      ],
+      "correctIndex": 0,
+      "explanation": "A partial pullout lets the driver catch a support problem before separation.",
+      "sourceReference": "Section 6.3, Uncoupling"
+    },
+    {
+      "id": "COMX-017",
+      "test": "combination",
+      "domain": "Air and trailer brakes",
+      "topic": "Air lines",
+      "prompt": "What can happen if the service and emergency air lines are crossed?",
+      "choices": [
+        "Trailer brakes may not work correctly and tanks may not charge",
+        "The trailer lights become brighter",
+        "The fifth wheel locks twice",
+        "The landing gear rises"
+      ],
+      "correctIndex": 0,
+      "explanation": "Correct red and blue connections are essential to supply and control air.",
+      "sourceReference": "Section 6.4, Trailer Air Lines"
+    },
+    {
+      "id": "COMX-018",
+      "test": "combination",
+      "domain": "Air and trailer brakes",
+      "topic": "Air lines",
+      "prompt": "What should glad-hand rubber seals be checked for?",
+      "choices": [
+        "Damage, missing seals, and leaks",
+        "Paint color only",
+        "Cargo weight",
+        "Electrical voltage"
+      ],
+      "correctIndex": 0,
+      "explanation": "Good seals prevent air loss at trailer connections.",
+      "sourceReference": "Section 6.4, Glad Hands"
+    },
+    {
+      "id": "COMX-019",
+      "test": "combination",
+      "domain": "Air and trailer brakes",
+      "topic": "Trailer hand valve",
+      "prompt": "Why should the trailer hand valve not be used for parking?",
+      "choices": [
+        "Air can leak away and release the trailer brakes",
+        "It applies the tractor brakes too strongly",
+        "It raises the landing gear",
+        "It cannot apply trailer brakes"
+      ],
+      "correctIndex": 0,
+      "explanation": "Spring parking brakes or wheel chocks provide secure parking.",
+      "sourceReference": "Section 6.4, Trailer Hand Valve"
+    },
+    {
+      "id": "COMX-020",
+      "test": "combination",
+      "domain": "Air and trailer brakes",
+      "topic": "Tractor protection",
+      "prompt": "When does the tractor-protection valve normally close?",
+      "choices": [
+        "When trailer air pressure becomes dangerously low",
+        "At normal cut-out pressure",
+        "Whenever headlights turn on",
+        "Only while backing"
+      ],
+      "correctIndex": 0,
+      "explanation": "Closing protects the tractor's remaining air after a severe trailer leak or separation.",
+      "sourceReference": "Section 6.4, Tractor-protection Valve"
+    },
+    {
       "id": "PAS-001",
       "test": "passenger",
+      "domain": "Qualification and rules",
       "topic": "Qualification",
       "prompt": "Which endorsement is required to drive a vehicle designed to carry 16 or more people including the driver?",
       "choices": [
@@ -1481,6 +3135,7 @@
     {
       "id": "PAS-002",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Inspection",
       "prompt": "What passenger-area item should be checked before driving?",
       "choices": [
@@ -1496,6 +3151,7 @@
     {
       "id": "PAS-003",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Inspection",
       "prompt": "What must emergency exits do?",
       "choices": [
@@ -1511,6 +3167,7 @@
     {
       "id": "PAS-004",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Inspection",
       "prompt": "Where may carry-on baggage be placed?",
       "choices": [
@@ -1526,6 +3183,7 @@
     {
       "id": "PAS-005",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Hazardous materials",
       "prompt": "Which material may never be carried in the passenger compartment?",
       "choices": [
@@ -1541,6 +3199,7 @@
     {
       "id": "PAS-006",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Boarding",
       "prompt": "When should passengers be allowed to board?",
       "choices": [
@@ -1556,6 +3215,7 @@
     {
       "id": "PAS-007",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Boarding",
       "prompt": "Before moving, what should the driver check?",
       "choices": [
@@ -1571,6 +3231,7 @@
     {
       "id": "PAS-008",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Aisles",
       "prompt": "Why must aisles remain clear?",
       "choices": [
@@ -1586,6 +3247,7 @@
     {
       "id": "PAS-009",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Standee line",
       "prompt": "What is the standee line?",
       "choices": [
@@ -1601,6 +3263,7 @@
     {
       "id": "PAS-010",
       "test": "passenger",
+      "domain": "Driving and stops",
       "topic": "Driver behavior",
       "prompt": "What should a bus driver avoid while driving?",
       "choices": [
@@ -1616,6 +3279,7 @@
     {
       "id": "PAS-011",
       "test": "passenger",
+      "domain": "Driving and stops",
       "topic": "Stops",
       "prompt": "Before leaving a passenger stop, what should the driver do?",
       "choices": [
@@ -1631,6 +3295,7 @@
     {
       "id": "PAS-012",
       "test": "passenger",
+      "domain": "Driving and stops",
       "topic": "Curves",
       "prompt": "How should a bus enter a curve?",
       "choices": [
@@ -1646,6 +3311,7 @@
     {
       "id": "PAS-013",
       "test": "passenger",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "At most railroad crossings, where should a bus stop?",
       "choices": [
@@ -1661,6 +3327,7 @@
     {
       "id": "PAS-014",
       "test": "passenger",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "After stopping at railroad tracks, what should the driver do?",
       "choices": [
@@ -1676,6 +3343,7 @@
     {
       "id": "PAS-015",
       "test": "passenger",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "Why should the driver avoid shifting gears on railroad tracks?",
       "choices": [
@@ -1691,6 +3359,7 @@
     {
       "id": "PAS-016",
       "test": "passenger",
+      "domain": "Crossings",
       "topic": "Drawbridges",
       "prompt": "When must a bus stop before a drawbridge without a traffic signal or attendant?",
       "choices": [
@@ -1706,6 +3375,7 @@
     {
       "id": "PAS-017",
       "test": "passenger",
+      "domain": "Emergencies",
       "topic": "Evacuation",
       "prompt": "When is evacuation generally appropriate?",
       "choices": [
@@ -1721,6 +3391,7 @@
     {
       "id": "PAS-018",
       "test": "passenger",
+      "domain": "Emergencies",
       "topic": "Evacuation",
       "prompt": "What is the driver's first responsibility during an emergency?",
       "choices": [
@@ -1736,6 +3407,7 @@
     {
       "id": "PAS-019",
       "test": "passenger",
+      "domain": "Driving and stops",
       "topic": "Prohibited practices",
       "prompt": "Where should a bus driver avoid fueling with passengers aboard?",
       "choices": [
@@ -1751,6 +3423,7 @@
     {
       "id": "PAS-020",
       "test": "passenger",
+      "domain": "Inspection and loading",
       "topic": "Securement",
       "prompt": "What should be done with mobility devices carried for passengers?",
       "choices": [
@@ -1764,8 +3437,329 @@
       "sourceReference": "Section 4.2, Baggage, Freight, and Accessibility"
     },
     {
+      "id": "PASX-001",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Inspection",
+      "prompt": "What should be checked on a bus floor before carrying passengers?",
+      "choices": [
+        "It is strong, clear, and free of hazards",
+        "It is covered by baggage",
+        "It slopes toward an exit",
+        "It has loose panels"
+      ],
+      "correctIndex": 0,
+      "explanation": "A clear, sound floor reduces trips and supports safe evacuation.",
+      "sourceReference": "Section 4.1, Passenger-vehicle Inspection"
+    },
+    {
+      "id": "PASX-002",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Inspection",
+      "prompt": "What should be checked on emergency-exit warning devices?",
+      "choices": [
+        "They operate when an exit is opened",
+        "They remain disconnected",
+        "They work only with the engine off",
+        "They sound whenever the service door opens"
+      ],
+      "correctIndex": 0,
+      "explanation": "Exit warnings alert the driver to an unsecured emergency opening.",
+      "sourceReference": "Section 4.1, Emergency Equipment"
+    },
+    {
+      "id": "PASX-003",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Inspection",
+      "prompt": "Why inspect seat frames and cushions?",
+      "choices": [
+        "Loose or damaged seats can injure passengers",
+        "They determine CDL class",
+        "They control air pressure",
+        "They replace occupant restraints"
+      ],
+      "correctIndex": 0,
+      "explanation": "Passenger seating must be securely attached and safe.",
+      "sourceReference": "Section 4.1, Seats"
+    },
+    {
+      "id": "PASX-004",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Loading",
+      "prompt": "How should baggage be secured?",
+      "choices": [
+        "So it cannot shift, fall, or block an exit",
+        "Only by stacking it high",
+        "Against the emergency door",
+        "In the driver's footwell"
+      ],
+      "correctIndex": 0,
+      "explanation": "Secure baggage protects occupants during sudden movement.",
+      "sourceReference": "Section 4.2, Baggage and Freight"
+    },
+    {
+      "id": "PASX-005",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Loading",
+      "prompt": "Where should hazardous material allowed on a bus be carried?",
+      "choices": [
+        "Only as permitted and never where it endangers passengers",
+        "In an open container",
+        "Beside the driver",
+        "Blocking a rear exit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Passenger carriers face strict type, quantity, and placement limits.",
+      "sourceReference": "Section 4.2, Hazardous Materials"
+    },
+    {
+      "id": "PASX-006",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Boarding",
+      "prompt": "What should the driver do if passengers are still moving to seats?",
+      "choices": [
+        "Wait until they are safely positioned before moving",
+        "Accelerate gently",
+        "Close the door on the aisle",
+        "Ask them to hold baggage overhead"
+      ],
+      "correctIndex": 0,
+      "explanation": "Starting only when passengers are stable prevents falls.",
+      "sourceReference": "Section 4.2, Loading"
+    },
+    {
+      "id": "PASX-007",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Aisles",
+      "prompt": "May baggage occupy an aisle temporarily during travel?",
+      "choices": [
+        "No",
+        "Yes, below 25 mph",
+        "Yes, if it is soft",
+        "Only at night"
+      ],
+      "correctIndex": 0,
+      "explanation": "Aisles and exits must remain unobstructed throughout the trip.",
+      "sourceReference": "Section 4.2, Baggage and Freight"
+    },
+    {
+      "id": "PASX-008",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Standee line",
+      "prompt": "Why must standing passengers remain behind the standee line?",
+      "choices": [
+        "To preserve the driver's view and access to controls",
+        "To balance rear tire pressure",
+        "To keep the rear exit locked",
+        "To improve radio reception"
+      ],
+      "correctIndex": 0,
+      "explanation": "People forward of the line can obstruct safe vehicle operation.",
+      "sourceReference": "Section 4.2, Standee Line"
+    },
+    {
+      "id": "PASX-009",
+      "test": "passenger",
+      "domain": "Inspection and loading",
+      "topic": "Securement",
+      "prompt": "Before moving a lift-equipped bus, what must be confirmed?",
+      "choices": [
+        "The lift is secured and its door is closed",
+        "The lift is partly extended",
+        "The lift alarm is disconnected",
+        "A passenger stands on the lift"
+      ],
+      "correctIndex": 0,
+      "explanation": "A stowed, secured lift prevents movement and door hazards.",
+      "sourceReference": "Section 4.1, Lift-equipped Vehicles"
+    },
+    {
+      "id": "PASX-010",
+      "test": "passenger",
+      "domain": "Driving and stops",
+      "topic": "Stops",
+      "prompt": "How should a bus leave a curbside stop?",
+      "choices": [
+        "Signal, check mirrors, and wait for a safe gap",
+        "Pull out before signaling",
+        "Rely on passengers to watch traffic",
+        "Back into the traffic lane"
+      ],
+      "correctIndex": 0,
+      "explanation": "Communication and a full mirror scan protect passengers and road users.",
+      "sourceReference": "Section 4.3, Bus Stops"
+    },
+    {
+      "id": "PASX-011",
+      "test": "passenger",
+      "domain": "Driving and stops",
+      "topic": "Braking",
+      "prompt": "Why should bus stops be smooth and gradual?",
+      "choices": [
+        "Sudden braking can throw or injure passengers",
+        "Air brakes work only gradually",
+        "It reduces legal passenger capacity",
+        "It opens emergency exits"
+      ],
+      "correctIndex": 0,
+      "explanation": "Passenger vehicles demand extra care because occupants may be standing or unbelted.",
+      "sourceReference": "Section 4.3, Safe Driving"
+    },
+    {
+      "id": "PASX-012",
+      "test": "passenger",
+      "domain": "Driving and stops",
+      "topic": "Curves",
+      "prompt": "Why may a posted curve speed still be too fast for a bus?",
+      "choices": [
+        "The bus's size, load, and conditions may require a lower speed",
+        "Buses may ignore curve signs",
+        "Passenger weight improves every turn",
+        "The speed applies only to trucks"
+      ],
+      "correctIndex": 0,
+      "explanation": "Posted guidance does not account for every vehicle and condition.",
+      "sourceReference": "Section 4.3, Curves"
+    },
+    {
+      "id": "PASX-013",
+      "test": "passenger",
+      "domain": "Driving and stops",
+      "topic": "Fueling",
+      "prompt": "What should a bus driver do before fueling?",
+      "choices": [
+        "Follow carrier rules, shut down as required, and control ignition sources",
+        "Leave the engine racing",
+        "Allow smoking nearby",
+        "Block an emergency exit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fuel vapors require controlled procedures and no ignition source.",
+      "sourceReference": "Section 4.3, Fueling"
+    },
+    {
+      "id": "PASX-014",
+      "test": "passenger",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "When may a bus proceed after stopping at railroad tracks?",
+      "choices": [
+        "Only after looking and listening and determining all tracks are clear",
+        "As soon as another vehicle moves",
+        "Whenever the door is closed",
+        "Immediately after sounding the horn"
+      ],
+      "correctIndex": 0,
+      "explanation": "The driver must personally verify that crossing is safe.",
+      "sourceReference": "Section 4.3, Railroad Crossings"
+    },
+    {
+      "id": "PASX-015",
+      "test": "passenger",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "What should a bus driver do if traffic will not allow the entire bus to clear the tracks?",
+      "choices": [
+        "Wait before entering the crossing",
+        "Stop on the tracks",
+        "Follow the vehicle ahead closely",
+        "Use the shoulder around the gate"
+      ],
+      "correctIndex": 0,
+      "explanation": "Never enter unless enough space exists beyond the tracks.",
+      "sourceReference": "Section 4.3, Railroad Crossings"
+    },
+    {
+      "id": "PASX-016",
+      "test": "passenger",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "What is a safe gear choice for crossing tracks?",
+      "choices": [
+        "A gear that carries the bus completely across without shifting",
+        "Neutral",
+        "The highest gear available",
+        "A gear selected after entering"
+      ],
+      "correctIndex": 0,
+      "explanation": "Avoiding shifts prevents stalling on the crossing.",
+      "sourceReference": "Section 4.3, Railroad Crossings"
+    },
+    {
+      "id": "PASX-017",
+      "test": "passenger",
+      "domain": "Crossings",
+      "topic": "Drawbridges",
+      "prompt": "After stopping for an uncontrolled drawbridge, when may the bus proceed?",
+      "choices": [
+        "When the draw is fully closed and safe",
+        "While the draw is moving",
+        "When passengers vote to go",
+        "Without checking if traffic is light"
+      ],
+      "correctIndex": 0,
+      "explanation": "The driver must verify the bridge is closed before crossing.",
+      "sourceReference": "Section 4.3, Drawbridges"
+    },
+    {
+      "id": "PASX-018",
+      "test": "passenger",
+      "domain": "Emergencies",
+      "topic": "Evacuation",
+      "prompt": "Which factor should determine the best bus evacuation exit?",
+      "choices": [
+        "The location of fire, traffic, and other hazards",
+        "The exit nearest the driver every time",
+        "Passenger preference only",
+        "The largest piece of baggage"
+      ],
+      "correctIndex": 0,
+      "explanation": "The safest exit route depends on where the danger is located.",
+      "sourceReference": "Section 4.4, Evacuation"
+    },
+    {
+      "id": "PASX-019",
+      "test": "passenger",
+      "domain": "Emergencies",
+      "topic": "Evacuation",
+      "prompt": "After evacuation, where should passengers gather?",
+      "choices": [
+        "At a safe location together and away from traffic",
+        "Beside the fuel tank",
+        "Directly behind the bus",
+        "In the roadway"
+      ],
+      "correctIndex": 0,
+      "explanation": "A controlled assembly area lets the driver account for and protect passengers.",
+      "sourceReference": "Section 4.4, Evacuation"
+    },
+    {
+      "id": "PASX-020",
+      "test": "passenger",
+      "domain": "Qualification and rules",
+      "topic": "Qualification",
+      "prompt": "Besides the Passenger knowledge test, what is normally required to add a P endorsement?",
+      "choices": [
+        "A qualifying skills test in a representative passenger vehicle",
+        "Only a vision test",
+        "A Tank test",
+        "No vehicle test"
+      ],
+      "correctIndex": 0,
+      "explanation": "Passenger endorsement applicants must demonstrate skills in the appropriate vehicle.",
+      "sourceReference": "Section 4, Passenger Endorsement"
+    },
+    {
       "id": "SCH-001",
       "test": "school",
+      "domain": "Operations and students",
       "topic": "Endorsements",
       "prompt": "Which endorsements are needed for a Nebraska school bus designed for 16 or more people including the driver?",
       "choices": [
@@ -1781,6 +3775,7 @@
     {
       "id": "SCH-002",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Danger zone",
       "prompt": "What is the danger zone around a school bus?",
       "choices": [
@@ -1796,6 +3791,7 @@
     {
       "id": "SCH-003",
       "test": "school",
+      "domain": "Mirrors",
       "topic": "Mirrors",
       "prompt": "What should crossover mirrors show?",
       "choices": [
@@ -1811,6 +3807,7 @@
     {
       "id": "SCH-004",
       "test": "school",
+      "domain": "Mirrors",
       "topic": "Mirrors",
       "prompt": "When should school-bus mirror checks be made during loading?",
       "choices": [
@@ -1826,6 +3823,7 @@
     {
       "id": "SCH-005",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Approach",
       "prompt": "How should a school bus approach a student stop?",
       "choices": [
@@ -1841,6 +3839,7 @@
     {
       "id": "SCH-006",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Position",
       "prompt": "Where should the bus stop for loading students?",
       "choices": [
@@ -1856,6 +3855,7 @@
     {
       "id": "SCH-007",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Student crossing",
       "prompt": "When students must cross the road, who should direct the crossing?",
       "choices": [
@@ -1871,6 +3871,7 @@
     {
       "id": "SCH-008",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Student crossing",
       "prompt": "How far in front of the bus should students generally cross?",
       "choices": [
@@ -1886,6 +3887,7 @@
     {
       "id": "SCH-009",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Dropped objects",
       "prompt": "What should a student do if an item is dropped near the bus?",
       "choices": [
@@ -1901,6 +3903,7 @@
     {
       "id": "SCH-010",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Counting students",
       "prompt": "Why should the driver count students at a stop?",
       "choices": [
@@ -1916,6 +3919,7 @@
     {
       "id": "SCH-011",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Unloading",
       "prompt": "Before moving after unloading, what should the driver do?",
       "choices": [
@@ -1931,6 +3935,7 @@
     {
       "id": "SCH-012",
       "test": "school",
+      "domain": "Loading and danger zones",
       "topic": "Backing",
       "prompt": "When should backing a school bus be avoided?",
       "choices": [
@@ -1946,6 +3951,7 @@
     {
       "id": "SCH-013",
       "test": "school",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "Where should a school bus stop at a railroad crossing?",
       "choices": [
@@ -1961,6 +3967,7 @@
     {
       "id": "SCH-014",
       "test": "school",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "What should be done at a multi-track crossing?",
       "choices": [
@@ -1976,6 +3983,7 @@
     {
       "id": "SCH-015",
       "test": "school",
+      "domain": "Crossings",
       "topic": "Railroad crossings",
       "prompt": "What gear should be used while crossing railroad tracks?",
       "choices": [
@@ -1991,6 +3999,7 @@
     {
       "id": "SCH-016",
       "test": "school",
+      "domain": "Emergencies",
       "topic": "Evacuation",
       "prompt": "Which situation calls for immediate school-bus evacuation?",
       "choices": [
@@ -2006,6 +4015,7 @@
     {
       "id": "SCH-017",
       "test": "school",
+      "domain": "Emergencies",
       "topic": "Evacuation",
       "prompt": "Where should evacuated students be directed?",
       "choices": [
@@ -2021,6 +4031,7 @@
     {
       "id": "SCH-018",
       "test": "school",
+      "domain": "Operations and students",
       "topic": "Student management",
       "prompt": "When should serious behavior problems be handled?",
       "choices": [
@@ -2036,6 +4047,7 @@
     {
       "id": "SCH-019",
       "test": "school",
+      "domain": "Operations and students",
       "topic": "Post-trip",
       "prompt": "What is a critical post-trip school-bus check?",
       "choices": [
@@ -2051,6 +4063,7 @@
     {
       "id": "SCH-020",
       "test": "school",
+      "domain": "Operations and students",
       "topic": "Nebraska operations",
       "prompt": "How often must Nebraska pupils receive safe-riding instruction and participate in evacuation drills?",
       "choices": [
@@ -2061,6 +4074,326 @@
       ],
       "correctIndex": 0,
       "explanation": "The Nebraska pupil transportation guide states that qualifying instruction and drills occur at least twice during each school year.",
+      "sourceReference": "Pupil Transportation Guide, Operating Regulations"
+    },
+    {
+      "id": "SCHX-001",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Danger zone",
+      "prompt": "Where is the most dangerous area around a school bus?",
+      "choices": [
+        "Close to the bus where the driver may not see a child",
+        "Only 100 feet behind",
+        "Inside the driver's compartment",
+        "At the center aisle"
+      ],
+      "correctIndex": 0,
+      "explanation": "Children nearest the bus can disappear from direct and mirror view.",
+      "sourceReference": "Section 10.1, Danger Zones"
+    },
+    {
+      "id": "SCHX-002",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Loading",
+      "prompt": "When should the entrance door be opened at a student stop?",
+      "choices": [
+        "After the bus is fully stopped and secured",
+        "While approaching the stop",
+        "Before warning lights activate",
+        "Only after students touch the bus"
+      ],
+      "correctIndex": 0,
+      "explanation": "A secured stop prevents children from approaching a moving bus.",
+      "sourceReference": "Section 10.2, Loading"
+    },
+    {
+      "id": "SCHX-003",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Loading",
+      "prompt": "What should students do before walking toward the bus?",
+      "choices": [
+        "Wait for the driver's signal and for the bus to stop",
+        "Run alongside the bus",
+        "Stand in the roadway",
+        "Approach from directly behind"
+      ],
+      "correctIndex": 0,
+      "explanation": "Controlled approach keeps students visible and separated from traffic.",
+      "sourceReference": "Section 10.2, Loading"
+    },
+    {
+      "id": "SCHX-004",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Student crossing",
+      "prompt": "What should the driver check before signaling students across?",
+      "choices": [
+        "All traffic is stopped and the path is clear",
+        "Only the left mirror",
+        "Only the bus door",
+        "Whether the route is late"
+      ],
+      "correctIndex": 0,
+      "explanation": "The driver's signal must follow a complete traffic and danger-zone check.",
+      "sourceReference": "Section 10.2, Student Crossing"
+    },
+    {
+      "id": "SCHX-005",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Student crossing",
+      "prompt": "If a motorist ignores the bus stop signal, what should the driver do?",
+      "choices": [
+        "Keep students from crossing and report the danger as required",
+        "Wave students across quickly",
+        "Move the bus into the motorist's lane",
+        "Leave the stop immediately"
+      ],
+      "correctIndex": 0,
+      "explanation": "Student movement must wait until the roadway is truly safe.",
+      "sourceReference": "Section 10.2, Student Crossing"
+    },
+    {
+      "id": "SCHX-006",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Unloading",
+      "prompt": "Where should students move after leaving the bus?",
+      "choices": [
+        "Directly to a safe location away from the danger zone",
+        "Alongside the rear wheels",
+        "Under the front bumper",
+        "Back toward the service door"
+      ],
+      "correctIndex": 0,
+      "explanation": "Promptly clearing the bus area keeps children visible and safe.",
+      "sourceReference": "Section 10.2, Unloading"
+    },
+    {
+      "id": "SCHX-007",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Unloading",
+      "prompt": "What should the driver do if a student cannot be accounted for after unloading?",
+      "choices": [
+        "Keep the bus stopped and locate the student",
+        "Move forward slowly",
+        "Back up to search",
+        "Assume the child entered a building"
+      ],
+      "correctIndex": 0,
+      "explanation": "The bus must not move until every student is confirmed clear.",
+      "sourceReference": "Section 10.2, Unloading"
+    },
+    {
+      "id": "SCHX-008",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Backing",
+      "prompt": "If backing cannot be avoided, what support should be used when available?",
+      "choices": [
+        "A responsible spotter",
+        "A student standing behind the bus",
+        "Only the horn",
+        "Another bus following closely"
+      ],
+      "correctIndex": 0,
+      "explanation": "A trained spotter helps monitor areas the driver cannot see.",
+      "sourceReference": "Section 10.2, Backing"
+    },
+    {
+      "id": "SCHX-009",
+      "test": "school",
+      "domain": "Loading and danger zones",
+      "topic": "Special stops",
+      "prompt": "Why are route stops planned to minimize student crossings?",
+      "choices": [
+        "Crossing traffic creates one of the greatest loading hazards",
+        "It reduces fuel tax",
+        "It changes bus capacity",
+        "It keeps mirrors clean"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fewer road crossings reduce exposure to passing motorists.",
+      "sourceReference": "Section 10.2, Route Planning"
+    },
+    {
+      "id": "SCHX-010",
+      "test": "school",
+      "domain": "Mirrors",
+      "topic": "Mirror use",
+      "prompt": "Which mirror system helps view the rear tires touching the ground?",
+      "choices": [
+        "The outside flat and convex mirrors",
+        "Only crossover mirrors",
+        "The interior student mirror",
+        "The sun visor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Side mirror coverage helps monitor rear wheel danger areas and traffic.",
+      "sourceReference": "Section 10.1, Mirror Adjustment"
+    },
+    {
+      "id": "SCHX-011",
+      "test": "school",
+      "domain": "Mirrors",
+      "topic": "Mirror use",
+      "prompt": "What must the driver see in the student mirror?",
+      "choices": [
+        "The entire passenger area including the rear seats",
+        "Only the service door",
+        "Only traffic behind the bus",
+        "The front bumper"
+      ],
+      "correctIndex": 0,
+      "explanation": "Interior mirror coverage supports student supervision and post-trip checks.",
+      "sourceReference": "Section 10.1, Inside Mirror"
+    },
+    {
+      "id": "SCHX-012",
+      "test": "school",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "What should the school-bus driver do with noise sources before listening for a train?",
+      "choices": [
+        "Silence them and open the service door or window as required",
+        "Turn the radio louder",
+        "Ask students to move seats",
+        "Sound the horn continuously"
+      ],
+      "correctIndex": 0,
+      "explanation": "A quiet bus and an open listening point help detect an approaching train.",
+      "sourceReference": "Section 10.3, Railroad Crossings"
+    },
+    {
+      "id": "SCHX-013",
+      "test": "school",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "Why must the driver check beyond the first set of tracks?",
+      "choices": [
+        "A second train may be hidden by the first",
+        "The bus must change gears there",
+        "Warning lights cover only one rail",
+        "The rear door must open"
+      ],
+      "correctIndex": 0,
+      "explanation": "Multiple tracks can carry trains from different directions.",
+      "sourceReference": "Section 10.3, Multiple Tracks"
+    },
+    {
+      "id": "SCHX-014",
+      "test": "school",
+      "domain": "Crossings",
+      "topic": "Railroad crossings",
+      "prompt": "What should a driver do if a crossing signal activates while the bus is already crossing?",
+      "choices": [
+        "Continue forward and clear the tracks without stopping",
+        "Stop on the rails",
+        "Back toward the gate",
+        "Unload students on the tracks"
+      ],
+      "correctIndex": 0,
+      "explanation": "Once committed, clearing the crossing is safer than stopping in the train path.",
+      "sourceReference": "Section 10.3, Railroad Crossings"
+    },
+    {
+      "id": "SCHX-015",
+      "test": "school",
+      "domain": "Emergencies",
+      "topic": "Evacuation",
+      "prompt": "Who should be assigned to help younger or mobility-limited students during a planned evacuation drill?",
+      "choices": [
+        "Responsible helpers instructed by the driver",
+        "Passing motorists",
+        "No one",
+        "Students chosen after the emergency begins"
+      ],
+      "correctIndex": 0,
+      "explanation": "Preassigned helpers make evacuation faster and more orderly.",
+      "sourceReference": "Section 10.4, Evacuation Planning"
+    },
+    {
+      "id": "SCHX-016",
+      "test": "school",
+      "domain": "Emergencies",
+      "topic": "Evacuation",
+      "prompt": "What should be taken during an evacuation only if it is immediately available and safe?",
+      "choices": [
+        "Essential emergency equipment",
+        "Every student's baggage",
+        "The driver's personal items first",
+        "Loose seat cushions"
+      ],
+      "correctIndex": 0,
+      "explanation": "People leave first; equipment is secondary and must not delay escape.",
+      "sourceReference": "Section 10.4, Emergency Evacuation"
+    },
+    {
+      "id": "SCHX-017",
+      "test": "school",
+      "domain": "Operations and students",
+      "topic": "Student management",
+      "prompt": "Where should disruptive students be seated when practical?",
+      "choices": [
+        "Where the driver can monitor them without losing road attention",
+        "Beside an emergency exit they can block",
+        "On the floor",
+        "In the driver's seat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Seat placement may improve supervision while the driver remains focused on driving.",
+      "sourceReference": "Section 10.5, Student Management"
+    },
+    {
+      "id": "SCHX-018",
+      "test": "school",
+      "domain": "Operations and students",
+      "topic": "Post-trip",
+      "prompt": "Why should the driver check beneath seats during a post-trip inspection?",
+      "choices": [
+        "A sleeping child or dangerous item may be hidden",
+        "To measure axle weight",
+        "To release spring brakes",
+        "To test mirrors"
+      ],
+      "correctIndex": 0,
+      "explanation": "A deliberate walk-through must cover areas not visible from the aisle.",
+      "sourceReference": "Pupil Transportation Guide, Post-trip Inspection"
+    },
+    {
+      "id": "SCHX-019",
+      "test": "school",
+      "domain": "Operations and students",
+      "topic": "Nebraska operations",
+      "prompt": "When must Nebraska pupil-transportation headlights be used?",
+      "choices": [
+        "At all times while operating",
+        "Only after sunset",
+        "Only during loading",
+        "Only outside city limits"
+      ],
+      "correctIndex": 0,
+      "explanation": "The supplemental Nebraska guide requires headlights during operation.",
+      "sourceReference": "Pupil Transportation Guide, Operating Regulations"
+    },
+    {
+      "id": "SCHX-020",
+      "test": "school",
+      "domain": "Operations and students",
+      "topic": "Nebraska operations",
+      "prompt": "Outside a city or town, how closely may one Nebraska pupil-transportation vehicle follow another?",
+      "choices": [
+        "Not within 475 feet except when passing",
+        "Within 50 feet",
+        "Within one vehicle length",
+        "There is no special distance"
+      ],
+      "correctIndex": 0,
+      "explanation": "The guide specifies a 475-foot convoy separation outside corporate limits.",
       "sourceReference": "Pupil Transportation Guide, Operating Regulations"
     }
   ]

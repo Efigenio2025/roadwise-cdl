@@ -1,13 +1,56 @@
-const make = (test, prefix, rows) => rows.map((row, index) => ({
-  id: `${prefix}-${String(index + 1).padStart(3, "0")}`,
-  test,
-  topic: row[0],
-  prompt: row[1],
-  choices: row.slice(2, 6),
-  correctIndex: 0,
-  explanation: row[6],
-  sourceReference: row[7],
-}));
+import { extraRows } from "./questions-extra.mjs";
+
+const DOMAIN_TOPICS = {
+  general: {
+    "Licensing and rules": ["License classes","Learner permit","Skills test","Eligibility","Documents","Restrictions"],
+    "Inspection and cargo": ["Inspection","Cargo"],
+    "Driving and control": ["Seeing","Communication","Speed","Stopping distance","Space management","Railroad crossings","Mountain driving","ABS","Skids","Roadside stops"],
+    "Hazards and conditions": ["Hazards","Distracted driving","Aggressive driving","Night driving","Weather"],
+    "Emergencies and fitness": ["Emergencies","Crash procedures","Fires","Alcohol","Fatigue"],
+  },
+  air: {
+    "Components": ["System basics","Air compressor","Air tanks","Alcohol evaporator","Safety valve","Brake pedal","Foundation brakes","Slack adjusters","Gauges"],
+    "Inspection and tests": ["Before driving","Leak test","Applied test","Governor test","Parking test"],
+    "Operation and braking": ["Stopping distance","Brake lag","Braking technique","Grades","Fading"],
+    "Low pressure and safety": ["Low-air warning","Spring brakes","Parking brakes","Dual systems"],
+  },
+  combination: {
+    "Vehicle dynamics": ["Rollover","Steering","Braking","Trailer skid","Offtracking","ABS"],
+    "Backing and inspection": ["Backing","Inspection"],
+    "Coupling and uncoupling": ["Coupling","Uncoupling"],
+    "Air and trailer brakes": ["Air lines","Trailer brakes"],
+  },
+  passenger: {
+    "Inspection and loading": ["Inspection","Hazardous materials","Boarding","Aisles","Standee line","Securement"],
+    "Driving and stops": ["Driver behavior","Stops","Curves","Prohibited practices"],
+    "Crossings": ["Railroad crossings","Drawbridges"],
+    "Emergencies": ["Evacuation"],
+    "Qualification and rules": ["Qualification"],
+  },
+  school: {
+    "Loading and danger zones": ["Danger zone","Approach","Position","Student crossing","Dropped objects","Counting students","Unloading","Backing"],
+    "Mirrors": ["Mirrors"],
+    "Crossings": ["Railroad crossings"],
+    "Emergencies": ["Evacuation"],
+    "Operations and students": ["Endorsements","Student management","Post-trip","Nebraska operations"],
+  },
+};
+
+const inferDomain = (test, topic) => Object.entries(DOMAIN_TOPICS[test]).find(([, topics]) => topics.includes(topic))?.[0];
+const make = (test, prefix, rows) => rows.map((row, index) => {
+  const expanded = row.length === 9 ? row : [inferDomain(test, row[0]), ...row];
+  return {
+    id: `${prefix}-${String(index + 1).padStart(3, "0")}`,
+    test,
+    domain: expanded[0],
+    topic: expanded[1],
+    prompt: expanded[2],
+    choices: expanded.slice(3, 7),
+    correctIndex: 0,
+    explanation: expanded[7],
+    sourceReference: expanded[8],
+  };
+});
 
 const general = make("general", "GEN", [
   ["License classes","Which vehicle normally requires a Class A CDL?","A combination rated 26,001 pounds or more with a towed unit over 10,000 pounds","A single vehicle rated exactly 10,000 pounds","Any passenger car towing a small utility trailer","A motorcycle with a sidecar","Class A covers heavy combinations when the combination is at least 26,001 pounds and the towed vehicle exceeds 10,000 pounds.","Nebraska Specifics, Classes of Commercial Motor Vehicles"],
@@ -159,13 +202,19 @@ const school = make("school", "SCH", [
   ["Nebraska operations","How often must Nebraska pupils receive safe-riding instruction and participate in evacuation drills?","At least twice each school year","Once every five years","Only after a crash","Every day","The Nebraska pupil transportation guide states that qualifying instruction and drills occur at least twice during each school year.","Pupil Transportation Guide, Operating Regulations"],
 ]);
 
-export const questionBank = [...general, ...air, ...combination, ...passenger, ...school];
+const generalExtra = make("general", "GENX", extraRows.general);
+const airExtra = make("air", "AIRX", extraRows.air);
+const combinationExtra = make("combination", "COMX", extraRows.combination);
+const passengerExtra = make("passenger", "PASX", extraRows.passenger);
+const schoolExtra = make("school", "SCHX", extraRows.school);
+
+export const questionBank = [...general, ...generalExtra, ...air, ...airExtra, ...combination, ...combinationExtra, ...passenger, ...passengerExtra, ...school, ...schoolExtra];
 
 export const testDefinitions = {
-  general: { title: "General Knowledge", code: "GK", questionCount: 50, passCount: 40, manual: "Sections 1-3" },
-  air: { title: "Air Brakes", code: "AB", questionCount: 25, passCount: 20, manual: "Section 5" },
-  combination: { title: "Combination Vehicles", code: "CV", questionCount: 20, passCount: 16, manual: "Section 6" },
-  passenger: { title: "Passenger Endorsement", code: "P", questionCount: 20, passCount: 16, manual: "Sections 2 and 4" },
-  school: { title: "School Bus Endorsement", code: "S", questionCount: 20, passCount: 16, manual: "Sections 2, 4, and 10" },
+  general: { title: "General Knowledge", code: "GK", questionCount: 50, poolSize: 100, passCount: 40, manual: "Sections 1-3", blueprint: { "Licensing and rules":12,"Inspection and cargo":8,"Driving and control":17,"Hazards and conditions":7,"Emergencies and fitness":6 } },
+  air: { title: "Air Brakes", code: "AB", questionCount: 25, poolSize: 50, passCount: 20, manual: "Section 5", blueprint: { "Components":10,"Inspection and tests":5,"Operation and braking":5,"Low pressure and safety":5 } },
+  combination: { title: "Combination Vehicles", code: "CV", questionCount: 20, poolSize: 40, passCount: 16, manual: "Section 6", blueprint: { "Vehicle dynamics":7,"Backing and inspection":5,"Coupling and uncoupling":4,"Air and trailer brakes":4 } },
+  passenger: { title: "Passenger Endorsement", code: "P", questionCount: 20, poolSize: 40, passCount: 16, manual: "Sections 2 and 4", blueprint: { "Inspection and loading":9,"Driving and stops":4,"Crossings":4,"Emergencies":2,"Qualification and rules":1 } },
+  school: { title: "School Bus Endorsement", code: "S", questionCount: 20, poolSize: 40, passCount: 16, manual: "Sections 2, 4, and 10", blueprint: { "Loading and danger zones":9,"Mirrors":2,"Crossings":3,"Emergencies":2,"Operations and students":4 } },
 };
 

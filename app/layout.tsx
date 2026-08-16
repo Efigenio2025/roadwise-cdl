@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
-import { Oswald, Source_Sans_3 } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
-
-const display = Oswald({ variable: "--font-display", subsets: ["latin"] });
-const body = Source_Sans_3({ variable: "--font-body", subsets: ["latin"] });
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -23,5 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${display.variable} ${body.variable}`}>{children}</body></html>;
+  return <html lang="en"><body>{children}</body></html>;
 }
+

@@ -86,9 +86,12 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
     readFile(new URL("../public/questions.json", import.meta.url), "utf8"),
   ]);
   assert.match(html, /270 manual-grounded questions/);
+  assert.match(html, /✓ 270 manual-grounded questions/);
+  assert.match(script, /Resume test →/);
+  assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v4/);
+  assert.match(worker, /roadwise-cdl-v5/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 270);
   assert.equal(docsJson, publicJson);

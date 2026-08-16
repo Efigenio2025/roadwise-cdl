@@ -122,6 +122,7 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /CONTINUE ROUTE/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
+  assert.match(script, /questions\.json\?v=7/);
   assert.match(selector, /scaledBlueprint/);
   assert.match(worker, /roadwise-cdl-v7/);
   assert.match(worker, /selector\.js/);

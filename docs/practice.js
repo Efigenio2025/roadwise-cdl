@@ -54,6 +54,6 @@ document.querySelector('#steps').onclick=event=>{const button=event.target.close
 document.querySelector('#clearHistory').onclick=()=>{if(confirm('Clear saved test scores? Your CDL roadmap progress will not be erased.')){history=[];localStorage.removeItem(HISTORY_KEY);render()}};
 drawSteps();
 
-fetch('./questions.json').then(response=>{if(!response.ok)throw new Error();return response.json()}).then(data=>{bank=data;render()}).catch(()=>{APP.innerHTML='<div class="loadingCard">The question bank could not load. Check your connection and refresh once.</div>'});
+fetch('./questions.json?v=7').then(response=>{if(!response.ok)throw new Error();return response.json()}).then(data=>{bank=data;render()}).catch(()=>{APP.innerHTML='<div class="loadingCard">The question bank could not load. Check your connection and refresh once.</div>'});
 if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 

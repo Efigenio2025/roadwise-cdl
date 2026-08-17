@@ -85,10 +85,10 @@ export default function Home(){
   const dialogRef=useRef<HTMLDialogElement>(null),importRef=useRef<HTMLInputElement>(null),swRef=useRef<ServiceWorkerRegistration|null>(null);
 
   useEffect(()=>{
-    fetch("/questions.json").then(response=>{if(!response.ok)throw new Error();return response.json()}).then(setBank).catch(()=>setBank(null));
+    fetch("./questions.json").then(response=>{if(!response.ok)throw new Error();return response.json()}).then(setBank).catch(()=>setBank(null));
     setState(migrateState());const hash=location.hash.slice(1) as View;if(NAV.some(item=>item.id===hash))setView(hash);
     const sync=()=>setOnline(navigator.onLine);sync();addEventListener("online",sync);addEventListener("offline",sync);
-    if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/service-worker.js").then(registration=>{swRef.current=registration;if(registration.waiting)setUpdateReady(true);registration.addEventListener("updatefound",()=>registration.installing?.addEventListener("statechange",()=>{if(registration.waiting)setUpdateReady(true)}))}).catch(()=>{}),{once:true});
+    if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").then(registration=>{swRef.current=registration;if(registration.waiting)setUpdateReady(true);registration.addEventListener("updatefound",()=>registration.installing?.addEventListener("statechange",()=>{if(registration.waiting)setUpdateReady(true)}))}).catch(()=>{}),{once:true});
     return()=>{removeEventListener("online",sync);removeEventListener("offline",sync)};
   },[]);
   useEffect(()=>{if(state)try{localStorage.setItem(STATE_KEY,JSON.stringify(state))}catch{}},[state]);
@@ -165,4 +165,3 @@ function SourceDialog({question,bank,online,dialogRef,onClose}:{question:Questio
   if(!question)return null;
   return <dialog className="sourceDialog" ref={dialogRef} onClose={onClose} aria-labelledby="sourceTitle" onKeyDown={event=>{if(event.key==="Escape"){event.preventDefault();dialogRef.current?.close()}}}><div className="dialogHandle"/><header><div><p>MANUAL REFERENCE</p><h2 id="sourceTitle">Read deeper</h2></div><button onClick={()=>dialogRef.current?.close()} aria-label="Close manual reference">CLOSE</button></header><p className="sourcePrompt">{question.prompt}</p><div>{question.sourceIds.map(sourceId=>{const source=bank.sources[sourceId],manual=source&&bank.manuals[source.manualId];if(!source||!manual)return null;return <article key={sourceId}><small>{manual.title}</small><h3>{source.section}</h3><div className="pageBadge"><b>{source.printedPage}</b><span>PDF page {source.pdfPage} of {manual.totalPages}</span></div><p>{source.studySummary}</p>{online?<a href={`${manual.officialUrl}#page=${source.pdfPage}`} target="_blank" rel="noreferrer">OPEN OFFICIAL MANUAL AT THIS PAGE</a>:<button disabled>INTERNET REQUIRED FOR THE OFFICIAL PDF</button>}</article>})}</div><footer>Roadwise summaries are original study guidance. Official manuals open separately and are not stored in this app.</footer></dialog>;
 }
-

@@ -160,40 +160,39 @@ test("passing boundaries remain exactly 80 percent", () => {
 });
 
 test("GitHub Pages ships matching questions, selector, and offline assets", async () => {
-  const [html, script, styles, selector, worker, docsJson, publicJson] = await Promise.all([
-    readFile(new URL("../docs/index.html", import.meta.url), "utf8"),
-    readFile(new URL("../docs/practice.js", import.meta.url), "utf8"),
-    readFile(new URL("../docs/site.css", import.meta.url), "utf8"),
+  const html = await readFile(new URL("../docs/index.html", import.meta.url), "utf8");
+  const scriptPath = html.match(/src="\.\/(assets\/index-[^"]+\.js)"/)?.[1];
+  const stylePath = html.match(/href="\.\/(assets\/index-[^"]+\.css)"/)?.[1];
+  assert.ok(scriptPath && stylePath, "Pages must reference its generated React assets");
+  const [script, styles, selector, worker, manifest, docsJson, publicJson] = await Promise.all([
+    readFile(new URL(`../docs/${scriptPath}`, import.meta.url), "utf8"),
+    readFile(new URL(`../docs/${stylePath}`, import.meta.url), "utf8"),
     readFile(new URL("../docs/selector.js", import.meta.url), "utf8"),
     readFile(new URL("../docs/service-worker.js", import.meta.url), "utf8"),
+    readFile(new URL("../docs/manifest.webmanifest", import.meta.url), "utf8"),
     readFile(new URL("../docs/questions.json", import.meta.url), "utf8"),
     readFile(new URL("../public/questions.json", import.meta.url), "utf8"),
   ]);
-  assert.match(html, /PICK YOUR ROUTE/);
-  assert.match(html, /540 Nebraska-focused CDL practice questions/);
-  assert.match(script, /CONTINUE ROUTE/);
-  assert.match(html, /id="nameForm"/);
-  assert.match(html, /Your name personalizes the app greeting/);
-  assert.match(script, /roadwise-user-name/);
-  assert.match(script, /data-edit-name/);
-  assert.match(styles, /\.nameGateShell\[hidden\]\{display:none\}/);
+  assert.match(html, /Roadwise CDL \| Know the Route/);
+  assert.match(script, /BUILD MY STUDY PLAN/);
+  assert.match(script, /QUICK 5/);
+  assert.match(script, /LEARN 10/);
+  assert.match(script, /roadwise-state-v3/);
+  assert.match(styles, /\.bottomNav/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
-  assert.match(script, /selectQuestions/);
-  assert.match(script, /questions\.json\?v=10/);
-  assert.match(script, /Read the manual reference/);
-  assert.match(script, /data-review-filter/);
-  assert.match(html, /id="sourceDialog"/);
+  assert.match(selector, /selectQuestions/);
+  assert.match(script, /questions\.json/);
+  assert.match(script, /READ THE MANUAL REFERENCE/);
+  assert.match(script, /MISSED/);
   assert.match(styles, /\.sourceDialog/);
-  for (const screen of ["home", "tests", "roadmap", "scores"]) {
-    assert.match(html, new RegExp(`data-screen="${screen}"`));
-    assert.match(html, new RegExp(`data-screen-link="${screen}"`));
-  }
-  assert.match(script, /location\.hash='quiz'/);
-  assert.match(script, /location\.hash='results'/);
-  assert.match(script, /Review questions/);
+  for (const screen of ["Home", "Study", "Tests", "Progress", "Settings"]) assert.match(script, new RegExp(screen));
+  assert.match(script, /quiz/);
+  assert.match(script, /results/);
+  assert.match(script, /Mistake review/i);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v13/);
-  assert.match(worker, /selector\.js/);
+  assert.match(worker, /roadwise-sites-v15/);
+  assert.match(worker, /self\.registration\.scope/);
+  assert.equal(JSON.parse(manifest).start_url, "./#home");
   assert.equal(JSON.parse(docsJson).questions.length, 540);
   assert.equal(JSON.parse(docsJson).version, 6);
   assert.equal(Object.keys(JSON.parse(docsJson).sources).length, Object.keys(sourceCatalog).length);

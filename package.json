@@ -9,6 +9,7 @@
     "sync:questions": "node scripts/sync-questions.mjs",
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
     "build": "npm run sync:questions && WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
+    "build:pages": "npm run sync:questions && vite build --config vite.pages.config.ts",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/practice-tests.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",

@@ -2,23 +2,15 @@
   "id": "./",
   "name": "Roadwise CDL - Nebraska",
   "short_name": "Roadwise CDL",
-  "description": "Nebraska CDL learning and full-length endorsement practice tests.",
+  "description": "Adaptive Nebraska CDL study, mistake review, and full-length practice tests.",
   "start_url": "./#home",
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#f5f2ea",
-  "theme_color": "#10263f",
+  "background_color": "#f6f2e8",
+  "theme_color": "#102a43",
   "categories": ["education", "reference"],
   "lang": "en-US",
-  "icons": [
-    {
-      "src": "icon-1024.png",
-      "sizes": "1024x1024",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+  "icons": [{"src":"./icon-1024.png","sizes":"1024x1024","type":"image/png","purpose":"any maskable"}]
 }
-

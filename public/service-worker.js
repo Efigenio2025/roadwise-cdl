@@ -1,7 +1,7 @@
-const CACHE="roadwise-sites-v15";
+const CACHE="roadwise-sites-v16";
 const BASE=new URL("./",self.registration.scope).pathname;
 const asset=name=>`${BASE}${name}`;
-const CORE=[asset(""),asset("questions.json"),asset("manifest.webmanifest"),asset("icon-1024.png"),asset("og-adaptive.png")];
+const CORE=[asset(""),asset("questions.json"),asset("manifest.webmanifest"),asset("icon-192.png"),asset("icon-512.png"),asset("icon-maskable-512.png"),asset("og-adaptive.png")];
 async function cacheApp(){
   const cache=await caches.open(CACHE);
   await cache.addAll(CORE);

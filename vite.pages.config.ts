@@ -2,7 +2,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { copyFile, mkdir } from "node:fs/promises";
 
-const pageAssets = [".nojekyll", "icon-1024.png", "manifest.webmanifest", "og-adaptive.png", "questions.json", "selector.js", "service-worker.js"];
+const pageAssets = [".nojekyll", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "manifest.webmanifest", "og-adaptive.png", "questions.json", "selector.js", "service-worker.js"];
 
 export default defineConfig({
   base: "./",

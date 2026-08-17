@@ -190,9 +190,16 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /results/);
   assert.match(script, /Mistake review/i);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-sites-v15/);
   assert.match(worker, /self\.registration\.scope/);
-  assert.equal(JSON.parse(manifest).start_url, "./#home");
+  const parsedManifest=JSON.parse(manifest);
+  assert.equal(parsedManifest.start_url, "./#home");
+  assert.equal(parsedManifest.prefer_related_applications, false);
+  assert.ok(parsedManifest.icons.some((icon)=>icon.sizes==="192x192"&&icon.purpose==="any"));
+  assert.ok(parsedManifest.icons.some((icon)=>icon.sizes==="512x512"&&icon.purpose==="any"));
+  assert.ok(parsedManifest.icons.some((icon)=>icon.sizes==="512x512"&&icon.purpose==="maskable"));
+  assert.match(script,/beforeinstallprompt/);
+  assert.match(script,/INSTALL ROADWISE/);
+  assert.match(worker,/roadwise-sites-v16/);
   assert.equal(JSON.parse(docsJson).questions.length, 540);
   assert.equal(JSON.parse(docsJson).version, 6);
   assert.equal(Object.keys(JSON.parse(docsJson).sources).length, Object.keys(sourceCatalog).length);

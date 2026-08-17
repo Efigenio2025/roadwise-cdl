@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     applicationName: "Roadwise CDL",
     manifest: "/manifest.webmanifest",
     appleWebApp: { capable: true, title: "Roadwise CDL", statusBarStyle: "black-translucent" },
-    icons: { apple: "/icon-1024.png" },
+    icons: { icon: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }, { url: "/icon-512.png", sizes: "512x512", type: "image/png" }], apple: "/icon-512.png" },
     openGraph: { title, description, images: [{ url: `${origin}/og-adaptive.png`, width: 1536, height: 1024 }] },
     twitter: { card: "summary_large_image", title, description, images: [`${origin}/og-adaptive.png`] },
   };

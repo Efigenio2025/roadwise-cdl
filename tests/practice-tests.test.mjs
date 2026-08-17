@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { questionBank, reviewCoverage, testDefinitions } from "../content/questions.mjs";
+import { manualCatalog, questionBank, reviewCoverage, sourceCatalog, testDefinitions } from "../content/questions.mjs";
 import { scaledBlueprint, selectQuestions } from "../content/selector.mjs";
 
 const pools = { general: 200, air: 100, combination: 80, passenger: 80, school: 80 };
@@ -27,8 +27,28 @@ test("every question is complete, categorized, and uniquely identified", () => {
     for (const key of ["domain", "topic", "prompt", "explanation", "sourceReference"]) assert.ok(question[key]?.length > 2, `${question.id}/${key}`);
     assert.ok(["standard","technical"].includes(question.difficulty), question.id);
     assert.ok(Array.isArray(question.reviewRefs), question.id);
+    assert.ok(Array.isArray(question.sourceIds) && question.sourceIds.length > 0, question.id);
+    assert.ok(question.sourceIds.every((sourceId)=>sourceCatalog[sourceId]), question.id);
     assert.ok(question.domain in testDefinitions[question.test].blueprint, `${question.id}/${question.domain}`);
   }
+});
+
+test("every manual reference resolves to a precise official page", () => {
+  assert.deepEqual(Object.keys(manualCatalog).sort(), ["cdl-2026", "pupil-2019"]);
+  assert.equal(manualCatalog["cdl-2026"].totalPages, 176);
+  assert.equal(manualCatalog["pupil-2019"].totalPages, 51);
+  assert.ok(Object.keys(sourceCatalog).length >= 289);
+  for (const [sourceId, source] of Object.entries(sourceCatalog)) {
+    const manual = manualCatalog[source.manualId];
+    assert.ok(manual, sourceId);
+    assert.ok(source.section.length > 2, sourceId);
+    assert.ok(source.printedPage.length > 0, sourceId);
+    assert.ok(source.studySummary.length > 40, sourceId);
+    assert.ok(Number.isInteger(source.pdfPage) && source.pdfPage >= 1 && source.pdfPage <= manual.totalPages, sourceId);
+    assert.match(manual.officialUrl, /^https:\/\/(dmv\.nebraska\.gov|cdn\.education\.ne\.gov)\//);
+  }
+  assert.ok(questionBank.some((question) => question.sourceIds.length > 1), "compound references are preserved");
+  assert.doesNotMatch(JSON.stringify({ manualCatalog, sourceCatalog, questionBank }), /(?:Â|Ã|â(?:œ|€™|€)|�)/, "reference data has no encoding artifacts");
 });
 
 test("all original question IDs remain available for saved sessions", () => {
@@ -159,7 +179,11 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(styles, /\.nameGateShell\[hidden\]\{display:none\}/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
-  assert.match(script, /questions\.json\?v=9/);
+  assert.match(script, /questions\.json\?v=10/);
+  assert.match(script, /Read the manual reference/);
+  assert.match(script, /data-review-filter/);
+  assert.match(html, /id="sourceDialog"/);
+  assert.match(styles, /\.sourceDialog/);
   for (const screen of ["home", "tests", "roadmap", "scores"]) {
     assert.match(html, new RegExp(`data-screen="${screen}"`));
     assert.match(html, new RegExp(`data-screen-link="${screen}"`));
@@ -168,10 +192,11 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /location\.hash='results'/);
   assert.match(script, /Review questions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v12/);
+  assert.match(worker, /roadwise-cdl-v13/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 540);
-  assert.equal(JSON.parse(docsJson).version, 5);
+  assert.equal(JSON.parse(docsJson).version, 6);
+  assert.equal(Object.keys(JSON.parse(docsJson).sources).length, Object.keys(sourceCatalog).length);
   assert.equal(docsJson, publicJson);
 });
 

@@ -1,6 +1,7 @@
 import { extraRows } from "./questions-extra.mjs";
 import { thirdRows } from "./questions-third.mjs";
 import { fourthRows } from "./questions-fourth.mjs";
+import { manualCatalog, sourceCatalog, sourceIdsFor } from "./manual-sources.mjs";
 
 const DOMAIN_TOPICS = {
   general: {
@@ -51,6 +52,7 @@ const make = (test, prefix, rows) => rows.map((row, index) => {
     correctIndex: 0,
     explanation: expanded[7],
     sourceReference: expanded[8],
+    sourceIds: sourceIdsFor(expanded[8]),
     difficulty: "standard",
     reviewRefs: Array.isArray(expanded[9]) ? expanded[9] : [],
   };
@@ -242,4 +244,6 @@ export const testDefinitions = {
   passenger: { title: "Passenger Endorsement", code: "P", questionCount: 20, poolSize: 80, passCount: 16, manual: "Sections 2 and 4", blueprint: { "Inspection and loading":9,"Driving and stops":4,"Crossings":4,"Emergencies":2,"Qualification and rules":1 } },
   school: { title: "School Bus Endorsement", code: "S", questionCount: 20, poolSize: 80, passCount: 16, manual: "Sections 2, 4, and 10", blueprint: { "Loading and danger zones":9,"Mirrors":2,"Crossings":3,"Emergencies":2,"Operations and students":4 } },
 };
+
+export { manualCatalog, sourceCatalog };
 

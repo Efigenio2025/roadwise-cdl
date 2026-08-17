@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { questionBank, reviewCoverage, testDefinitions } from "../content/questions.mjs";
+import { manualCatalog, questionBank, reviewCoverage, sourceCatalog, testDefinitions } from "../content/questions.mjs";
 
 const expected = { general: 200, air: 100, combination: 80, passenger: 80, school: 80 };
 const ids = new Set();
@@ -16,6 +16,17 @@ for (const question of questionBank) {
   }
   if (!["standard","technical"].includes(question.difficulty)) throw new Error(`${question.id} has an invalid difficulty`);
   if (!Array.isArray(question.reviewRefs)) throw new Error(`${question.id} must have reviewRefs`);
+  if (!Array.isArray(question.sourceIds) || !question.sourceIds.length) throw new Error(`${question.id} must have at least one sourceId`);
+  for (const sourceId of question.sourceIds) {
+    if (!sourceCatalog[sourceId]) throw new Error(`${question.id} references unknown source ${sourceId}`);
+  }
+}
+
+for (const [sourceId, source] of Object.entries(sourceCatalog)) {
+  const manual = manualCatalog[source.manualId];
+  if (!manual) throw new Error(`${sourceId} references unknown manual ${source.manualId}`);
+  if (!source.section?.trim() || !source.printedPage?.trim() || !source.studySummary?.trim()) throw new Error(`${sourceId} has incomplete source details`);
+  if (!Number.isInteger(source.pdfPage) || source.pdfPage < 1 || source.pdfPage > manual.totalPages) throw new Error(`${sourceId} has an invalid PDF page`);
 }
 
 for (const [test, count] of Object.entries(expected)) {
@@ -30,7 +41,7 @@ for (const item of reviewCoverage) {
   if (item.questionIds.some((id)=>!ids.has(id))) throw new Error(`Review concept ${item.id} maps to an unknown question`);
 }
 
-const payload = JSON.stringify({ version: 5, tests: testDefinitions, reviewCoverage, questions: questionBank }, null, 2) + "\n";
+const payload = JSON.stringify({ version: 6, tests: testDefinitions, manuals: manualCatalog, sources: sourceCatalog, reviewCoverage, questions: questionBank }, null, 2) + "\n";
 const selector = await readFile(new URL("../content/selector.mjs", import.meta.url), "utf8");
 await Promise.all(["public", "docs"].map(async (directory) => {
   await mkdir(directory, { recursive: true });

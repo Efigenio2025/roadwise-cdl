@@ -140,9 +140,10 @@ test("passing boundaries remain exactly 80 percent", () => {
 });
 
 test("GitHub Pages ships matching questions, selector, and offline assets", async () => {
-  const [html, script, selector, worker, docsJson, publicJson] = await Promise.all([
+  const [html, script, styles, selector, worker, docsJson, publicJson] = await Promise.all([
     readFile(new URL("../docs/index.html", import.meta.url), "utf8"),
     readFile(new URL("../docs/practice.js", import.meta.url), "utf8"),
+    readFile(new URL("../docs/site.css", import.meta.url), "utf8"),
     readFile(new URL("../docs/selector.js", import.meta.url), "utf8"),
     readFile(new URL("../docs/service-worker.js", import.meta.url), "utf8"),
     readFile(new URL("../docs/questions.json", import.meta.url), "utf8"),
@@ -155,6 +156,7 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(html, /Your name personalizes the app greeting/);
   assert.match(script, /roadwise-user-name/);
   assert.match(script, /data-edit-name/);
+  assert.match(styles, /\.nameGateShell\[hidden\]\{display:none\}/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
   assert.match(script, /questions\.json\?v=9/);
@@ -166,7 +168,7 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /location\.hash='results'/);
   assert.match(script, /Review questions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v11/);
+  assert.match(worker, /roadwise-cdl-v12/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 540);
   assert.equal(JSON.parse(docsJson).version, 5);

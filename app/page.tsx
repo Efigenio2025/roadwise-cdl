@@ -60,7 +60,7 @@ export default function Home(){
   const quit=()=>{if(confirm("Leave this test? Your answers will stay saved so you can resume later.")){setHasSavedSession(true);setSession(null);setReviewOpen(false);navigate("tests")}};
   const clearHistory=()=>{if(confirm("Clear saved test scores? Your CDL roadmap progress will not be erased.")){setHistory([]);localStorage.removeItem(HISTORY_KEY)}};
   const leaveResults=()=>{setResult(null);navigate("tests")};
-  const saveName=(event:FormEvent)=>{event.preventDefault();const next=nameInput.trim().replace(/\s+/g," ").slice(0,30);if(!next)return;localStorage.setItem(NAME_KEY,next);setUserName(next);setNameInput(next);setEditingName(false)};
+  const saveName=(event:FormEvent)=>{event.preventDefault();const next=nameInput.trim().replace(/\s+/g," ").slice(0,30);if(!next)return;try{localStorage.setItem(NAME_KEY,next)}catch{}setUserName(next);setNameInput(next);setEditingName(false)};
   const editName=()=>{setNameInput(userName);setEditingName(true)};
   const initials=userName.split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join("").toUpperCase()||"RW";
 

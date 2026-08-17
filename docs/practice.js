@@ -83,7 +83,7 @@ function drawSteps(){
 document.querySelector('#clearHistory').onclick=()=>{if(confirm('Clear saved test scores? Your CDL roadmap progress will not be erased.')){history=[];localStorage.removeItem(HISTORY_KEY);render()}};
 drawSteps();
 
-document.querySelector('#nameForm').onsubmit=event=>{event.preventDefault();const next=document.querySelector('#roadwiseName').value.trim().replace(/\s+/g,' ').slice(0,30);if(!next)return;userName=next;localStorage.setItem(NAME_KEY,userName);applyName()};
+document.querySelector('#nameForm').onsubmit=event=>{event.preventDefault();const next=document.querySelector('#roadwiseName').value.trim().replace(/\s+/g,' ').slice(0,30);if(!next)return;userName=next;try{localStorage.setItem(NAME_KEY,userName)}catch{}applyName()};
 document.querySelector('#nameCancel').onclick=()=>applyName();
 document.querySelectorAll('[data-edit-name]').forEach(button=>button.onclick=()=>showNameGate(true));
 if(userName)applyName();else showNameGate(false);

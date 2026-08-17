@@ -14,9 +14,24 @@
   <meta property="og:image" content="https://efigenio2025.github.io/roadwise-cdl/og.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icon-1024.png">
-  <link rel="stylesheet" href="site.css?v=10">
+  <link rel="stylesheet" href="site.css?v=11">
 </head>
-<body>
+<body class="namePending">
+<main class="nameGateShell" id="nameGateShell" hidden>
+  <section class="nameGate" aria-labelledby="nameGateTitle">
+    <a class="brand" href="#home"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a>
+    <p id="nameGateKicker">WELCOME TO ROADWISE</p>
+    <h1 id="nameGateTitle">Let's make Roadwise yours.</h1>
+    <span>Your name personalizes the app greeting and stays only on this device.</span>
+    <form id="nameForm">
+      <label for="roadwiseName">Your name</label>
+      <input id="roadwiseName" maxlength="30" autocomplete="name" placeholder="Enter your name" required>
+      <button type="submit" id="nameSubmit">START STUDYING</button>
+      <button class="nameCancel" type="button" id="nameCancel" hidden>Cancel</button>
+    </form>
+    <small>NEBRASKA CDL PRACTICE • 540 QUESTIONS • WORKS OFFLINE</small>
+  </section>
+</main>
 <main class="siteCanvas" id="top"><div class="appFrame">
   <div class="desktopExperience">
     <aside class="sideRail">
@@ -26,7 +41,7 @@
       <section class="railStatus"><b>NEBRASKA 2026</b><span>540 questions</span><small>Works offline</small></section>
     </aside>
     <div class="workspace">
-      <header class="topBar"><div class="greeting"><small>GOOD MORNING,</small><strong>JOSHUA</strong></div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a class="orangeButton" href="#practice">TAKE A TEST</a><span class="avatar">JE</span></header>
+      <header class="topBar"><div class="greeting"><small>GOOD MORNING,</small><strong id="desktopName">DRIVER</strong></div><nav><a href="#sources">Manual</a><a href="#roadmap">Nebraska roadmap</a></nav><a class="orangeButton" href="#practice">TAKE A TEST</a><button class="avatar" type="button" data-edit-name aria-label="Change your name">RW</button></header>
       <section class="routeHero">
         <div class="routeIntro"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br><em>BUILD YOUR SCORE.</em></h1><span>A clear path from permit study to skills testing.</span><div><button class="orangeButton" id="heroAction">START A DRILL</button><small id="heroStatus">540 questions ready</small></div></div>
         <div class="routeTrack" id="routeTrack"><div><span>1</span><b>CHOOSE</b></div><div><span>2</span><b>CLP TESTS</b></div><div><span>3</span><b>TRAIN</b></div><div><span>4</span><b>SKILLS</b></div></div>
@@ -38,7 +53,7 @@
   </div>
 
   <section class="mobileAppShell" id="mobileShell" aria-label="Roadwise mobile app">
-    <header class="mobileAppHeader"><a class="brand" href="#home"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a><div><small id="mobileKicker">GOOD MORNING, JOSHUA</small><strong id="mobileTitle">Ready for the road?</strong></div><span class="avatar">JE</span></header>
+    <header class="mobileAppHeader"><a class="brand" href="#home"><span>RW</span><strong>ROADWISE<small>CDL</small></strong></a><div><small id="mobileKicker">GOOD MORNING, DRIVER</small><strong id="mobileTitle">Ready for the road?</strong></div><button class="avatar" type="button" data-edit-name aria-label="Change your name">RW</button></header>
     <div class="mobileScreenViewport">
       <section class="mobileScreen mobileHome" data-screen="home"></section>
       <section class="mobileScreen mobileTests" data-screen="tests" hidden></section>
@@ -49,6 +64,6 @@
   </section>
   <div id="focusApp"></div>
 </div></main>
-<script type="module" src="practice.js?v=10"></script>
+<script type="module" src="practice.js?v=11"></script>
 </body>
 </html>

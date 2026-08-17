@@ -1,15 +1,33 @@
 import { selectQuestions } from './selector.js';
 
 const APP=document.querySelector('#practiceApp'),FOCUS=document.querySelector('#focusApp'),MOBILE=document.querySelector('#mobileShell');
-const SESSION_KEY='roadwise-practice-session-v2',HISTORY_KEY='roadwise-practice-history-v2';
+const SESSION_KEY='roadwise-practice-session-v2',HISTORY_KEY='roadwise-practice-history-v2',NAME_KEY='roadwise-user-name';
 const ORDER=['general','air','combination','passenger','school'];
 const shuffle=items=>{const copy=[...items];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
 const fmt=seconds=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const pct=item=>Math.round(item.score/item.total*100);
-let bank,session=null,result=null,timer=null,history=[],mobileScreen='home',reviewOpen=false;
-try{history=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]')}catch{}
+let bank,session=null,result=null,timer=null,history=[],mobileScreen='home',reviewOpen=false,userName='';
+try{history=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');userName=(localStorage.getItem(NAME_KEY)||'').trim()}catch{}
 const byId=()=>new Map(bank.questions.map(q=>[q.id,q]));
+
+const initials=()=>userName.split(/\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join('').toUpperCase()||'RW';
+function applyName(){
+  document.querySelector('#desktopName').textContent=userName.toUpperCase();
+  document.querySelectorAll('[data-edit-name]').forEach(button=>button.textContent=initials());
+  document.body.classList.remove('namePending');
+  document.querySelector('#nameGateShell').hidden=true;
+  if(bank)render()
+}
+function showNameGate(editing=false){
+  const shell=document.querySelector('#nameGateShell'),input=document.querySelector('#roadwiseName');
+  document.body.classList.add('namePending');shell.hidden=false;
+  document.querySelector('#nameGateKicker').textContent=editing?'UPDATE YOUR PROFILE':'WELCOME TO ROADWISE';
+  document.querySelector('#nameGateTitle').textContent=editing?'What should we call you?':"Let's make Roadwise yours.";
+  document.querySelector('#nameSubmit').textContent=editing?'SAVE NAME':'START STUDYING';
+  document.querySelector('#nameCancel').hidden=!editing;
+  input.value=editing?userName:'';setTimeout(()=>input.focus(),0)
+}
 
 function saveSession(){if(session)localStorage.setItem(SESSION_KEY,JSON.stringify(session))}
 function start(test,mode){const definition=bank.tests[test],chosen=selectQuestions({questions:bank.questions,test,count:mode==='learn'?10:definition.questionCount,history,blueprint:definition.blueprint});session={test,mode,questionIds:chosen.map(q=>q.id),orders:Object.fromEntries(chosen.map(q=>[q.id,shuffle([0,1,2,3])])),answers:{},flagged:[],current:0,startedAt:Date.now()};result=null;reviewOpen=false;saveSession();location.hash='quiz';render();startTimer()}
@@ -29,7 +47,7 @@ function results(){const map=byId(),missed=result.questionIds.filter(id=>result.
 const bestScore=key=>{const attempts=history.filter(item=>item.test===key&&item.mode==='exam');return attempts.length?Math.max(...attempts.map(pct)):null};
 function technicalStats(){const map=byId();let correct=0,total=0;history.forEach(item=>item.questionIds.forEach(id=>{const q=map.get(id);if(q?.difficulty==='technical'){total++;if(item.answers[id]===q.correctIndex)correct++}}));return total?{correct,total,percent:Math.round(correct/total*100)}:null}
 function mobileTests(){return ORDER.map((key,index)=>{const d=bank.tests[key],best=bestScore(key);return `<article class="mobileTestCard"><div class="laneBody"><span class="roundCode">${d.code}</span><div><h3>${esc(d.title)}</h3><p>${d.questionCount}-question exam from a pool of ${d.poolSize}</p></div></div><div class="laneMeta">${best===null?`Pass with ${d.passCount}`:`Best score ${best}%`}</div><div class="laneActions"><button class="exam" data-start="${key}:exam">FULL EXAM</button><button data-start="${key}:learn">LEARN 10</button></div></article>`}).join('')}
-function setMobileScreen(screen,updateHash=true){mobileScreen=['home','tests','roadmap','scores'].includes(screen)?screen:'home';document.querySelectorAll('[data-screen]').forEach(node=>node.hidden=node.dataset.screen!==mobileScreen);document.querySelectorAll('[data-screen-link]').forEach(button=>{const active=button.dataset.screenLink===mobileScreen;button.classList.toggle('active',active);active?button.setAttribute('aria-current','page'):button.removeAttribute('aria-current')});document.querySelector('#mobileKicker').textContent=mobileScreen==='home'?'GOOD MORNING, JOSHUA':mobileScreen.toUpperCase();document.querySelector('#mobileTitle').textContent=mobileScreen==='home'?'Ready for the road?':'ROADWISE CDL';if(updateHash)location.hash=mobileScreen}
+function setMobileScreen(screen,updateHash=true){mobileScreen=['home','tests','roadmap','scores'].includes(screen)?screen:'home';document.querySelectorAll('[data-screen]').forEach(node=>node.hidden=node.dataset.screen!==mobileScreen);document.querySelectorAll('[data-screen-link]').forEach(button=>{const active=button.dataset.screenLink===mobileScreen;button.classList.toggle('active',active);active?button.setAttribute('aria-current','page'):button.removeAttribute('aria-current')});document.querySelector('#mobileKicker').textContent=mobileScreen==='home'?`GOOD MORNING, ${userName.toUpperCase()}`:mobileScreen.toUpperCase();document.querySelector('#mobileTitle').textContent=mobileScreen==='home'?'Ready for the road?':'ROADWISE CDL';if(updateHash)location.hash=mobileScreen}
 function drawMobile(){if(!bank)return;const average=history.length?Math.round(history.reduce((sum,item)=>sum+pct(item),0)/history.length):null,saved=Boolean(localStorage.getItem(SESSION_KEY)),map=byId(),misses=new Map();history.slice(0,10).forEach(item=>item.questionIds.forEach(id=>{const q=map.get(id);if(q&&item.answers[id]!==q.correctIndex)misses.set(q.topic,(misses.get(q.topic)||0)+1)}));const weak=[...misses.entries()].sort((a,b)=>b[1]-a[1]).slice(0,3);
   document.querySelector('[data-screen="home"]').innerHTML=`<div class="mobileRouteHero"><p>YOUR ROAD TO A NEBRASKA CDL</p><h1>PICK YOUR ROUTE.<br><em>BUILD YOUR SCORE.</em></h1><div class="mobileScore"><span>AVERAGE</span><strong>${average===null?'--':average+'%'}</strong></div></div>${saved?'<article class="mobileResume"><div><small>SAVED SESSION</small><h2>Continue where you stopped</h2><p>Your answers and flagged questions are ready.</p></div><button data-action="resume">RESUME</button></article>':''}<article class="mobileNext"><small>RECOMMENDED NEXT STEP</small><div><span class="roundCode">GK</span><div><h2>Pass General Knowledge</h2><p>Build confidence with a balanced 10-question drill.</p></div></div><button data-start="general:learn">START LEARN 10</button></article><div class="mobileHomeStats"><article><small>ROADMAP</small><strong>${done.length}/4</strong><span>milestones</span></article><article><small>ATTEMPTS</small><strong>${history.length}</strong><span>saved locally</span></article></div><button class="mobileLinkButton" data-screen-link="tests">View all practice tests <span>-&gt;</span></button>`;
   document.querySelector('[data-screen="tests"]').innerHTML=`<div class="mobileScreenHeading"><p>PRACTICE CENTER</p><h1>Choose your test</h1><span>Balanced pools with fewer repeats.</span></div><div class="mobileTestList">${mobileTests()}</div><p class="mobileInfoNote">General Knowledge comes before the other applicable Nebraska written CDL tests.</p>`;
@@ -64,6 +82,11 @@ function drawSteps(){
 }
 document.querySelector('#clearHistory').onclick=()=>{if(confirm('Clear saved test scores? Your CDL roadmap progress will not be erased.')){history=[];localStorage.removeItem(HISTORY_KEY);render()}};
 drawSteps();
+
+document.querySelector('#nameForm').onsubmit=event=>{event.preventDefault();const next=document.querySelector('#roadwiseName').value.trim().replace(/\s+/g,' ').slice(0,30);if(!next)return;userName=next;localStorage.setItem(NAME_KEY,userName);applyName()};
+document.querySelector('#nameCancel').onclick=()=>applyName();
+document.querySelectorAll('[data-edit-name]').forEach(button=>button.onclick=()=>showNameGate(true));
+if(userName)applyName();else showNameGate(false);
 
 const screenFromHash=()=>({'#tests':'tests','#practice':'tests','#endorsements':'tests','#roadmap':'roadmap','#scores':'scores'}[location.hash]||'home');
 mobileScreen=screenFromHash();

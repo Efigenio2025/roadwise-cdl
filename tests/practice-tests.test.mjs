@@ -151,6 +151,10 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(html, /PICK YOUR ROUTE/);
   assert.match(html, /540 Nebraska-focused CDL practice questions/);
   assert.match(script, /CONTINUE ROUTE/);
+  assert.match(html, /id="nameForm"/);
+  assert.match(html, /Your name personalizes the app greeting/);
+  assert.match(script, /roadwise-user-name/);
+  assert.match(script, /data-edit-name/);
   assert.doesNotMatch(`${html}\n${script}`, /Â|â(?:œ|†|˜|€)|Ã|�/);
   assert.match(script, /selectQuestions/);
   assert.match(script, /questions\.json\?v=9/);
@@ -162,7 +166,7 @@ test("GitHub Pages ships matching questions, selector, and offline assets", asyn
   assert.match(script, /location\.hash='results'/);
   assert.match(script, /Review questions/);
   assert.match(selector, /scaledBlueprint/);
-  assert.match(worker, /roadwise-cdl-v10/);
+  assert.match(worker, /roadwise-cdl-v11/);
   assert.match(worker, /selector\.js/);
   assert.equal(JSON.parse(docsJson).questions.length, 540);
   assert.equal(JSON.parse(docsJson).version, 5);
